@@ -15,13 +15,15 @@
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
-		ORDER BY id DESC
+		ORDER BY
+		id DESC
 	</select>
-	
+
 	<select id="getArticle" resultType="Article">
 		SELECT *
 		FROM article
-		WHERE id = #{id}
+		WHERE id
+		= #{id}
 	</select>
 
 	<delete id="deleteArticle">
@@ -31,9 +33,11 @@
 
 	<update id="modifyArticle">
 		UPDATE article
-		SET title = #{title},
-		`body` = #{body},
-		updateDate = NOW()
+		<set>
+			<if test="title != null">title=#{title},</if>
+			<if test="body != null">body=#{body},</if>
+			updateDate = NOW()
+		</set>
 		WHERE id = #{id}
 	</update>
 
