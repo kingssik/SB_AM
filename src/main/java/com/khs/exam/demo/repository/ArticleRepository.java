@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.khs.exam.demo.vo.Article;
 
@@ -27,7 +28,7 @@ public interface ArticleRepository {
 	public void deleteArticle(int id);
 	
 	// UPDATE article SET title = ?, body = ?, updateDate = NOW() WHERE id = ?;
-	Update("UPDATE article SET title = #{title}, `body` = #{body}, updateDate = NOW() WHERE id = #{id}")
+	@Update("UPDATE article SET title = #{title}, `body` = #{body}, updateDate = NOW() WHERE id = #{id}")
 	public void modifyArticle(int id, String title, String body);
 
 	
