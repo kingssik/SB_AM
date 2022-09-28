@@ -1,6 +1,5 @@
 package com.khs.exam.demo.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +13,21 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	// 생성자
 	public ArticleService(ArticleRepository articleRepository) {
 		this.articleRepository = articleRepository;
 	}
-
-	// 서비스메서드
 
 	public Article getArticle(int id) {
 		return articleRepository.getArticle(id);
 	}
 
 	public List<Article> getArticles() {
-		return articleRepository.getArticle();
+		return articleRepository.getArticles();
 	}
 
-	public Article writeArticle(String title, String body) {
-		return articleRepository.writeArticle(title, body);
+	public int writeArticle(String title, String body) {
+		articleRepository.writeArticle(title, body);
+		return articleRepository.getLastInsertId();
 	}
 
 	public void deleteArticle(int id) {
