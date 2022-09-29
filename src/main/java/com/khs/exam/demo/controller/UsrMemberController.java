@@ -18,7 +18,6 @@ public class UsrMemberController {
 	@ResponseBody
 	public Object doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
 			String email) {
-		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 
 		if (Ut.empty(loginId)) {
 			return "아이디를 입력하세요";
@@ -43,6 +42,10 @@ public class UsrMemberController {
 		if (Ut.empty(email)) {
 			return "이메일을 입력하세요";
 		}
+		int id = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		// resultCode
+		// msg
+		// data1
 
 		if (id == -1) {
 			return Ut.f("이미 존재하는 아이디(%s)입니다", loginId);

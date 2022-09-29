@@ -15,14 +15,14 @@ public class MemberService {
 
 	public int join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email) {
 		// 로그인아이디 중복체크
-		Member existsMember = memberRepository.getMemberByLoginId(loginId);
+		Member existsMember = getMemberByLoginId(loginId);
 
 		if (existsMember != null) {
 			return -1;
 		}
 
 		// 이름 + 이메일 중복체크
-		existsMember = memberRepository.getMemberByNameAndEmail(name, email);
+		existsMember = getMemberByNameAndEmail(name, email);
 
 		if (existsMember != null) {
 			return -2;
@@ -33,7 +33,16 @@ public class MemberService {
 
 	}
 
+	private Member getMemberByLoginId(String loginId) {
+		return memberRepository.getMemberByLoginId(loginId);
+	}
+
+	private Member getMemberByNameAndEmail(String name, String email) {
+		return memberRepository.getMemberByNameAndEmail(name, email);
+	}
+
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
 	}
+
 }
