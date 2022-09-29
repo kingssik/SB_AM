@@ -21,6 +21,13 @@ public class MemberService {
 			return -1;
 		}
 
+		// 이름 + 이메일 중복체크
+		existsMember = memberRepository.getMemberByNameAndEmail(name, email);
+
+		if (existsMember != null) {
+			return -2;
+		}
+
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		return memberRepository.getLastInsertId();
 

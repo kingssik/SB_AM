@@ -29,7 +29,7 @@ public class UsrMemberController {
 		}
 		
 		if (Ut.empty(name)) {
-			return "이름 입력하세요";
+			return "이름을 입력하세요";
 		}
 		
 		if (Ut.empty(nickname)) {
@@ -46,6 +46,10 @@ public class UsrMemberController {
 
 		if (id == -1) {
 			return "이미 존재하는 아이디입니다";
+		}
+		
+		if (id == -2) {
+			return "이미 사용중인 이름과 이메일입니다";
 		}
 
 		Member member = memberService.getMemberById(id);
