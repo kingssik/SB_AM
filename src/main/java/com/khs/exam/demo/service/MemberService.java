@@ -32,7 +32,8 @@ public class MemberService {
 		return memberRepository.getLastInsertId();
 
 	}
-
+	
+	// 오류 수정 부분
 	private Member getMemberByLoginId(String loginId) {
 		return memberRepository.getMemberByLoginId(loginId);
 	}
