@@ -22,12 +22,14 @@ public class UsrArticleController {
 	// 액션메서드
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public Article doAdd(String title, String body) {
-		int id = articleService.writeArticle(title, body);
+	public ResultData doAdd(String title, String body) {
+		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		
+		int id = (int) writeArticleRd.getData1();
 
 		Article article = articleService.getArticle(id);
 
-		return article;
+		return ResultData.from(writeArticleRd.getResultCode(), writeArticleRd.getMsg(), article);
 	}
 
 	@RequestMapping("/usr/article/getArticles")
