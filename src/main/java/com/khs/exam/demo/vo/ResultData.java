@@ -35,4 +35,8 @@ public class ResultData {
 		return isSuccess() == false;
 	}
 
+	public static ResultData newData(ResultData joinRd, Object newData) {
+		return ResultData.from(joinRd.getResultCode(), joinRd.getMsg(), newData);
+	}
+
 }
