@@ -35,7 +35,7 @@ public class ResultData<DT> {
 		return isSuccess() == false;
 	}
 
-	public static <DT> ResultData<DT> newData(ResultData<DT> joinRd, DT newData) {
+	public static <DT> ResultData<DT> newData(ResultData joinRd, DT newData) {
 		return ResultData.from(joinRd.getResultCode(), joinRd.getMsg(), newData);
 	}
 
