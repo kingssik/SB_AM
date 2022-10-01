@@ -23,7 +23,7 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
 	public ResultData doAdd(String title, String body) {
-		ResultData writeArticleRd = articleService.writeArticle(title, body);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(title, body);
 		
 		int id = (int) writeArticleRd.getData1();
 
