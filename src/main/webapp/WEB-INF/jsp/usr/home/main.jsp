@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인</title>
+<title>MAIN</title>
 </head>
 <body>
-	<h1>메인페이지</h1>
+	<h1>MAIN PAGE</h1>
+	<hr />
 	<div>
 	Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
 	Enim illum libero a ea omnis doloremque id dolorem earum nihil 
