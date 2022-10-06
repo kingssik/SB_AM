@@ -7,8 +7,17 @@
 <title>LIST</title>
 </head>
 <body>
-	<div>list</div>
+	<h1>LIST</h1>
 	<hr />
+	<header>
+		<a href="#">로고</a>
+
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li><a href="/usr/article/list">LIST</a></li>
+		</ul>
+	</header>
+
 	<table border="1">
 		<thead>
 			<tr>
@@ -30,6 +39,8 @@
 				</tr>
 			</c:forEach>
 		</tbody>
+
+
 
 	</table>
 </body>

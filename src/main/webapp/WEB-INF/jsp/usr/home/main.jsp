@@ -8,11 +8,18 @@
 </head>
 <body>
 	<h1>MAIN PAGE</h1>
-	<hr />
-	<div>
-	Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-	Enim illum libero a ea omnis doloremque id dolorem earum nihil 
-	dicta tempora quibusdam dolorum ex quasi placeat veritatis error quisquam in.
-	</div>
+	
+	<header>
+		<a href="#">로고</a>
+		
+		<ul>
+			<li><a href="/">HOME</a></li>
+			<li><a href="/usr/article/list">LIST</a></li>
+		</ul>
+	</header>
+		
+	<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed officiis tempore et in fugiat natus nobis
+		placeat veritatis repellat cupiditate similique est impedit. Tenetur optio facere a perferendis rem quasi!</div>
+	
 </body>
 </html>
