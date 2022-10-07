@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -61,11 +62,14 @@ public class UsrMemberController {
 		return ResultData.newData(joinRd, "member", member);
 	}
 
-	@RequestMapping("usr/member/doLogin")
+	@RequestMapping("usr/member/login")
 	@ResponseBody
-	public ResultData doLogin(HttpSession httpSession, String loginId, String loginPw) {
+	public ResultData doLogin(Model model, HttpSession httpSession, String loginId, String loginPw) {
 
 		boolean isLogined = false;
+		
+		model.addAttribute("loginId", loginId);
+		model.addAttribute("loginPw", loginPw);
 
 		if (httpSession.getAttribute("loginedMemberId") != null) {
 			isLogined = true;
