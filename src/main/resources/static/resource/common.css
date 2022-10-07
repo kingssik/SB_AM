@@ -33,3 +33,12 @@ html > body {
 	padding: 10px;
 	text-align: center;
 }
+
+.btn-txt-link {
+	color: pink;
+}
+
+.btn-txt-link:hover {
+	color: deepskyblue;
+	text-decoration: underline;
+}
