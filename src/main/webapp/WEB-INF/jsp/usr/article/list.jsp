@@ -8,10 +8,10 @@
 		<div class="table-box-type-1">
 			<table>
 				<colgroup>
-					<col width="80"/>
-					<col width="140"/>
+					<col width="80" />
+					<col width="140" />
 					<col />
-					<col width="140"/>
+					<col width="140" />
 				</colgroup>
 				<thead>
 					<tr>
@@ -27,7 +27,7 @@
 						<tr>
 							<td>${article.id}</td>
 							<td>${article.regDate.substring(2,16)}</td>
-							<td><a class="hover:text-blue-500" href="../article/detail?id=${article.id}">${article.title}</a></td>
+							<td><a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a></td>
 							<td>${article.extra__writerName}</td>
 
 						</tr>
