@@ -3,9 +3,11 @@ package com.khs.exam.demo.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-public class BeforActionInterceptor implements HandlerInterceptor {
+@Configuration
+public class BeforeActionInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
