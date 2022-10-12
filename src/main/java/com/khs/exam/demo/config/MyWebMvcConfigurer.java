@@ -22,6 +22,7 @@ public class MyWebMvcConfigurer implements WebMvcConfigurer {
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(beforeActionInterceptor).addPathPatterns("/**").excludePathPatterns("/resource/**")
 				.excludePathPatterns("/error");
+		
 		registry.addInterceptor(needLoginInterceptor).addPathPatterns("/usr/article/write")
 				.addPathPatterns("/usr/article/doModify").addPathPatterns("/usr/article/doDelete")
 				.addPathPatterns("/usr/article/doModify").addPathPatterns("/usr/article/doAdd");
