@@ -24,7 +24,6 @@ public class Rq {
 		this.resp = resp;
 
 		HttpSession httpSession = req.getSession();
-
 		boolean isLogined = false;
 		int loginedMemberId = 0;
 
@@ -37,30 +36,28 @@ public class Rq {
 		this.loginedMemberId = loginedMemberId;
 	}
 
-	public void printHistoryBack(String msg) {
-		resp.setContentType("txt/html; charset=UTF-8");
+	public void printHistoryBackJs(String msg) throws IOException {
+		resp.setContentType("text/html; charset=UTF-8");
 
 		println("<script>");
 
 		if (!Ut.empty(msg)) {
-			println("alert('" + msg + "')");
+			println("alert('" + msg + "');");
 		}
 
 		println("history.back()");
 		println("</script>");
 	}
 
-	private void print(String str) {
+	public void print(String str) {
 		try {
 			resp.getWriter().append(str);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
-	private void println(String str) {
-		print(str + "/");
+	public void println(String str) {
+		print(str + "\n");
 	}
-
 }
