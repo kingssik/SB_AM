@@ -50,9 +50,7 @@
 
 		<div class="btns">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-			<a class="btn-text-link btn btn-active btn-ghost" href="../article/doModify?id=${article.id }" type="submit"
-				value="수정"
-			>수정</a>
+			<a class="btn-text-link btn btn-active btn-ghost" href="../article/doModify?id=${article.id }" type="submit" value="수정">수정</a>
 		</div>
 	</div>
 </section>
