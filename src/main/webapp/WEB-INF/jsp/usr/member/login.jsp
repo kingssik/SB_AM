@@ -22,7 +22,7 @@
 					</tr>
 					<tr>
 						<th></th>
-						<td><button type="submit" value="로그인" />로그인</button></td>
+						<td><button type="submit" value="로그인" >로그인</button></td>
 					</tr>
 				</tbody>
 			</table>
