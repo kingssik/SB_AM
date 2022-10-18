@@ -25,9 +25,10 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private Rq rq;
 
 	@RequestMapping("/usr/article/write")
-
 	public String showWrite(HttpServletRequest req, String title, String body) {
 
 		return "usr/article/write";
@@ -35,8 +36,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(HttpServletRequest req, String title, String body, String replaceUri) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doWrite(String title, String body, String replaceUri) {
 
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("제목을 입력하세요");
@@ -57,19 +57,18 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(HttpServletRequest req, Model model, int boardId) {
-		Rq rq = (Rq) req.getAttribute("rq");
-		
+	public String showList(Model model, int boardId) {
+
 //		int page = 0; // 0페이지는 없으니까 0으로 설정 ㅇㅋ?
 //		int 대충한페이지에나오는게시물수 = 10;
 //		int 대충전체페이지수 = 30; // 일단 가정한 상태
-		
+
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
 			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다");
 		}
-		
+
 		int articlesCount = articleService.getArticlesCount(boardId);
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
@@ -83,8 +82,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public String doDelete(HttpServletRequest req, int id) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doDelete(int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -99,13 +97,12 @@ public class UsrArticleController {
 
 		articleService.deleteArticle(id);
 
-		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list");
+		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list?boardId=1");	// 일단 boardId=1로 보내는거로 임시방편
 
 	}
 
 	@RequestMapping("/usr/article/modify")
-	public String showModify(HttpServletRequest req, Model model, int id) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showModify(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -126,8 +123,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public String doModify(HttpServletRequest req, int id, String title, String body) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String doModify(int id, String title, String body) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
@@ -147,8 +143,7 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/detail")
-	public String showDetail(HttpServletRequest req, Model model, int id) {
-		Rq rq = (Rq) req.getAttribute("rq");
+	public String showDetail(Model model, int id) {
 
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
