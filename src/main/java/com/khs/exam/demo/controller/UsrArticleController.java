@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khs.exam.demo.service.ArticleService;
@@ -57,11 +58,8 @@ public class UsrArticleController {
 	}
 
 	@RequestMapping("/usr/article/list")
-	public String showList(Model model, int boardId) {
-
-//		int page = 0; // 0페이지는 없으니까 0으로 설정 ㅇㅋ?
-//		int 대충한페이지에나오는게시물수 = 10;
-//		int 대충전체페이지수 = 30; // 일단 가정한 상태
+	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "1") int page) {
 
 		Board board = boardService.getBoardById(boardId);
 
@@ -71,7 +69,10 @@ public class UsrArticleController {
 
 		int articlesCount = articleService.getArticlesCount(boardId);
 
-		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
+		int itemsInAPage = 10;
+
+		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
+				page);
 
 		model.addAttribute("board", board);
 		model.addAttribute("articlesCount", articlesCount);
