@@ -59,16 +59,23 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/list")
 	public String showList(HttpServletRequest req, Model model, int boardId) {
 		Rq rq = (Rq) req.getAttribute("rq");
-
+		
+//		int page = 0; // 0페이지는 없으니까 0으로 설정 ㅇㅋ?
+//		int 대충한페이지에나오는게시물수 = 10;
+//		int 대충전체페이지수 = 30; // 일단 가정한 상태
+		
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
 			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다");
 		}
+		
+		int articlesCount = articleService.getArticlesCount(boardId);
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId);
 
 		model.addAttribute("board", board);
+		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("articles", articles);
 
 		return "usr/article/list";

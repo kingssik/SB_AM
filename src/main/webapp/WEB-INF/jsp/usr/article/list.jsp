@@ -5,6 +5,7 @@
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
+		<div>게시글 수 : ${articlesCount }</div>
 		<div class="table-box-type-1">
 			<table class="table w-full">
 				<colgroup>
@@ -27,7 +28,9 @@
 						<tr class="hover">
 							<td>${article.id}</td>
 							<td>${article.regDate.substring(2,16)}</td>
-							<td><a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a></td>
+							<td>
+								<a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a>
+							</td>
 							<td>${article.extra__writerName}</td>
 
 						</tr>
@@ -35,6 +38,7 @@
 				</tbody>
 
 			</table>
+
 		</div>
 	</div>
 </section>
