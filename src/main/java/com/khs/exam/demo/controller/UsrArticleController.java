@@ -36,7 +36,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doWrite")
 	@ResponseBody
-	public String doWrite(String title, String body, String replaceUri) {
+	public String doWrite(int boardId, String title, String body, String replaceUri) {
 
 		if (Ut.empty(title)) {
 			return rq.jsHistoryBack("제목을 입력하세요");
@@ -45,7 +45,7 @@ public class UsrArticleController {
 			return rq.jsHistoryBack("내용을 입력하세요");
 		}
 
-		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), title, body);
+		ResultData<Integer> writeArticleRd = articleService.writeArticle(rq.getLoginedMemberId(), boardId, title, body);
 
 		int id = (int) writeArticleRd.getData1();
 
@@ -97,7 +97,7 @@ public class UsrArticleController {
 
 		articleService.deleteArticle(id);
 
-		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list?boardId=1");	// 일단 boardId=1로 보내는거로 임시방편
+		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list?boardId=1"); // 일단 boardId=1로 보내는거로 임시방편
 
 	}
 

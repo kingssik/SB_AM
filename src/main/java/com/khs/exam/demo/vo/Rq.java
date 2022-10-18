@@ -48,7 +48,7 @@ public class Rq {
 		this.isLogined = isLogined;
 		this.loginedMemberId = loginedMemberId;
 		this.loginedMember = loginedMember;
-		
+
 		this.req.setAttribute("rq", this);
 	}
 
@@ -91,7 +91,9 @@ public class Rq {
 		return Ut.jsReplace(msg, replaceUri);
 	}
 
+	// 해당 메서드는 Rq 객체의 생성을 유도한다.
+	// 삭제 금지, 편의를 위하여 BeforeActionInterceptor 에서 호출해줘야 한다.
 	public void initOnBeforeActionInterceptor() {
-		
+
 	}
 }
