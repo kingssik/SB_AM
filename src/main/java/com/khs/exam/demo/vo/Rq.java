@@ -87,8 +87,8 @@ public class Rq {
 		return Ut.jsHistoryBack(msg);
 	}
 
-	public String jsReplace(String msg, String replaceUri) {
-		return Ut.jsReplace(msg, replaceUri);
+	public String jsReplace(String msg, String uri) {
+		return Ut.jsReplace(msg, uri);
 	}
 
 	// 해당 메서드는 Rq 객체의 생성을 유도한다.

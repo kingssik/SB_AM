@@ -11,7 +11,7 @@ public interface BoardRepository {
 			SELECT *
 			FROM board AS B
 			WHERE B.id = #{id}
-			AND delStatus = 0
+			AND B.delStatus = 0
 			""")
 	public Board getBoardById(int id);
 

@@ -67,7 +67,7 @@ public class UsrMemberController {
 	public String doLogin(String loginId, String loginPw) {
 
 		if (rq.isLogined()) {
-			return Ut.jsHistoryBack("로그인 상태입니다");
+			return Ut.jsHistoryBack("이미 로그인 되었습니다");
 		}
 
 		if (Ut.empty(loginId)) {
@@ -90,7 +90,7 @@ public class UsrMemberController {
 
 		rq.login(member);
 
-		return Ut.jsReplace(Ut.f("%s님 로그인 되었습니다", member.getNickname()), "/");
+		return Ut.jsReplace(Ut.f("%s님 안녕하세요", member.getNickname()), "/");
 	}
 
 	@RequestMapping("usr/member/doLogout")

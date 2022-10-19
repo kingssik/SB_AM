@@ -14,7 +14,7 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td>${article.id }</td>
+						<td><div class="badge">${article.id }</div></td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>

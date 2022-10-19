@@ -13,23 +13,24 @@ public interface ArticleRepository {
 	public void writeArticle(int memberId, int boardId, String title, String body);
 
 	public Article getForPrintArticle(int id);
-	
+
 	@Select("""
 			<script>
-			SELECT A.*, M.nickname AS extra__writerName
+			SELECT A.*, M.nickname AS
+			extra__writerName
 			FROM article AS A
 			LEFT JOIN `member` AS M
-			ON A.memberId = M.id
-			WHERE 1
+			ON A.memberId
+			= M.id WHERE 1
 			<if test="boardId != 0">
-				AND A.boardId = #{boardId} 
+				AND A.boardId = #{boardId}
 			</if>
 			ORDER BY A.id DESC
 			<if test="limitTake != -1">
 				LIMIT #{limitStart}, #{limitTake}
 			</if>
 			</script>
-			""")
+				""")
 	public List<Article> getArticles(int boardId, int limitStart, int limitTake);
 
 	public void deleteArticle(int id);
@@ -37,17 +38,17 @@ public interface ArticleRepository {
 	public void modifyArticle(int id, String title, String body);
 
 	public int getLastInsertId();
-	
+
 	@Select("""
 			<script>
 			SELECT COUNT(*) AS cnt
 			FROM article AS A
 			WHERE 1
 			<if test="boardId != 0">
-				AND A.boardId = #{boardId} 
+				AND A.boardId = #{boardId}
 			</if>
 			</script>
-			""")
+							""")
 	public int getArticlesCount(int boardId);
 
 }

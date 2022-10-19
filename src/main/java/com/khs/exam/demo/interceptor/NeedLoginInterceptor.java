@@ -4,12 +4,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.khs.exam.demo.vo.Rq;
 
-@Configuration
+@Component
 public class NeedLoginInterceptor implements HandlerInterceptor {
 	@Autowired
 	private Rq rq;
@@ -18,7 +18,7 @@ public class NeedLoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object handler) throws Exception {
 
 		if (!rq.isLogined()) {
-			rq.printHistoryBackJs("로그인 후 이용하세요");
+			rq.printHistoryBackJs("로그인 후 이용해주세요");
 			return false;
 		}
 

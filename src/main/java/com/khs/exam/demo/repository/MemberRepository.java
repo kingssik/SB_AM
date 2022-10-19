@@ -19,7 +19,7 @@ public interface MemberRepository {
 			nickname = #{nickname},
 			cellphoneNum = #{cellphoneNum},
 			email = #{email}
-					""")
+				""")
 	void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
 
 	@Select("SELECT LAST_INSERT_ID()")
@@ -29,22 +29,22 @@ public interface MemberRepository {
 			SELECT *
 			FROM `member` AS M
 			WHERE M.id = #{id}
-			""")
+				""")
 	Member getMemberById(int id);
-	
+
 	@Select("""
 			SELECT *
 			FROM `member` AS M
 			WHERE M.loginId = #{loginId}
-			""")
+				""")
 	Member getMemberByLoginId(String loginId);
-	
+
 	@Select("""
 			SELECT *
 			FROM `member` AS M
 			WHERE M.name = #{name}
 			AND M.email = #{email}
-			""")
+				""")
 	Member getMemberByNameAndEmail(String name, String email);
 
 }

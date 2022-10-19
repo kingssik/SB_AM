@@ -30,8 +30,7 @@ public class UsrArticleController {
 	private Rq rq;
 
 	@RequestMapping("/usr/article/write")
-	public String showWrite(HttpServletRequest req, String title, String body) {
-
+	public String showWrite(String title, String body) {
 		return "usr/article/write";
 	}
 
@@ -50,7 +49,7 @@ public class UsrArticleController {
 
 		int id = (int) writeArticleRd.getData1();
 
-		if (replaceUri == null) {
+		if (Ut.empty(replaceUri)) {
 			replaceUri = Ut.f("../article/detail?id=%d", id);
 		}
 
@@ -64,7 +63,7 @@ public class UsrArticleController {
 		Board board = boardService.getBoardById(boardId);
 
 		if (board == null) {
-			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다");
+			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
 		}
 
 		int articlesCount = articleService.getArticlesCount(boardId);
@@ -98,7 +97,7 @@ public class UsrArticleController {
 
 		articleService.deleteArticle(id);
 
-		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list?boardId=1"); // 일단 boardId=1로 보내는거로 임시방편
+		return rq.jsReplace(Ut.f("%d번 게시물이 삭제되었습니다", id), "../article/list?boardId=1");
 
 	}
 

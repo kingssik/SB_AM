@@ -10,9 +10,9 @@ public class ResultData<DT> {
 	@Getter
 	private String msg;
 	@Getter
-	private String data1Name;
-	@Getter
 	private DT data1;
+	@Getter
+	private String data1Name;
 
 	public static <DT> ResultData<DT> from(String resultCode, String msg) {
 		return from(resultCode, msg, null, null);
@@ -36,8 +36,8 @@ public class ResultData<DT> {
 		return isSuccess() == false;
 	}
 
-	public static <DT> ResultData<DT> newData(ResultData rd, String data1Name, DT data1) {
-		return ResultData.from(rd.getResultCode(), rd.getMsg(), data1Name, data1);
+	public static <DT> ResultData<DT> newData(ResultData Rd, String data1Name, DT data1) {
+		return from(Rd.getResultCode(), Rd.getMsg(), data1Name, data1);
 	}
 
 }
