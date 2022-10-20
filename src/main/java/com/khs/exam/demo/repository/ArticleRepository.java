@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.khs.exam.demo.vo.Article;
 
@@ -25,13 +26,30 @@ public interface ArticleRepository {
 			<if test="boardId != 0">
 				AND A.boardId = #{boardId}
 			</if>
+			<if test="searchKeyword != ''">
+				<choose>
+					<when test="searchKeywordTypeCode == 'title'">
+						AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<when test="searchKeywordTypeCode == 'body'">
+						AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+					</when>
+					<otherwise>
+						AND (
+							A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							)
+					</otherwise>
+				</choose>
+			</if>
 			ORDER BY A.id DESC
 			<if test="limitTake != -1">
 				LIMIT #{limitStart}, #{limitTake}
 			</if>
 			</script>
 				""")
-	public List<Article> getArticles(int boardId, int limitStart, int limitTake);
+	public List<Article> getArticles(int boardId, String searchKeyowrdTypeCode, String searchKeyword, int limitStart,
+			int limitTake);
 
 	public void deleteArticle(int id);
 
@@ -66,5 +84,12 @@ public interface ArticleRepository {
 			</script>
 							""")
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword);
+
+	@Update("""
+			UPDATE article
+			SET hit = hit + 1
+			WHERE id = #{id}
+			""")
+	public int getHit(int hit);
 
 }

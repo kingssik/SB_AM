@@ -40,14 +40,16 @@ public class ArticleService {
 
 	}
 
-	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsInAPage, int page) {
+	public List<Article> getForPrintArticles(int actorId, int boardId, int itemsInAPage, String searchKeyowrdTypeCode,
+			String searchKeyword, int page) {
 
 		/*
 		 * SELECT * FROM article WHERE boardId = 1 ORDER BY DESC LIMIT 0, 10;
 		 */
 		int limitStart = (page - 1) * itemsInAPage;
 		int limitTake = itemsInAPage;
-		List<Article> articles = articleRepository.getArticles(boardId, limitStart, limitTake);
+		List<Article> articles = articleRepository.getArticles(boardId, searchKeyowrdTypeCode, searchKeyword,
+				limitStart, limitTake);
 
 		for (Article article : articles) {
 			updateForPrintData(actorId, article);
@@ -99,6 +101,10 @@ public class ArticleService {
 
 	public int getArticlesCount(int boardId, String searchKeywordTypeCode, String searchKeyword) {
 		return articleRepository.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
+	}
+
+	public int getHit(int hit) {
+		return articleRepository.getHit(hit);
 	}
 
 }
