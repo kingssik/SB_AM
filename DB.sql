@@ -57,7 +57,7 @@ loginPw = 'admin',
 `name` = '관리자', 
 nickname = '관리자',
 cellphoneNum = '01012341234',
-email = 'hyunsikkang25@gmail.com';
+email = 'axdsw121@gmail.com';
 
 # 회원 테스트데이터 생성 (일반)
 INSERT INTO `member` 
@@ -68,7 +68,7 @@ loginPw = 'test1',
 `name` = '사용자1', 
 nickname = '사용자1',
 cellphoneNum = '01043214321',
-email = 'hyunsikkang25@gmail.com';
+email = 'axdsw121@gmail.com';
 
 INSERT INTO `member` 
 SET regDate = NOW(),
@@ -78,11 +78,7 @@ loginPw = 'test2',
 `name` = '사용자2', 
 nickname = '사용자2',
 cellphoneNum = '01067896789',
-email = 'hyunsikkang25@gmail.com';
-
-SELECT * FROM `member`;
-
-SELECT * FROM article;
+email = 'axdsw121@gmail.com';
 
 # 게시물 테이블에 회원번호 칼럼 추가
 ALTER TABLE article ADD COLUMN memberId INT(10) UNSIGNED NOT NULL AFTER `updateDate`;
@@ -91,27 +87,18 @@ UPDATE article
 SET memberId = 2
 WHERE memberId = 0;
 
-SELECT A.*, M.nickname AS extra__writerName
-FROM article AS A
-LEFT JOIN `member` AS M
-ON A.memberId = M.id
-ORDER BY A.id DESC;
-
-
 # 게시판 테이블 생성
 CREATE TABLE board (
     id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
     regDate DATETIME NOT NULL,
     updateDate DATETIME NOT NULL,
-    `code` CHAR(50) NOT NULL UNIQUE COMMENT 'notice(공지사항), free1(자유게시판1), free2(자유게시판2)',
-    `name` CHAR(50) NOT NULL UNIQUE COMMENT '게시판 이름', 
+    `code` CHAR(50) NOT NULL UNIQUE COMMENT 'notice(공지사항), free1(자유게시판1), free2(자유게시판2),..',
+    `name` CHAR(50) NOT NULL UNIQUE COMMENT '게시판 이름',
     delStatus TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT '삭제여부 (0=삭제 전,1=삭제 후)',
     delDate DATETIME COMMENT '삭제날짜'
 );
 
-SELECT * FROM board;
-
-# 기본게시판 생성
+# 기본 게시판 생성
 INSERT INTO board
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -137,14 +124,24 @@ UPDATE article
 SET boardId = 2
 WHERE id IN (3);
 
+SELECT * FROM `member`;
+
+SELECT * FROM article;
+
+SELECT * FROM board;
+
+# 게시물 테이블에 boardId 칼럼 추가
+ALTER TABLE article ADD COLUMN hitCount INT(10) UNSIGNED NOT NULL DEFAULT 0;
+
+DESC article;
+
 SELECT LAST_INSERT_ID();
 
-# 게시물 갯수 늘리기
-INSERT INTO article
-(
-    regDate, updateDate, memberId, boardId, title, `body`
-)
-SELECT NOW(), NOW(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, CONCAT('제목_', RAND()), CONCAT('내용_', RAND())
-FROM article;
-
+-- # 게시물 갯수 늘리기
+-- insert into article
+-- (
+-- 	regDate, updateDate, memberId, boardId, title, `body`
+-- )
+-- select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_',rand()), CONCAT('내용_',RAND())
+-- from article;
 
