@@ -51,7 +51,7 @@
 								<a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a>
 							</td>
 							<td>${article.extra__writerName}</td>
-							<td>${article.hit}</td>
+							<td>${article.hitCount}</td>
 
 						</tr>
 					</c:forEach>

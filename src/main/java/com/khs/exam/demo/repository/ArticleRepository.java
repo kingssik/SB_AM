@@ -48,7 +48,7 @@ public interface ArticleRepository {
 			</if>
 			</script>
 				""")
-	public List<Article> getArticles(int boardId, String searchKeyowrdTypeCode, String searchKeyword, int limitStart,
+	public List<Article> getArticles(int boardId, String searchKeywordTypeCode, String searchKeyword, int limitStart,
 			int limitTake);
 
 	public void deleteArticle(int id);
@@ -87,9 +87,9 @@ public interface ArticleRepository {
 
 	@Update("""
 			UPDATE article
-			SET hit = hit + 1
+			SET hitCount = hitCount + 1
 			WHERE id = #{id}
 			""")
-	public int getHit(int hit);
+	public int increaseHitCount(int id);
 
 }
