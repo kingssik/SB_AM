@@ -3,6 +3,30 @@
 <c:set var="pageTitle" value="ARTICLE DETAIL" />
 <%@ include file="../common/head.jspf"%>
 
+<script>
+	const params = {};
+	params.id = parseInt('${param.id}')
+</script>
+
+<script>
+	function Article__increaseHitCount() {
+		$.get('../article/doIncreaseHitCountRd', {
+			id : params.id,
+			ajaxMode : 'Y'
+		}, function(data) {
+			$('.article-detail__hit-count').empty().html(data.data1);
+		}, 'json');
+	}
+	
+	$(function(){
+		// 실전코드
+		// Article__increaseHitCount();
+		
+		// 연습코드
+		setTimeout(Article__increaseHitCount, 1000);
+	})
+</script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="table-box-type-1">
@@ -14,7 +38,9 @@
 				<tbody>
 					<tr>
 						<th>번호</th>
-						<td><div class="badge">${article.id }</div></td>
+						<td>
+							<div class="badge">${article.id }</div>
+						</td>
 					</tr>
 					<tr>
 						<th>작성날짜</th>
@@ -23,6 +49,12 @@
 					<tr>
 						<th>수정날짜</th>
 						<td>${article.updateDate }</td>
+					</tr>
+					<tr>
+						<th>조회수</th>
+						<td>
+							<span class="article-detail__hit-count">${article.hitCount }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
@@ -36,10 +68,7 @@
 						<th>내용</th>
 						<td>${article.body }</td>
 					</tr>
-					<tr>
-						<th>조회수</th>
-						<td>${article.hitCount }</td>
-					</tr>
+					
 				</tbody>
 
 			</table>
@@ -58,4 +87,6 @@
 		</div>
 	</div>
 </section>
+
+<!-- <iframe src="http://localhost:8081/usr/article/doIncreaseHitCountRd?id=1" frameborder="0"></iframe> -->
 <%@ include file="../common/foot.jspf"%>
