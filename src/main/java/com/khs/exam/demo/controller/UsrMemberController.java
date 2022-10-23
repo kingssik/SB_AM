@@ -18,6 +18,11 @@ public class UsrMemberController {
 	private MemberService memberService;
 	@Autowired
 	private Rq rq;
+	
+	@RequestMapping("usr/member/join")
+	public String showJoin() {
+		return "usr/member/join";
+	}
 
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
