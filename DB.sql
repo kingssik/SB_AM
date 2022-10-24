@@ -180,9 +180,9 @@ updateDate = NOW(),
 memberId = 2,
 relTypeCode = 'article',
 relId = 2,
-`point` = 1;
+`point` = -1;
 
-# 3번 회원이 1번 article 에 좋어요
+# 3번 회원이 1번 article 에 좋아요
 INSERT INTO reactionPoint
 SET regDate = NOW(),
 updateDate = NOW(),
@@ -204,4 +204,21 @@ insert into article
 )
 select now(), now(), FLOOR(RAND() * 2) + 1, FLOOR(RAND() * 2) + 1, concat('제목_',rand()), CONCAT('내용_',RAND())
 from article;
+*/
+
+/*
+select A.*, 
+IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+IFNULL(SUM(if(RP.point > 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+IFNULL(SUM(IF(RP.point < 0, RP.point, 0)),0) AS extra__badReactionPoint
+from (
+	SELECT A.*, M.nickname AS extra__writerName
+	FROM article AS A
+	LEFT JOIN `member` AS M
+	ON A.memberId= M.id 
+			) As A
+left JOIN reactionPoint AS RP
+ON RP.relTypeCode = 'article'
+and A.id = RP.relId
+group by A.id
 */
