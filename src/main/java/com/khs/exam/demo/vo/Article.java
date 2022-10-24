@@ -15,12 +15,16 @@ public class Article {
 	private String title;
 	private String body;
 	private int hitCount;
+	
+	private int extra__sumReactionPoint;
+	private int extra__goodReactionPoint;
+	private int extra__badReactionPoint;
 
 	private String extra__writerName;
 	private boolean extra__actorCanDelete;
 	private boolean extra__actorCanModify;
 	
-	public String forPrintType1RegDate() {
+	public String getForPrintType1RegDate() {
 		return regDate.substring(2, 16).replace(" ", "<br />");
 	}
 }
