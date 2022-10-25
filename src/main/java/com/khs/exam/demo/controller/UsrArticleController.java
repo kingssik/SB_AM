@@ -58,7 +58,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
-			@RequestParam(defaultValue = "title, body") String searchKeyowrdTypeCode,
+			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 
 		Board board = boardService.getBoardById(boardId);
@@ -67,25 +67,24 @@ public class UsrArticleController {
 			return rq.jsHistoryBackOnView("존재하지 않는 게시판입니다.");
 		}
 
-		int articlesCount = articleService.getArticlesCount(boardId, searchKeyowrdTypeCode, searchKeyword);
+		int articlesCount = articleService.getArticlesCount(boardId, searchKeywordTypeCode, searchKeyword);
 
 		int itemsInAPage = 10;
-
-		/* 전체페이지 수 구하기 */
 		int pagesCount = (int) Math.ceil((double) articlesCount / itemsInAPage);
 
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
-				searchKeyowrdTypeCode, searchKeyword, page);
+				page, searchKeywordTypeCode, searchKeyword);
 
-		model.addAttribute("board", board);
 		model.addAttribute("boardId", boardId);
+		model.addAttribute("board", board);
 		model.addAttribute("page", page);
+		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
-		model.addAttribute("articlesCount", articlesCount);
 
 		return "usr/article/list";
 	}
+
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
@@ -151,10 +150,13 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/detail")
 	public String showDetail(Model model, int id) {
-
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
+
+		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
+
+		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
 
 		return "usr/article/detail";
 	}
@@ -170,9 +172,9 @@ public class UsrArticleController {
 
 		ResultData<Integer> rd = ResultData.newData(increaseHitCountRd, "hitCount",
 				articleService.getArticleHitCount(id));
-		
+
 		rd.setData2("id", id);
-		
+
 		return rd;
 	}
 

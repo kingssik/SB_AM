@@ -5,18 +5,16 @@
 
 <script>
 	const params = {};
-	params.id = parseInt('${param.id}')
+	params.id = parseInt('${param.id}');
 </script>
 
 <script>
-	function Article__increaseHitCount() {
+	function ArticleDetail__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
-
 		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
 		localStorage.setItem(localStorageKey, true);
-
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
@@ -24,15 +22,14 @@
 			$('.article-detail__hit-count').empty().html(data.data1);
 		}, 'json');
 	}
-
 	$(function() {
 		// 실전코드
-		// Article__increaseHitCount();
-
+		//ArticleDetail__increaseHitCount();
 		// 연습코드
-		setTimeout(Article__increaseHitCount, 1000);
+		setTimeout(ArticleDetail__increaseHitCount, 2000);
 	})
 </script>
+
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
@@ -60,7 +57,7 @@
 					<tr>
 						<th>조회수</th>
 						<td>
-							<span class="article-detail__hit-count">${article.hitCount }</span>
+							<span class="badge article-detail__hit-count">${article.hitCount }</span>
 						</td>
 					</tr>
 					<tr>
@@ -70,7 +67,13 @@
 					<tr>
 						<th>추천</th>
 						<td>
-							<span>${article.extra__goodReactionPoint }</span>
+							<span class="badge ">${article.extra__goodReactionPoint }</span>
+							<c:if test="${actorCanMakeReaction}">
+								<span>&nbsp;</span>
+								<button class="btn btn-outline btn-xs">좋아요 👍</button>
+								<span>&nbsp;</span>
+								<button class="btn btn-outline btn-xs">싫어요 👎</button>
+							</c:if>
 						</td>
 					</tr>
 					<tr>
@@ -81,7 +84,6 @@
 						<th>내용</th>
 						<td>${article.body }</td>
 					</tr>
-
 				</tbody>
 
 			</table>
@@ -93,7 +95,7 @@
 				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
 			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('ㄹㅇ 삭제?') == false) return false;"
+				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
 					href="../article/doDelete?id=${article.id }"
 				>삭제</a>
 			</c:if>
@@ -101,5 +103,4 @@
 	</div>
 </section>
 
-<!-- <iframe src="http://localhost:8081/usr/article/doIncreaseHitCountRd?id=1" frameborder="0"></iframe> -->
 <%@ include file="../common/foot.jspf"%>
