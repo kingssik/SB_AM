@@ -28,8 +28,20 @@
 						<td>${article.updateDate }</td>
 					</tr>
 					<tr>
+						<th>조회수</th>
+						<td>
+							<span class="badge article-detail__hit-count">${article.hitCount }</span>
+						</td>
+					</tr>
+					<tr>
 						<th>작성자</th>
 						<td>${article.extra__writerName }</td>
+					</tr>
+					<tr>
+						<th>추천</th>
+						<td>
+							<span class="badge ">${article.extra__goodReactionPoint }</span>
+						</td>
 					</tr>
 					<tr>
 						<th>제목</th>
@@ -48,7 +60,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-active btn-ghost" type="submit" value="수정" >
+							<button class="btn btn-active btn-ghost" type="submit" value="수정" />
 							수정
 							</button>
 						</td>
@@ -60,6 +72,9 @@
 
 		<div class="btns">
 			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+			<c:if test="${article.extra__actorCanModify }">
+				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>
+			</c:if>
 			<c:if test="${article.extra__actorCanDelete }">
 				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
 					href="../article/doDelete?id=${article.id }"

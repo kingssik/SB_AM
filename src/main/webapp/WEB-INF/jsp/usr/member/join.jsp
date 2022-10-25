@@ -15,49 +15,49 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" 
+							<input name="loginId" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" 
 								placeholder="아이디를 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text"
+							<input name="loginPw"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text"
 								placeholder="비밀번호를 입력하세요" />
 						</td>
 					</tr>
-					<tr>
-						<th>비밀번호 확인</th>
-						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name=""
-								placeholder="비밀번호 확인을 입력하세요" />
-						</td>
-					</tr>
+<!-- 					<tr> -->
+<!-- 						<th>비밀번호 확인</th> -->
+<!-- 						<td> -->
+<!-- 							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="" -->
+<!-- 								placeholder="비밀번호 확인을 입력하세요" /> -->
+<!-- 						</td> -->
+<!-- 					</tr> -->
 					<tr>
 						<th>이름</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="name"
+							<input name="name"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="name"
 								placeholder="이름을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="nickname"
+							<input name="nickname"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="nickname"
 								placeholder="닉네임을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="cellphoneNum"
+							<input name="cellphoneNum"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="cellphoneNum"
 								placeholder="전화번호를 입력하세요"	/>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="email"
+							<input name="email"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="email"
 								placeholder="이메일을 입력하세요"	/>
 						</td>
 					</tr>

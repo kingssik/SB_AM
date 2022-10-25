@@ -13,6 +13,21 @@ public interface ArticleRepository {
 
 	public void writeArticle(int memberId, int boardId, String title, String body);
 
+	@Select("""
+			<script>
+				SELECT A.*, M.nickname AS extra__writerName,
+				IFNULL(SUM(RP.point),0) AS extra__sumReactionPoint,
+				IFNULL(SUM(IF(RP.point &gt; 0, RP.point, 0)),0) AS extra__goodReactionPoint,
+				IFNULL(SUM(IF(RP.point &lt; 0, RP.point, 0)),0) AS extra__badReactionPoint
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				LEFT JOIN reactionPoint AS RP
+				ON A.id = RP.relId
+				WHERE A.id = #{id}
+				GROUP BY A.id
+			</script>
+				""")
 	public Article getForPrintArticle(int id);
 
 	@Select("""
@@ -57,8 +72,8 @@ public interface ArticleRepository {
 			GROUP BY A.id
 						</script>
 							""")
-	public List<Article> getArticles(int boardId, String searchKeywordTypeCode, String searchKeyword, int limitStart,
-			int limitTake);
+	public List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword,
+			int limitStart, int limitTake);
 
 	public void deleteArticle(int id);
 

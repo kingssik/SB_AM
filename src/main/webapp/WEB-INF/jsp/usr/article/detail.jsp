@@ -11,12 +11,12 @@
 <script>
 	function Article__increaseHitCount() {
 		const localStorageKey = 'article__' + params.id + '__alreadyView';
-		
-		if(localStorage.getItem(localStorageKey)){
+
+		if (localStorage.getItem(localStorageKey)) {
 			return;
 		}
-		localStorage.setItem(localStorageKey ,true);
-		
+		localStorage.setItem(localStorageKey, true);
+
 		$.get('../article/doIncreaseHitCountRd', {
 			id : params.id,
 			ajaxMode : 'Y'
@@ -24,11 +24,11 @@
 			$('.article-detail__hit-count').empty().html(data.data1);
 		}, 'json');
 	}
-	
-	$(function(){
+
+	$(function() {
 		// 실전코드
 		// Article__increaseHitCount();
-		
+
 		// 연습코드
 		setTimeout(Article__increaseHitCount, 1000);
 	})
@@ -68,6 +68,12 @@
 						<td>${article.extra__writerName }</td>
 					</tr>
 					<tr>
+						<th>추천</th>
+						<td>
+							<span>${article.extra__goodReactionPoint }</span>
+						</td>
+					</tr>
+					<tr>
 						<th>제목</th>
 						<td>${article.title }</td>
 					</tr>
@@ -75,7 +81,7 @@
 						<th>내용</th>
 						<td>${article.body }</td>
 					</tr>
-					
+
 				</tbody>
 
 			</table>
