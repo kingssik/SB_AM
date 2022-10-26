@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.khs.exam.demo.service.MemberService;
 import com.khs.exam.demo.util.Ut;
 import com.khs.exam.demo.vo.Member;
-import com.khs.exam.demo.vo.ResultData;
 import com.khs.exam.demo.vo.Rq;
 
 @Controller
@@ -20,14 +19,15 @@ public class UsrMemberController {
 	private Rq rq;
 
 	@RequestMapping("usr/member/join")
-	public String showJoin() {
+	public String showJoin(String loginId, String loginPw, String loginPwConfirm, String name, String nickname,
+			String cellphoneNum, String email) {
 		return "usr/member/join";
 	}
 
 	@RequestMapping("usr/member/doJoin")
 	@ResponseBody
-	public String doJoin(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
-			String email) {
+	public String doJoin(String loginId, String loginPw, String loginPwConfirm, String name, String nickname,
+			String cellphoneNum, String email) {
 
 		if (Ut.empty(loginId)) {
 			return Ut.jsHistoryBack("아이디를 입력하세요");
@@ -48,16 +48,16 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("이메일을 입력하세요");
 		}
 
-		String joinRd = memberService.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+		String joinRd = memberService.join(loginId, loginPw, loginPwConfirm, name, nickname, cellphoneNum, email);
 
 		if (joinRd.isEmpty()) {
 			return joinRd;
 		}
 
 //		Member member = memberService.getMemberById(joinRd.getData1());
-//
+
 //		return ResultData.newData(joinRd, "member", member);
-		return "redirect:/usr/home/main";
+		return "usr/member/login";
 	}
 
 	@RequestMapping("usr/member/login")
