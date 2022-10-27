@@ -14,50 +14,52 @@ public interface ArticleRepository {
 	public void writeArticle(int memberId, int boardId, String title, String body);
 
 	@Select("""
-				<script>
-					SELECT A.*, 
-					M.nickname AS extra__writerName
-					FROM article AS A
-					LEFT JOIN `member` AS M
-					ON A.memberId = M.id
-					WHERE 1
-					AND A.id = #{id}
-				</script>
-						""")
+			<script>
+				SELECT A.*,
+				M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE 1
+				AND A.id = #{id}
+			</script>
+											""")
 	public Article getForPrintArticle(int id);
 
 	@Select("""
-				<script>
-					SELECT A.*, M.nickname AS extra__writerName
-					FROM article AS A
-					LEFT JOIN `member` AS M
-					ON A.memberId = M.id 
-					WHERE 1
-					<if test="boardId != 0">
-						AND A.boardId = #{boardId}
-					</if>
-					<if test="searchKeyword != ''">
-						<choose>
-							<when test="searchKeywordTypeCode == 'title'">
-								AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
-							</when>
-							<when test="searchKeywordTypeCode == 'body'">
-								AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-							</when>
-							<otherwise>
-								AND (
-									A.title LIKE CONCAT('%', #{searchKeyword}, '%')
-									OR A.body LIKE CONCAT('%', #{searchKeyword}, '%')
-									)
-							</otherwise>
-						</choose>
-					</if>
-					ORDER BY A.id DESC
-					<if test="limitTake != -1">
-						LIMIT #{limitStart}, #{limitTake}
-					</if>
-				</script>
-							""")
+			<script>
+				SELECT A.*,
+				M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE 1
+				<if test="boardId != 0">
+					AND A.boardId = #{boardId}
+				</if>
+				<if test="searchKeyword != ''">
+					<choose>
+						<when test="searchKeywordTypeCode == 'title'">
+							AND A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<when test="searchKeywordTypeCode == 'body'">
+							AND A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+						</when>
+						<otherwise>
+							AND (
+							A.title LIKE CONCAT('%', #{searchKeyword}, '%')
+							OR
+							A.body LIKE CONCAT('%', #{searchKeyword}, '%')
+							)
+						</otherwise>
+					</choose>
+				</if>
+				ORDER BY A.id DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>
+			</script>
+								""")
 	public List<Article> getForPrintArticles(int boardId, String searchKeywordTypeCode, String searchKeyword,
 			int limitStart, int limitTake);
 
@@ -123,5 +125,4 @@ public interface ArticleRepository {
 			</script>
 						""")
 	public int getSumReactionPointByMemberId(int memberId, int id);
-
 }
