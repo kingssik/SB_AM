@@ -2,8 +2,6 @@ package com.khs.exam.demo.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khs.exam.demo.service.ArticleService;
 import com.khs.exam.demo.service.BoardService;
+import com.khs.exam.demo.service.ReactionPointService;
 import com.khs.exam.demo.util.Ut;
 import com.khs.exam.demo.vo.Article;
 import com.khs.exam.demo.vo.Board;
@@ -26,6 +25,8 @@ public class UsrArticleController {
 	private ArticleService articleService;
 	@Autowired
 	private BoardService boardService;
+	@Autowired
+	private ReactionPointService reactionPointService;
 	@Autowired
 	private Rq rq;
 
@@ -84,7 +85,6 @@ public class UsrArticleController {
 
 		return "usr/article/list";
 	}
-
 
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
@@ -154,7 +154,8 @@ public class UsrArticleController {
 
 		model.addAttribute("article", article);
 
-		boolean actorCanMakeReaction = articleService.actorCanMakeReaction(rq.getLoginedMemberId(), id);
+		boolean actorCanMakeReaction = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(), "article",
+				id);
 
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReaction);
 
