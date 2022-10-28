@@ -26,13 +26,13 @@
 								placeholder="비밀번호를 입력하세요" />
 						</td>
 					</tr>
-<!-- 					<tr> -->
-<!-- 						<th>비밀번호 확인</th> -->
-<!-- 						<td> -->
-<!-- 							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="" -->
-<!-- 								placeholder="비밀번호 확인을 입력하세요" /> -->
-<!-- 						</td> -->
-<!-- 					</tr> -->
+					<tr>
+						<th>비밀번호 확인</th>
+						<td>
+							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="loginPwConfirm"
+								placeholder="비밀번호 확인을 입력하세요" />
+						</td>
+					</tr>
 					<tr>
 						<th>이름</th>
 						<td>

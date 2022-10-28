@@ -54,10 +54,7 @@ public class UsrMemberController {
 			return joinRd;
 		}
 
-//		Member member = memberService.getMemberById(joinRd.getData1());
-
-//		return ResultData.newData(joinRd, "member", member);
-		return "usr/member/login";
+		return joinRd;
 	}
 
 	@RequestMapping("usr/member/login")
