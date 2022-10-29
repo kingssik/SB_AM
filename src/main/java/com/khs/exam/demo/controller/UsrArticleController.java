@@ -164,11 +164,11 @@ public class UsrArticleController {
 			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();
 
 			if (sumReactionPointByMemberId > 0) {
-				model.addAttribute("actorCancelGoodReactionPoint", true);
+				model.addAttribute("actorCanCancelGoodReaction", true);
 			} else {
-				model.addAttribute("actorCancelBadReactionPoint", true);
+				model.addAttribute("actorCanCancelBadReaction", true);
 			}
-			
+
 		}
 
 		return "usr/article/detail";

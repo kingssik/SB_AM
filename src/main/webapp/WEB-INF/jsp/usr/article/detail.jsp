@@ -68,7 +68,6 @@
 						<th>추천</th>
 						<td>
 							<span class="badge ">${article.goodReactionPoint }</span>
-
 							<c:if test="${actorCanMakeReaction}">
 								<span>&nbsp;</span>
 								<a
@@ -89,13 +88,13 @@
 									class="btn btn-xs btn-primary"
 								>좋아요 😄</a>
 								<span>&nbsp;</span>
-								<a onclick="alert(this.title); return false;" title="좋아요를 먼저 취소해주세요" href="#" class="btn btn-outline btn-xs">싫어요
+								<a onclick="alert(this.title); return false;" title="좋아요 취소좀" href="#" class="btn btn-outline btn-xs">싫어요
 									🤢</a>
 							</c:if>
 
 							<c:if test="${actorCanCancelBadReaction}">
 								<span>&nbsp;</span>
-								<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#" class="btn btn-outline btn-xs">좋아요
+								<a onclick="alert(this.title); return false;" title="싫어요 취소좀" href="#" class="btn btn-outline btn-xs">좋아요
 									😄</a>
 								<span>&nbsp;</span>
 								<a
@@ -126,12 +125,11 @@
 				<a class="btn-text-link btn btn-active btn-ghost" href="../article/modify?id=${article.id }">수정</a>
 			</c:if>
 			<c:if test="${article.extra__actorCanDelete }">
-				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('정말 삭제하시겠습니까?') == false) return false;"
+				<a class="btn-text-link btn btn-active btn-ghost" onclick="if(confirm('진짜 삭제할거임?') == false) return false;"
 					href="../article/doDelete?id=${article.id }"
 				>삭제</a>
 			</c:if>
 		</div>
 	</div>
 </section>
-
 <%@ include file="../common/foot.jspf"%>
