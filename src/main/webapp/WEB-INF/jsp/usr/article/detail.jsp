@@ -85,12 +85,21 @@
 							<c:if test="${actorCanCancelGoodReaction}">
 								<span>&nbsp;</span>
 								<a
-									href="/usr/reactionPoint/doGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri} "
-									class="btn btn-outline btn-xs"
+									href="/usr/reactionPoint/doCancelGoodReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri} "
+									class="btn btn-xs btn-primary"
 								>좋아요 😄</a>
 								<span>&nbsp;</span>
 								<a onclick="alert(this.title); return false;" title="좋아요 취소좀요" href="#" class="btn btn-outline btn-xs">싫어요
 									🤢</a>
+							</c:if>
+							<c:if test="${actorCanCancelBadReaction}">
+								<span>&nbsp;</span>
+								<a onclick="alert(this.title); return false;" title="싫어요를 먼저 취소해주세요" href="#" class="btn btn-outline btn-xs">좋아요
+									😄</a>
+								<span>&nbsp;</span>
+								<a	href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
+									class="btn btn-xs btn-primary"
+								>싫어요 🤢</a>
 							</c:if>
 
 						</td>
