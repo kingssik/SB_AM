@@ -88,14 +88,12 @@
 									class="btn btn-xs btn-primary"
 								>좋아요 😄</a>
 								<span>&nbsp;</span>
-								<a onclick="alert(this.title); return false;" title="좋아요 취소좀" href="#" class="btn btn-outline btn-xs">싫어요
-									🤢</a>
+								<a onclick="alert(this.title); return false;" title="좋아요 취소좀" href="#" class="btn btn-outline btn-xs">싫어요 🤢</a>
 							</c:if>
 
 							<c:if test="${actorCanCancelBadReaction}">
 								<span>&nbsp;</span>
-								<a onclick="alert(this.title); return false;" title="싫어요 취소좀" href="#" class="btn btn-outline btn-xs">좋아요
-									😄</a>
+								<a onclick="alert(this.title); return false;" title="싫어요 취소좀" href="#" class="btn btn-outline btn-xs">좋아요 😄</a>
 								<span>&nbsp;</span>
 								<a
 									href="/usr/reactionPoint/doCancelBadReaction?relTypeCode=article&relId=${param.id}&replaceUri=${rq.encodedCurrentUri}"
@@ -133,11 +131,40 @@
 	</div>
 </section>
 
+<script>
+	function ReplyWrite__submitForm(form) {
+		var ReplyWrite__submitFormDone = false;
+
+		if (ReplyWrite__submitFormDone) {
+			return;
+		}
+
+		form.body.value = form.body.value.trim();
+
+		if (form.body.value.length == 0) {
+			alert('댓글을 입력하세요');
+			form.body.focus();
+			return;
+		}
+
+		// 		if (form.body.value.length < 2) {
+		// 			alert('2글자 이상 입력하세요');
+		// 			form.body.focus();
+		// 			return;
+		// 		}
+		
+		ReplyWrite__submitFormDone = true;
+		form.submit();
+	}
+</script>
+
 <section class="mt-5">
 	<div class="container mx-auto px-3">
 		<h2>댓글 작성</h2>
 		<c:if test="${rq.logined }">
-			<form class="table-box-type-1" method="POST" action="../reply/doWrite">
+			<form class="table-box-type-1" method="POST" action="../reply/doWrite"
+				onsubmit="ReplyWrite__submitForm(this); return false;"
+			>
 				<input type="hidden" name="relTypeCode" value="article" />
 				<input type="hidden" name="relId" value="${article.id }" />
 				<table class="table table-zebra w-full">
