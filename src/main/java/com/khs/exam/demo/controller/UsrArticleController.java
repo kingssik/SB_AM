@@ -28,7 +28,7 @@ public class UsrArticleController {
 	@Autowired
 	private BoardService boardService;
 	@Autowired
-	private ReplyService replyService ;
+	private ReplyService replyService;
 	@Autowired
 	private ReactionPointService reactionPointService;
 	@Autowired
@@ -157,17 +157,15 @@ public class UsrArticleController {
 		Article article = articleService.getForPrintArticle(rq.getLoginedMemberId(), id);
 
 		model.addAttribute("article", article);
-		
+
 		List<Reply> replies = replyService.getForPrintReplies(rq.getLoginedMemberId(), "article", id);
-		
-		int repliesCount = replies.size();
 
 		ResultData actorCanMakeReactionRd = reactionPointService.actorCanMakeReaction(rq.getLoginedMemberId(),
 				"article", id);
 
 		model.addAttribute("actorCanMakeReactionRd", actorCanMakeReactionRd);
 		model.addAttribute("actorCanMakeReaction", actorCanMakeReactionRd.isSuccess());
-		model.addAttribute("repliesCount", repliesCount);
+		model.addAttribute("replies", replies);
 
 		if (actorCanMakeReactionRd.getResultCode().equals("F-2")) {
 			int sumReactionPointByMemberId = (int) actorCanMakeReactionRd.getData1();

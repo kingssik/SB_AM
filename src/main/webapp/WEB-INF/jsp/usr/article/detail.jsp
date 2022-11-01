@@ -110,7 +110,7 @@
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td>${article.body }</td>
+						<td>${article.getForPrintBody() }</td>
 					</tr>
 				</tbody>
 
@@ -207,7 +207,38 @@
 
 <section class="mt-5">
 	<div class="container mx-auto px-3">
-		<h2>전체댓글(${repliesCount })</h2>
+		<h2>전체댓글(${replies.size() })</h2>
+		<table class="table table-fixed w-full">
+			<colgroup>
+				<col width="50" />
+				<col width="80" />
+				<col width="80" />
+				<col width="140" />
+				<col width="50" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>날짜</th>
+					<th>작성자</th>
+					<th>내용</th>
+					<th>추천</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<c:forEach var="reply" items="${replies }">
+					<tr>
+						<td>${reply.id}</td>
+						<td>${reply.regDate}</td>
+						<td>${reply.extra__writerName}</td>
+						<td class="text-left">${reply.getForPrintBody()}</td>
+						<td>${reply.goodReactionPoint}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+
+		</table>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
