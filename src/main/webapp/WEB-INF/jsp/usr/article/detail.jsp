@@ -131,7 +131,10 @@
 	</div>
 </section>
 
+<!-- 															 						-->
+
 <script>
+	// 댓글
 	function ReplyWrite__submitForm(form) {
 		var ReplyWrite__submitFormDone = false;
 
@@ -152,7 +155,7 @@
 		// 			form.body.focus();
 		// 			return;
 		// 		}
-		
+
 		ReplyWrite__submitFormDone = true;
 		form.submit();
 	}
@@ -199,6 +202,12 @@
 		<c:if test="${rq.notLogined }">
 			<a class="btn-text-link btn  btn-ghost" href="/usr/member/login">로그인</a> 후 이용하세요
 		</c:if>
+	</div>
+</section>
+
+<section class="mt-5">
+	<div class="container mx-auto px-3">
+		<h2>전체댓글(${repliesCount })</h2>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
