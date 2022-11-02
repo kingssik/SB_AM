@@ -77,7 +77,7 @@ public class ArticleService {
 	public ResultData actorCanModify(int loginedMemberId, Article article) {
 
 		if (article.getMemberId() != loginedMemberId) {
-			return ResultData.from("F-2", "해당 게시물에 대한 권한이 없습니다");
+			return ResultData.from("F-1", "해당 게시물에 대한 권한이 없습니다");
 		}
 
 		return ResultData.from("S-1", "수정 가능");
