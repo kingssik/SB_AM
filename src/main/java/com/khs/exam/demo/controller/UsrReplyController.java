@@ -1,21 +1,13 @@
 package com.khs.exam.demo.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.khs.exam.demo.service.ArticleService;
-import com.khs.exam.demo.service.BoardService;
-import com.khs.exam.demo.service.ReactionPointService;
 import com.khs.exam.demo.service.ReplyService;
 import com.khs.exam.demo.util.Ut;
-import com.khs.exam.demo.vo.Article;
-import com.khs.exam.demo.vo.Board;
+import com.khs.exam.demo.vo.Reply;
 import com.khs.exam.demo.vo.ResultData;
 import com.khs.exam.demo.vo.Rq;
 
@@ -59,4 +51,27 @@ public class UsrReplyController {
 		return rq.jsReplace(writeReplyRd.getMsg(), replaceUri);
 	}
 
+	@RequestMapping("/usr/reply/doDelete")
+	@ResponseBody
+	public String doDelete(int id, String replaceUri) {
+
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("id을(를) 입력하세요");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+
+		ResultData deleteReplyRd = replyService.deleteReply(id);
+
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+
+		}
+
+		return rq.jsReplace(deleteReplyRd.getMsg(), replaceUri);
+	}
 }
