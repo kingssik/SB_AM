@@ -2,11 +2,14 @@ package com.khs.exam.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.khs.exam.demo.service.ArticleService;
 import com.khs.exam.demo.service.ReplyService;
 import com.khs.exam.demo.util.Ut;
+import com.khs.exam.demo.vo.Article;
 import com.khs.exam.demo.vo.Reply;
 import com.khs.exam.demo.vo.ResultData;
 import com.khs.exam.demo.vo.Rq;
@@ -18,6 +21,8 @@ public class UsrReplyController {
 	private ReplyService replyService;
 	@Autowired
 	private Rq rq;
+	@Autowired
+	private ArticleService articleService;
 
 	@RequestMapping("/usr/reply/doWrite")
 	@ResponseBody
@@ -73,5 +78,38 @@ public class UsrReplyController {
 		}
 
 		return rq.jsReplace(deleteReplyRd.getMsg(), replaceUri);
+	}
+	
+	@RequestMapping("/usr/reply/modify")
+	@ResponseBody
+	public String showModify(int id, String replaceUri, Model model) {
+
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("id을(를) 입력하세요");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+		
+		if(reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글은 없습니다", id));
+		}
+		
+		if(reply.isExtra__actorCanModify() == false) {
+			return rq.jsHistoryBack("해당 권한이 없습니다");
+		}
+		
+		String relDataTitle = null;
+		
+		switch (reply.getRelTypeCode()) {
+		case "article":
+			Article article = articleService.getArticle(reply.getRelId());
+			relDataTitle = article.getTitle();
+			break;
+		}
+		
+		model.addAttribute("reply",reply);
+		model.addAttribute("relDataTitle",relDataTitle);
+
+		return "/usr/reply/modify";
 	}
 }
