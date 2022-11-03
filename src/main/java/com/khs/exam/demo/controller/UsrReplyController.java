@@ -56,6 +56,75 @@ public class UsrReplyController {
 		return rq.jsReplace(writeReplyRd.getMsg(), replaceUri);
 	}
 
+	@RequestMapping("/usr/reply/modify")
+	@ResponseBody
+	public String showModify(int id, String replaceUri, Model model) {
+
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("id을(를) 입력하세요");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글은 없습니다", id));
+		}
+
+		if (reply.isExtra__actorCanModify() == false) {
+			return rq.jsHistoryBack("해당 권한이 없습니다");
+		}
+
+		String relDataTitle = null;
+
+		switch (reply.getRelTypeCode()) {
+		case "article":
+			Article article = articleService.getArticle(reply.getRelId());
+			relDataTitle = article.getTitle();
+			break;
+		}
+
+		model.addAttribute("reply", reply);
+		model.addAttribute("relDataTitle", relDataTitle);
+
+		return "/usr/reply/modify";
+	}
+
+	@RequestMapping("/usr/reply/doModify")
+	@ResponseBody
+	public String doModify(int id, String body, String replaceUri) {
+
+		if (Ut.empty(id)) {
+			return rq.jsHistoryBack("id을(를) 입력하세요");
+		}
+
+		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
+		
+		if (reply == null) {
+			return rq.jsHistoryBack(Ut.f("%d번 댓글은 없습니다", id));
+		}
+		
+		if (reply.isExtra__actorCanModify() == false) {
+			return rq.jsHistoryBack("해당 권한이 없습니다");
+		}
+		
+		if (Ut.empty(body)) {
+			return rq.jsHistoryBack("내용을 입력하세요");
+		}
+
+		ResultData modifyReplyRd = replyService.modifyReply(id, body);
+
+		if (Ut.empty(replaceUri)) {
+			switch (reply.getRelTypeCode()) {
+			case "article":
+				replaceUri = Ut.f("../article/detail?id=%d", reply.getRelId());
+				break;
+			}
+
+		}
+
+		return rq.jsReplace(modifyReplyRd.getMsg(), replaceUri);
+	}
+
 	@RequestMapping("/usr/reply/doDelete")
 	@ResponseBody
 	public String doDelete(int id, String replaceUri) {
@@ -78,38 +147,5 @@ public class UsrReplyController {
 		}
 
 		return rq.jsReplace(deleteReplyRd.getMsg(), replaceUri);
-	}
-	
-	@RequestMapping("/usr/reply/modify")
-	@ResponseBody
-	public String showModify(int id, String replaceUri, Model model) {
-
-		if (Ut.empty(id)) {
-			return rq.jsHistoryBack("id을(를) 입력하세요");
-		}
-
-		Reply reply = replyService.getForPrintReply(rq.getLoginedMember(), id);
-		
-		if(reply == null) {
-			return rq.jsHistoryBack(Ut.f("%d번 댓글은 없습니다", id));
-		}
-		
-		if(reply.isExtra__actorCanModify() == false) {
-			return rq.jsHistoryBack("해당 권한이 없습니다");
-		}
-		
-		String relDataTitle = null;
-		
-		switch (reply.getRelTypeCode()) {
-		case "article":
-			Article article = articleService.getArticle(reply.getRelId());
-			relDataTitle = article.getTitle();
-			break;
-		}
-		
-		model.addAttribute("reply",reply);
-		model.addAttribute("relDataTitle",relDataTitle);
-
-		return "/usr/reply/modify";
 	}
 }
