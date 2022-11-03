@@ -38,7 +38,9 @@
 					<tr>
 						<th></th>
 						<td>
-							<a href="../member/checkPassword" class="btn btn-active btn-ghost"> 회원정보수정 </a>
+							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}"
+								class="btn btn-active btn-ghost"
+							> 회원정보수정 </a>
 						</td>
 					</tr>
 				</tbody>
@@ -47,7 +49,7 @@
 	</div>
 
 	<div class="container mx-auto btns">
-		<button class="mt-3 btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+		<button class="mt-3	btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 	</div>
 
 </section>

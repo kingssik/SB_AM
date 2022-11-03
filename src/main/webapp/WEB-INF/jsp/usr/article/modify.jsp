@@ -79,9 +79,7 @@
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-active btn-ghost" type="submit" value="수정" />
-							수정
-							</button>
+							<button class="btn btn-active btn-ghost" type="submit" value="수정">수정</button>
 						</td>
 					</tr>
 				</tbody>
