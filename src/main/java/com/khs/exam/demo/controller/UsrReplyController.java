@@ -57,7 +57,6 @@ public class UsrReplyController {
 	}
 
 	@RequestMapping("/usr/reply/modify")
-	@ResponseBody
 	public String showModify(int id, String replaceUri, Model model) {
 
 		if (Ut.empty(id)) {
