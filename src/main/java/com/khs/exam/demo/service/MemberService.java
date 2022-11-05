@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.khs.exam.demo.repository.MemberRepository;
 import com.khs.exam.demo.util.Ut;
 import com.khs.exam.demo.vo.Member;
+import com.khs.exam.demo.vo.ResultData;
 
 @Service
 public class MemberService {
@@ -29,11 +30,11 @@ public class MemberService {
 		if (existsMember != null) {
 			return Ut.jsHistoryBack(Ut.f("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email));
 		}
-		
-		// 비밀번호 재확인 
-		boolean isSamePw = passwordCheck(loginPw, loginPwConfirm); 
-		
-		if(isSamePw == false) {
+
+		// 비밀번호 재확인
+		boolean isSamePw = passwordCheck(loginPw, loginPwConfirm);
+
+		if (isSamePw == false) {
 			return Ut.jsHistoryBack("비밀번호를 다시 입력하세요");
 		}
 
@@ -62,5 +63,10 @@ public class MemberService {
 
 	public Member getMemberById(int id) {
 		return memberRepository.getMemberById(id);
+	}
+
+	public ResultData modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email) {
+		memberRepository.modify(id, loginPw, name, nickname, cellphoneNum, email);
+		return ResultData.from("S-1", "회원정보가 수정되었습니다");
 	}
 }
