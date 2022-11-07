@@ -3,9 +3,35 @@
 <c:set var="pageTitle" value="MEMBER JOIN" />
 <%@ include file="../common/head.jspf"%>
 
+<script>
+// 비밀번호 일치여부 검사
+let MemberJoin__submitDone = false;
+	function MemberJoin__submit(form) {
+		if (MemberJoin__submitDone) {
+			return;
+		}
+		form.loginPw.value = form.loginPw.value.trim();
+		if (form.loginPwConfirm.value.length > 0) {
+			form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
+			if (form.loginPwConfirm.value.length == 0) {
+				alert('비밀번호 확인을 입력하세요');
+				form.loginPwConfirm.focus();
+				return;
+			}
+			if (form.loginPw.value != form.loginPwConfirm.value) {
+				alert('비밀번호가 일치하지 않습니다');
+				form.loginPw.focus();
+				return;
+			}
+		}
+		MemberJoin__submitDone = true;
+		form.submit();
+	}
+</script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../member/doJoin">
+		<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="MemberJoin__submit(this); return false;">
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
@@ -15,50 +41,57 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input name="loginId" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" 
-								placeholder="아이디를 입력하세요" />
+							<input name="loginId" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" placeholder="아이디를 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input name="loginPw"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text"
-								placeholder="비밀번호를 입력하세요" />
+							<input name="loginPw" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" placeholder="비밀번호를 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="loginPwConfirm"
-								placeholder="비밀번호 확인을 입력하세요" />
+							<input autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text"
+								name="loginPwConfirm" placeholder="비밀번호 확인을 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>이름</th>
 						<td>
-							<input name="name"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="name"
-								placeholder="이름을 입력하세요" />
+							<input name="name" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" name="name" placeholder="이름을 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
 						<td>
-							<input name="nickname"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="nickname"
-								placeholder="닉네임을 입력하세요" />
+							<input name="nickname" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" name="nickname" placeholder="닉네임을 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
 						<td>
-							<input name="cellphoneNum"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="cellphoneNum"
-								placeholder="전화번호를 입력하세요"	/>
+							<input name="cellphoneNum" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" name="cellphoneNum" placeholder="전화번호를 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
 						<td>
-							<input name="email"  autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs" type="text" name="email"
-								placeholder="이메일을 입력하세요"	/>
+							<input name="email" autocomplete="off" required="required" class="w-full input input-bordered  max-w-xs"
+								type="text" name="email" placeholder="이메일을 입력하세요"
+							/>
 						</td>
 					</tr>
 					<tr>

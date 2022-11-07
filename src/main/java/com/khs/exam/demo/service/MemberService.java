@@ -34,24 +34,25 @@ public class MemberService {
 		}
 
 		// 비밀번호 재확인
-		boolean isSamePw = passwordCheck(loginPw, loginPwConfirm);
-
-		if (isSamePw == false) {
-			return Ut.jsHistoryBack("비밀번호를 다시 입력하세요");
-		}
+//		boolean isSamePw = passwordCheck(loginPw, loginPwConfirm);
+//
+//		if (isSamePw == false) {
+//			return Ut.jsHistoryBack("비밀번호를 다시 입력하세요");
+//		}
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		int id = memberRepository.getLastInsertId();
 
 		return Ut.jsReplace("회원가입이 완료되었습니다", "../member/login");
 	}
-
-	private boolean passwordCheck(String loginPw, String loginPwConfirm) {
-		if (loginPw.equals(loginPwConfirm) == false) {
-			return false;
-		}
-		return true;
-	}
+	
+	// join.jsp에서 js로 처리
+//	private boolean passwordCheck(String loginPw, String loginPwConfirm) {
+//		if (loginPw.equals(loginPwConfirm) == false) {
+//			return false;
+//		}
+//		return true;
+//	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
