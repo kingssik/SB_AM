@@ -1,26 +1,26 @@
 @font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: 400;
+    font-family: 'MaplestoryOTFBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-weight: normal;
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
+/* @font-face { */
+/*     font-family: 'GongGothicMedium'; */
+/*     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff'); */
+/*     font-weight: 700; */
+/*     font-style: normal; */
+/* } */
 
-@font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-}
+/* @font-face { */
+/*     font-family: 'GongGothicMedium'; */
+/*     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff'); */
+/*     font-weight: 300; */
+/*     font-style: normal; */
+/* } */
 
-html > body {
-	font-family: 'GongGothicMedium', sans-serif;
+html>body, html>body .toast-ui-editor, html>body .toastui-editor-contents, html>body .ProseMirror, html>body .toastui-editor-md-mode {
+	font-family: 'MaplestoryOTFBold', sans-serif;
 }
 
 /*라이브러리*/
