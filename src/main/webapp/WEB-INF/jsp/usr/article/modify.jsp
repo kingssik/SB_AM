@@ -2,6 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="pageTitle" value="ARTICLE MODIFY" />
 <%@ include file="../common/head.jspf"%>
+<%@ include file="../common/toastUiEditorLib.jspf"%>
 
 <script>
 	let ArticleModify__submitDone = false;
@@ -9,12 +10,16 @@
 		if (ArticleModify__submitDone) {
 			return;
 		}
-		form.body.value = form.body.value.trim();
-		if (form.body.value.length == 0) {
+		const editor = $(form).find('.toast-ui-editor').data(
+				'data-toast-editor');
+		const markdown = editor.getMarkdown().trim();
+
+		if (markdown.length == 0) {
 			alert('내용을 입력하세요');
-			form.body.focus();
+			editor.focus();
 			return;
 		}
+		form.body.value = markdown;
 		ArticleModify__submitDone = true;
 		form.submit();
 	}
@@ -26,6 +31,7 @@
 			onsubmit="ArticleModify__submit(this); return false;"
 		>
 			<input type="hidden" name="id" value="${article.id }" />
+			<input type="hidden" name="body" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
@@ -73,7 +79,9 @@
 					<tr>
 						<th>내용</th>
 						<td>
-							<textarea class="textarea textarea-bordered w-full" type="text" name="body" placeholder="내용을 입력해주세요">${article.body }</textarea>
+							<div class="toast-ui-editor">
+								<script type="text/x-template">${article.body}</script>
+							</div>
 						</td>
 					</tr>
 					<tr>
