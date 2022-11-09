@@ -8,15 +8,14 @@ import com.khs.exam.demo.vo.Rq;
 @Controller
 public class UsrHomeController {
 	private Rq rq;
-	
+
 	public UsrHomeController(Rq rq) {
 		this.rq = rq;
 	}
 
 	@RequestMapping("/usr/home/main")
 	public String showMain() {
-		rq.runA();
-		
+
 		return "usr/home/main";
 	}
 
