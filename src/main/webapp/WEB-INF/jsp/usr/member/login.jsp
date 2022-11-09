@@ -5,22 +5,23 @@
 
 <section class="mt-8 text-xl">
 
-<!-- 내가 만들어 본 로그인 폼 -->
-<!-- 	<div class="login-card"> -->
-<!-- 		<h2>login</h2> -->
-<!-- 		<h3>Enter your credentials</h3> -->
-<!-- 		<form class="login-form" method="POST" action="../member/doLogin"> -->
-<!-- 			<input name="loginId" type="text" placeholder="아이디를 입력하세요" /> -->
-<!-- 			<input name="loginPw" type="text" placeholder="비밀번호를 입력하세요" /> -->
-<!-- 			<a href="#">Forgot your password?</a> -->
-<!-- 			<button type="submit" value="로그인">LOGIN</button> -->
-<!-- 		</form> -->
-<!-- 		<button class="mt-3 btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">BACK</button> -->
-<!-- 	</div> -->
+	<!-- 내가 만들어 본 로그인 폼 -->
+	<!-- 	<div class="login-card"> -->
+	<!-- 		<h2>login</h2> -->
+	<!-- 		<h3>Enter your credentials</h3> -->
+	<!-- 		<form class="login-form" method="POST" action="../member/doLogin"> -->
+	<!-- 			<input name="loginId" type="text" placeholder="아이디를 입력하세요" /> -->
+	<!-- 			<input name="loginPw" type="text" placeholder="비밀번호를 입력하세요" /> -->
+	<!-- 			<a href="#">Forgot your password?</a> -->
+	<!-- 			<button type="submit" value="로그인">LOGIN</button> -->
+	<!-- 		</form> -->
+	<!-- 		<button class="mt-3 btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">BACK</button> -->
+	<!-- 	</div> -->
 
 
 	<div class="container mx-auto px-3">
 		<form class="table-box-type-1" method="POST" action="../member/doLogin">
+			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri }" />
 			<table>
 				<colgroup>
 					<col width="200" />
