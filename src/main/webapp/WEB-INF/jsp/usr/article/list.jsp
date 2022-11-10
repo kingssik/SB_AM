@@ -51,7 +51,7 @@
 							<td>${article.id}</td>
 							<td>${article.forPrintType1RegDate}</td>
 							<td>
-								<a class="hover:underline" href="../article/detail?id=${article.id}">${article.title}</a>
+								<a class="hover:underline" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
 							</td>
 							<td>${article.extra__writerName}</td>
 							<td>${article.hitCount}</td>
