@@ -21,8 +21,7 @@ public class UsrMemberController {
 	private Rq rq;
 
 	@RequestMapping("usr/member/join")
-	public String showJoin(String loginId, String loginPw, String loginPwConfirm, String name, String nickname,
-			String cellphoneNum, String email) {
+	public String showJoin() {
 		return "usr/member/join";
 	}
 
