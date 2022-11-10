@@ -180,6 +180,7 @@
 			>
 				<input type="hidden" name="relTypeCode" value="article" />
 				<input type="hidden" name="relId" value="${article.id }" />
+				<input type="hidden" name="replaceUri" value="${param.currentUri }" />
 				<table class="table table-zebra w-full">
 					<colgroup>
 						<col width="200" />
@@ -248,11 +249,11 @@
 						<td>${reply.goodReactionPoint}</td>
 						<td>
 							<c:if test="${reply.extra__actorCanModify }">
-								<a class="btn btn-ghost" href="/usr/reply/modify?id=${reply.id }">수정</a>
+								<a class="btn btn-ghost" href="/usr/reply/modify?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}">수정</a>
 							</c:if>
 							<c:if test="${reply.extra__actorCanDelete }">
 								<a class="btn btn-ghost" onclick="if(confirm('삭제 할거니?') == false) return false;"
-									href="/usr/reply/doDelete?id=${reply.id }"
+									href="/usr/reply/doDelete?id=${reply.id }&replaceUri=${rq.encodedCurrentUri}"
 								>&nbsp; 삭제</a>
 							</c:if>
 						</td>
