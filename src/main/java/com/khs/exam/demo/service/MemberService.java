@@ -17,42 +17,27 @@ public class MemberService {
 		this.memberRepository = memberRepository;
 	}
 
-	public String join(String loginId, String loginPw, String loginPwConfirm, String name, String nickname,
-			String cellphoneNum, String email) {
+	public ResultData<Integer> join(String loginId, String loginPw, String name, String nickname, String cellphoneNum,
+			String email) {
 		// 로그인아이디 중복체크
 		Member existsMember = getMemberByLoginId(loginId);
 
 		if (existsMember != null) {
-			return Ut.jsHistoryBack(Ut.f("이미 사용중인 아이디(%s)입니다", loginId));
+			return ResultData.from("F-7", Ut.f("이미 사용중인 아이디(%s)입니다", loginId));
 		}
 
 		// 이름 + 이메일 중복체크
 		existsMember = getMemberByNameAndEmail(name, email);
 
 		if (existsMember != null) {
-			return Ut.jsHistoryBack(Ut.f("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email));
+			return ResultData.from("F-8", Ut.f("이미 사용중인 이름(%s)과 이메일(%s)입니다", name, email));
 		}
-
-		// 비밀번호 재확인
-//		boolean isSamePw = passwordCheck(loginPw, loginPwConfirm);
-//
-//		if (isSamePw == false) {
-//			return Ut.jsHistoryBack("비밀번호를 다시 입력하세요");
-//		}
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
 		int id = memberRepository.getLastInsertId();
 
-		return Ut.jsReplace("회원가입이 완료되었습니다", "../member/login");
+		return ResultData.from("S-1", "회원가입이 완료되었습니다", "id", id);
 	}
-	
-	// join.jsp에서 js로 처리
-//	private boolean passwordCheck(String loginPw, String loginPwConfirm) {
-//		if (loginPw.equals(loginPwConfirm) == false) {
-//			return false;
-//		}
-//		return true;
-//	}
 
 	private Member getMemberByNameAndEmail(String name, String email) {
 		return memberRepository.getMemberByNameAndEmail(name, email);
@@ -84,11 +69,11 @@ public class MemberService {
 
 	public ResultData checkMemberModifyAuthKey(int actorId, String memberModifyAuthKey) {
 		String saved = attrService.getValue("member", actorId, "extra", "memberModifyAuthKey");
-		
-		if(!saved.equals(memberModifyAuthKey)) {
+
+		if (!saved.equals(memberModifyAuthKey)) {
 			return ResultData.from("F-1", "일치하지 않거나 만료되었습니다");
 		}
-		
+
 		return ResultData.from("S-1", "정상 코드입니다");
 	}
 }

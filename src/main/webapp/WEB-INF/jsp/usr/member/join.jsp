@@ -4,29 +4,28 @@
 <%@ include file="../common/head.jspf"%>
 
 <script>
-	// 비밀번호 일치여부 검사
 	let submitJoinFormDone = false;
-
-	function submitJoinFormDone(form) {
+	function submitJoinForm(form) {
 		if (submitJoinFormDone) {
 			alert('처리중입니다');
 			return;
 		}
-
 		form.loginId.value = form.loginId.value.trim();
 		if (form.loginId.value == 0) {
 			alert('아이디를 입력하세요');
+			form.loginId.focus();
 			return;
 		}
-
 		form.loginPw.value = form.loginPw.value.trim();
 		if (form.loginPw.value == 0) {
 			alert('비밀번호를 입력하세요');
+			form.loginPw.focus();
 			return;
 		}
 		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
 		if (form.loginPwConfirm.value == 0) {
 			alert('비밀번호 확인을 입력하세요');
+			form.loginPwConfirm.focus();
 			return;
 		}
 		if (form.loginPwConfirm.value != form.loginPw.value) {
@@ -36,35 +35,37 @@
 		}
 		form.name.value = form.name.value.trim();
 		if (form.name.value == 0) {
-			alert('이름을 입력해주세요');
+			alert('이름을 입력하세요');
+			form.name.focus();
 			return;
 		}
 		form.nickname.value = form.nickname.value.trim();
 		if (form.nickname.value == 0) {
-			alert('닉네임을 입력해주세요');
+			alert('닉네임을 입력하세요');
+			form.nickname.focus();
 			return;
 		}
 		form.email.value = form.email.value.trim();
 		if (form.email.value == 0) {
-			alert('이메일을 입력해주세요');
+			alert('이메일을 입력하세요');
+			form.email.focus();
 			return;
 		}
 		form.cellphoneNum.value = form.cellphoneNum.value.trim();
 		if (form.cellphoneNum.value == 0) {
-			alert('전화번호를 입력해주세요');
+			alert('전화번호를 입력하세요');
+			form.cellphoneNum.focus();
 			return;
 		}
 		submitJoinFormDone = true;
 		form.submit();
 	}
-	}
 </script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../member/doJoin"
-			onsubmit="submitJoinFormDone(this); return false;"
-		>
+		<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
 			<table class="table table-zebra w-full">
 				<colgroup>
 					<col width="200" />
@@ -74,69 +75,59 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input name="loginId" autocomplete="off" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력하세요" />
+							<input name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
 						<td>
-							<input name="loginPw" autocomplete="off" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호를 입력하세요" />
+							<input name="loginPw" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호를 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>비밀번호 확인</th>
 						<td>
-							<input name="loginPwConfirm" autocomplete="off" class="w-full input input-bordered max-w-xs"
-								placeholder="비밀번호 확인을 입력하세요"
-							/>
+							<input name="loginPwConfirm" class="w-full input input-bordered  max-w-xs" placeholder="비밀번호 확인을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>이름</th>
 						<td>
-							<input name="name" autocomplete="off" class="w-full input input-bordered max-w-xs" name="name"
-								placeholder="이름을 입력하세요"
-							/>
+							<input name="name" class="w-full input input-bordered  max-w-xs" placeholder="이름을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
 						<td>
-							<input name="nickname" autocomplete="off" class="w-full input input-bordered max-w-xs" name="nickname"
-								placeholder="닉네임을 입력하세요"
-							/>
+							<input name="nickname" class="w-full input input-bordered  max-w-xs" placeholder="닉네임을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>전화번호</th>
 						<td>
-							<input name="cellphoneNum" autocomplete="off" class="w-full input input-bordered max-w-xs" name="cellphoneNum"
-								placeholder="전화번호를 입력하세요"
-							/>
+							<input name="cellphoneNum" class="w-full input input-bordered  max-w-xs" placeholder="전화번호를 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
 						<td>
-							<input name="email" autocomplete="off" class="w-full input input-bordered max-w-xs" name="email"
-								placeholder="이메일을 입력하세요"
-							/>
+							<input name="email" class="w-full input input-bordered  max-w-xs" placeholder="이메일을 입력하세요" />
 						</td>
 					</tr>
 					<tr>
 						<th></th>
 						<td>
-							<button class="btn btn-active btn-ghost" type="submit" value="회원가입">회원가입</button>
+							<button class="btn btn-active btn-ghost" type="submit">회원가입</button>
 						</td>
 					</tr>
 				</tbody>
-
 			</table>
 		</form>
-
-		<div class="btns">
-			<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
-		</div>
 	</div>
+
+	<div class="container mx-auto btns">
+		<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+	</div>
+
 </section>
 <%@ include file="../common/foot.jspf"%>

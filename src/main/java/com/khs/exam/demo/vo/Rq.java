@@ -90,6 +90,17 @@ public class Rq {
 		return "usr/common/js";
 	}
 
+	public String jsHistoryBackOnView(String resultCode, String msg) {
+		req.setAttribute("msg", String.format("[%s] %s", resultCode, msg));
+		req.setAttribute("historyBack", true);
+		return "usr/common/js";
+	}
+
+	public String jsHistoryBack(String resultCode, String msg) {
+		msg = String.format("[%s] %s", resultCode, msg);
+		return Ut.jsHistoryBack(msg);
+	}
+
 	public String jsHistoryBack(String msg) {
 		return Ut.jsHistoryBack(msg);
 	}
@@ -119,23 +130,12 @@ public class Rq {
 		print(Ut.jsReplace(msg, url));
 	}
 
-	public String getLoginUri() {
-		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+	public String getJoinUri() {
+		return "../member/join?afterLoginUri=" + getAfterLoginUri();
 	}
 
-	public String getAfterLoginUri() {
-		String requestUri = req.getRequestURI();
-
-		// 로그인 후 돌아가면 안되는 URL
-		switch (requestUri) {
-		case "/usr/member/login":
-		case "/usr/member/join":
-		case "/usr/member/findLoginId":
-		case "/usr/member/findLoginPw":
-			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
-		}
-
-		return getEncodedCurrentUri();
+	public String getLoginUri() {
+		return "../member/login?afterLoginUri=" + getAfterLoginUri();
 	}
 
 	public String getLogoutUri() {
@@ -154,8 +154,24 @@ public class Rq {
 
 		return getEncodedCurrentUri();
 	}
-	
+
+	public String getAfterLoginUri() {
+		String requestUri = req.getRequestURI();
+
+		// 로그인 후 다시 돌아가면 안되는 URL
+		switch (requestUri) {
+		case "/usr/member/login":
+		case "/usr/member/join":
+		case "/usr/member/findLoginId":
+		case "/usr/member/findLoginPw":
+			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
+		}
+
+		return getEncodedCurrentUri();
+	}
+
 	public String getArticleDetailUriFromArticleList(Article article) {
 		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
 	}
+
 }
