@@ -1,9 +1,15 @@
 @font-face {
-    font-family: 'MaplestoryOTFBold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
 }
+/* @font-face { */
+/*     font-family: 'MaplestoryOTFBold'; */
+/*     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff'); */
+/*     font-weight: normal; */
+/*     font-style: normal; */
+/* } */
 
 /* @font-face { */
 /*     font-family: 'GongGothicMedium'; */
@@ -20,7 +26,7 @@
 /* } */
 
 html>body, html>body .toast-ui-editor, html>body .toastui-editor-contents, html>body .ProseMirror, html>body .toastui-editor-md-mode {
-	font-family: 'MaplestoryOTFBold', sans-serif;
+	font-family: 'LINESeedKR-Bd', sans-serif;
 	text-underline-position: under;
 }
 
