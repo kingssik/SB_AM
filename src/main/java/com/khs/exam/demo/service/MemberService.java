@@ -76,4 +76,10 @@ public class MemberService {
 
 		return ResultData.from("S-1", "정상 코드입니다");
 	}
+
+	public int idCheck(String id) {
+		int cnt = memberRepository.idCheck(id);
+		System.out.println("cnt: " + cnt);
+		return cnt;
+	}
 }

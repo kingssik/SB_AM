@@ -2,6 +2,7 @@ package com.khs.exam.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,6 +20,23 @@ public class UsrMemberController {
 	private MemberService memberService;
 	@Autowired
 	private Rq rq;
+
+	@RequestMapping("usr/member/getLoginIdDup")
+	@ResponseBody
+	public ResultData getLoginIdDup(String loginId) {
+
+		if (Ut.empty(loginId)) {
+			return ResultData.from("F-a1", "아이디를 입력하세요");
+		}
+
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member != null) {
+			return ResultData.from("F-a2", "사용중인 아이디입니다");
+		}
+
+		return ResultData.from("S-1", "사용가능한 아이디입니다", "loginId", loginId);
+	}
 
 	@RequestMapping("usr/member/join")
 	public String showJoin() {

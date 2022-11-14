@@ -73,4 +73,11 @@ public interface MemberRepository {
 			</script>
 				""")
 	void modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email);
+
+	@Select("""
+			SELECT COUNT(id) 
+			FROM `member`
+			WHERE id= #{id}
+			""")
+	int idCheck(String id);
 }

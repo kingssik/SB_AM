@@ -3,25 +3,44 @@
 <c:set var="pageTitle" value="MEMBER JOIN" />
 <%@ include file="../common/head.jspf"%>
 
+<style>
+.loginId-msg {
+	color: red;
+}
+</style>
+
 <script>
 	let submitJoinFormDone = false;
+
+	let validLoginId = '';
+
 	function submitJoinForm(form) {
+
 		if (submitJoinFormDone) {
 			alert('처리중입니다');
 			return;
 		}
+
 		form.loginId.value = form.loginId.value.trim();
 		if (form.loginId.value == 0) {
+			alert('사용할 수 없는 아이디입니다');
+			form.loginId.focus();
+			return;
+		}
+
+		if (form.loginId.value != validLoginId) {
 			alert('아이디를 입력하세요');
 			form.loginId.focus();
 			return;
 		}
+
 		form.loginPw.value = form.loginPw.value.trim();
 		if (form.loginPw.value == 0) {
 			alert('비밀번호를 입력하세요');
 			form.loginPw.focus();
 			return;
 		}
+
 		form.loginPwConfirm.value = form.loginPwConfirm.value.trim();
 		if (form.loginPwConfirm.value == 0) {
 			alert('비밀번호 확인을 입력하세요');
@@ -33,24 +52,28 @@
 			form.loginPw.focus();
 			return;
 		}
+
 		form.name.value = form.name.value.trim();
 		if (form.name.value == 0) {
 			alert('이름을 입력하세요');
 			form.name.focus();
 			return;
 		}
+
 		form.nickname.value = form.nickname.value.trim();
 		if (form.nickname.value == 0) {
 			alert('닉네임을 입력하세요');
 			form.nickname.focus();
 			return;
 		}
+
 		form.email.value = form.email.value.trim();
 		if (form.email.value == 0) {
 			alert('이메일을 입력하세요');
 			form.email.focus();
 			return;
 		}
+
 		form.cellphoneNum.value = form.cellphoneNum.value.trim();
 		if (form.cellphoneNum.value == 0) {
 			alert('전화번호를 입력하세요');
@@ -60,11 +83,29 @@
 		submitJoinFormDone = true;
 		form.submit();
 	}
+
+	function checkLoginIdDup(el) {
+		const form = $(el).closest('form').get(0);
+
+		$.get('../member/getLoginIdDup', {
+			isAjax : 'Y',
+			loginId : form.loginId.value
+		}, function(data) {
+			$('.loginId-msg').html('<div class="mt-2">' + data.msg + '</div>');
+			if(data.success) {
+				validLoginId = data.data1;
+			} else {
+				validLoginId = '';
+			}
+		}, 'json');
+	}
 </script>
 
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
-		<form class="table-box-type-1" method="POST" action="../member/doJoin" onsubmit="submitJoinForm(this); return false;">
+		<form name="form1" class="table-box-type-1" method="POST" action="../member/doJoin"
+			onsubmit="submitJoinForm(this); return false;"
+		>
 			<input type="hidden" name="afterLoginUri" value="${param.afterLoginUri}" />
 			<table class="table table-zebra w-full">
 				<colgroup>
@@ -75,7 +116,10 @@
 					<tr>
 						<th>아이디</th>
 						<td>
-							<input name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력하세요" />
+							<input name="loginId" class="w-full input input-bordered  max-w-xs" placeholder="아이디를 입력하세요"
+								onkeyup="checkLoginIdDup(this)" autocomplete="off"
+							/>
+							<div class="loginId-msg"></div>
 						</td>
 					</tr>
 					<tr>
