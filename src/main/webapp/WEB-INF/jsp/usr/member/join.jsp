@@ -85,15 +85,24 @@
 	}
 
 	function checkLoginIdDup(el) {
-		$('.loginId-msg').html('<div class="mt-2">입력 대기중</div>');
 		const form = $(el).closest('form').get(0);
+
+		if (form.loginId.value.length == 0) {
+			validLoginId = '';
+			return;
+		}
+
+		if (validLoginId == form.loginId.value) {
+			return;
+		}
+		$('.loginId-msg').html('<div class="mt-2">입력 대기중</div>');
 
 		$.get('../member/getLoginIdDup', {
 			isAjax : 'Y',
 			loginId : form.loginId.value
 		}, function(data) {
 			$('.loginId-msg').html('<div class="mt-2">' + data.msg + '</div>');
-			if(data.success) {
+			if (data.success) {
 				validLoginId = data.data1;
 			} else {
 				validLoginId = '';
