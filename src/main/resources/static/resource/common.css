@@ -1,8 +1,10 @@
 @font-face {
-    font-family: 'LINESeedKR-Bd';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
+	font-family: 'LINESeedKR-Bd';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
 }
 /* @font-face { */
 /*     font-family: 'MaplestoryOTFBold'; */
@@ -24,8 +26,8 @@
 /*     font-weight: 300; */
 /*     font-style: normal; */
 /* } */
-
-html>body, html>body .toast-ui-editor, html>body .toastui-editor-contents, html>body .ProseMirror, html>body .toastui-editor-md-mode {
+html>body, html>body .toast-ui-editor, html>body .toastui-editor-contents,
+	html>body .ProseMirror, html>body .toastui-editor-md-mode {
 	font-family: 'LINESeedKR-Bd', sans-serif;
 	text-underline-position: under;
 }
@@ -55,6 +57,46 @@ body {
 	min-width: 800px;
 }
 
+.Popup {
+	font-size: 2rem;
+}
+
+.layer {
+	display: none;
+	width: 500px;
+	height: 500px;
+	background-color: black;
+	color: white;
+	border: 10px solid gold;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	z-index: 11;
+}
+
+.layer>h2, .layer>button {
+	padding: 20px;
+}
+
+.layer>button {
+	position: absolute;
+	bottom: 20px;
+	right: 20px;
+	border: 4px solid white;
+	border-radius: 10px;
+}
+
+.layer-bg {
+	display: none;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0, .4);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
 
 /* login.css (reset) */
 
