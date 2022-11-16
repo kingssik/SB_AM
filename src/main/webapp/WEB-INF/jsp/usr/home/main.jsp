@@ -17,6 +17,10 @@
 		<h2>POPUP</h2>
 		Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste id odio eius nobis possimus cumque fuga voluptate
 		ratione voluptatem eligendi eos repudiandae quaerat sed sequi sunt distinctio nesciunt quidem labore.
+<!-- 		<div class="toggle-btn"> -->
+<!-- 			<div></div> -->
+<!-- 			<div></div> -->
+<!-- 		</div> -->
 		<button class="close-btn">CLOSE</button>
 	</div>
 </div>
