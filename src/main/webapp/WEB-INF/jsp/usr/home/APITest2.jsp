@@ -3,14 +3,30 @@
 <c:set var="pageTitle" value="API Test2" />
 <%@ include file="../common/head.jspf"%>
 
-<div id="map" style="width: 1100px; height: 600px;"></div>
+<div class="map" id="map" style="width: 1100px; height: 600px;"></div>
 <div class="msg-1"></div>
 <div class="msg-2"></div>
-<div style="background-color: black; width: 100px; height: 100px" onclick="removeText();"></div>
+<div class="removeText" style="background-color: black; width: 100px; height: 100px" onclick="removeText();"></div>
 <p>
 	<button onclick="setCenter()">지도 중심좌표 이동시키기</button>
 	<button onclick="panTo()">지도 중심좌표 부드럽게 이동시키기</button>
 </p>
+
+<style>
+.map {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+p > button, .removeText {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+</style>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62a277ca5cdc4c086160482dc327ab3a"></script>
 <script>
