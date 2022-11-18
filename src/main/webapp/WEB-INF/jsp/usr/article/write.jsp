@@ -55,6 +55,8 @@
 								<option disabled>게시판 선택</option>
 								<option value="1">공지사항</option>
 								<option value="2">자유게시판</option>
+								<option value="3">정보게시판</option>
+								<option value="4">유머게시판</option>
 							</select>
 						</td>
 					</tr>

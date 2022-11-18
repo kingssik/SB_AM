@@ -13,8 +13,8 @@ public class UsrAPITestController {
 		return "usr/home/APITest";
 	}
 
-	@RequestMapping("usr/home/APITest2")
+	@RequestMapping("usr/home/vetLocationAPI")
 	String showTest2Page() {
-		return "usr/home/APITest2";
+		return "usr/home/vetLocationAPI";
 	}
 }
