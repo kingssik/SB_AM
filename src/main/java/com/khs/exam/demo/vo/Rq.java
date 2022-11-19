@@ -58,20 +58,20 @@ public class Rq {
 		String requestUri = req.getRequestURI();
 
 		boolean isAjax = requestUri.endsWith("Ajax");
-		
-		if(isAjax == false) {
-			if(paramMap.containsKey("ajax") && paramMap.get("ajax").equals("Y")) {
+
+		if (isAjax == false) {
+			if (paramMap.containsKey("ajax") && paramMap.get("ajax").equals("Y")) {
 				isAjax = true;
-			} else if(paramMap.containsKey("isAjax") && paramMap.get("isAjax").equals("Y")) {
+			} else if (paramMap.containsKey("isAjax") && paramMap.get("isAjax").equals("Y")) {
 				isAjax = true;
 			}
 		}
-			if (isAjax == false) {
-				if (requestUri.contains("/get")) {
-					isAjax = true;
-				}
+		if (isAjax == false) {
+			if (requestUri.contains("/get")) {
+				isAjax = true;
 			}
-			this.isAjax = isAjax;
+		}
+		this.isAjax = isAjax;
 	}
 
 	public void printHistoryBackJs(String msg) {
@@ -155,6 +155,22 @@ public class Rq {
 
 	public String getLoginUri() {
 		return "../member/login?afterLoginUri=" + getAfterLoginUri();
+	}
+
+	public String getFindLoginIdUri() {
+		return "../member/findLoginId?afterFindLoginIdUri=" + getAfterFindLoginIdUri();
+	}
+
+	public String getFindLoginPwUri() {
+		return "../member/findLoginPw?afterFindLoginPwUri=" + getAfterFindLoginPwUri();
+	}
+
+	public String getAfterFindLoginIdUri() {
+		return getEncodedCurrentUri();
+	}
+
+	public String getAfterFindLoginPwUri() {
+		return getEncodedCurrentUri();
 	}
 
 	public String getLogoutUri() {

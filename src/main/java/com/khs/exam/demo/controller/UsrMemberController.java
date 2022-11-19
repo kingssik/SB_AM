@@ -91,6 +91,20 @@ public class UsrMemberController {
 		return Ut.jsReplace(Ut.f("%s님 안녕하세요", member.getNickname()), afterLoginUri);
 	}
 
+	@RequestMapping("usr/member/findLoginId")
+	@ResponseBody
+	public String showFindLoginId(String name, String email,
+			@RequestParam(defaultValue = "/") String afterFindLoginIdUri) {
+
+		Member member = memberService.getMemberByNameAndEmail(name, email);
+
+		if (member == null) {
+			return Ut.jsHistoryBack("존재하지 않는 이름이거나 이메일입니다");
+		}
+
+		return Ut.jsReplace(Ut.f("아이디 : %s", member.getLoginId()), afterFindLoginIdUri);
+	}
+
 	@RequestMapping("usr/member/doLogout")
 	@ResponseBody
 	public String doLogout(@RequestParam(defaultValue = "/") String afterLogoutUri) {
