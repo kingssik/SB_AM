@@ -7,8 +7,8 @@
 	<div class="container mx-auto px-3">
 		<div class="flex">
 			<div>
-				게시물 갯수 :
-				<span class="badge">${articlesCount }개</span>
+				게시물 수 :
+				<span class="badge">${articlesCount }</span>
 			</div>
 			<div class="flex-grow"></div>
 			<form class="flex">

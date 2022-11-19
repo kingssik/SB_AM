@@ -55,6 +55,16 @@
 					</a>
 				</li>
 				<li class="hover:text-purple-400">
+					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=3">
+						<span>INFO</span>
+					</a>
+				</li>
+				<li class="hover:text-purple-400">
+					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=4">
+						<span>HUMOR</span>
+					</a>
+				</li>
+				<li class="hover:text-purple-400">
 					<a class="h-full px-3 flex items-center" href="/usr/article/write">
 						<span>WRITE</span>
 					</a>
