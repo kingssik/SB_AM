@@ -25,7 +25,20 @@
 					maxlength="20" value="${param.searchKeyword }"
 				/>
 				<button type="submit" class="ml-2 btn btn-ghost">검색</button>
+
 			</form>
+
+			<form class="flex">
+				<input type="hidden" name="sort" value=${param.hitCount } />
+
+				<select data-value="${param.hitCount }" name="hitCount" class="select select-bordered">
+					<option disabled="disabled">정렬기준선택</option>
+					<option value="hitCount">조회수</option>
+				</select>
+
+				<a type="button" class="ml-2 btn btn-ghost" href="../article/list">정렬</a>
+			</form>
+
 		</div>
 		<div class="table-box-type-1 mt-3">
 			<table class="table table-fixed w-full">
@@ -95,4 +108,5 @@
 		</div>
 	</div>
 </section>
+
 <%@ include file="../common/foot.jspf"%>

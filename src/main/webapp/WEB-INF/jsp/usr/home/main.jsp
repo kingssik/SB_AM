@@ -3,13 +3,42 @@
 <c:set var="pageTitle" value="MAIN" />
 <%@ include file="../common/head.jspf"%>
 
+<style>
+.searchbox {
+	width: 90%;
+	border: 2px solid #fcd11e;
+	border-radius: 24px;
+	padding: 0 45px;
+	height: 50px;
+	line-height: 50px;
+	font-size: 16px;
+	letter-spacing: 0;
+	text-align: left;
+}
+
+.fa-solid fa-magnifying-glass {
+	position: absolute;
+	top: 39%;
+	width: 24px;
+	height: 24px;
+	left: 15px;
+	cursor: pointer;
+}
+</style>
+
 <section class="mt-8">
 	<div class="container mx-auto">
-		<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sed officiis tempore et in fugiat natus nobis
-			placeat veritatis repellat cupiditate similique est impedit. Tenetur optio facere a perferendis rem quasi!</div>
+		<div>
+			<span style="font-size: 25px;">
+				<a href="">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+			</span>
+			<input class="searchbox" maxlength="130" type="text" placeholder="찾는 질문 또는 궁금한 정보 입력" />
 
-		안녕하세요
-		<span class="Popup">팝업 예시</span>
+			<br />
+			<span class="Popup">팝업 예시</span>
+		</div>
 	</div>
 </section>
 <div class="layer-bg">

@@ -80,12 +80,19 @@ public class UsrArticleController {
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
 				page, searchKeywordTypeCode, searchKeyword);
 
+		List<Article> articlesByHitCount = articleService.getForPrintArticlesByHitCount(rq.getLoginedMemberId(),
+				boardId, itemsInAPage, page);
+
+		// 조회수 정렬시 잘 나오는지 확인하는 코드
+		System.out.println(articlesByHitCount);
+
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("board", board);
 		model.addAttribute("page", page);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
+		model.addAttribute("articlesByHitCount", articlesByHitCount);
 
 		return "usr/article/list";
 	}

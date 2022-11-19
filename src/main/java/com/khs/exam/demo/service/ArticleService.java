@@ -55,6 +55,18 @@ public class ArticleService {
 		return articles;
 	}
 
+	public List<Article> getForPrintArticlesByHitCount(int actorId, int boardId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getForPrintArticlesByHitCount(boardId, limitStart, limitTake);
+
+		for (Article article : articles) {
+			updateForPrintData(actorId, article);
+		}
+
+		return articles;
+	}
+
 	public ResultData<Integer> writeArticle(int memberId, int boardId, String title, String body) {
 		articleRepository.writeArticle(memberId, boardId, title, body);
 		int id = articleRepository.getLastInsertId();
@@ -113,7 +125,7 @@ public class ArticleService {
 	public int getArticleHitCount(int id) {
 		return articleRepository.getArticleHitCount(id);
 	}
-	
+
 	// 좋아요 처리
 	public ResultData increaseGoodReactionPoint(int relId) {
 		int affectedRowsCount = articleRepository.increaseGoodReactionPoint(relId);
@@ -124,7 +136,7 @@ public class ArticleService {
 
 		return ResultData.from("S-1", "좋아요 증가", "affectedRowsCount", affectedRowsCount);
 	}
-	
+
 	// 싫어요 처리
 	public ResultData increaseBadReactionPoint(int relId) {
 		int affectedRowsCount = articleRepository.increaseBadReactionPoint(relId);
@@ -135,7 +147,7 @@ public class ArticleService {
 
 		return ResultData.from("S-1", "싫어요 증가", "affectedRowsCount", affectedRowsCount);
 	}
-	
+
 	// 좋아요 취소
 	public ResultData decreaseGoodReactionPoint(int relId) {
 		int affectedRowsCount = articleRepository.decreaseGoodReactionPoint(relId);
@@ -145,8 +157,9 @@ public class ArticleService {
 		}
 
 		return ResultData.from("S-1", "좋아요 취소", "affectedRowsCount", affectedRowsCount);
-		
+
 	}
+
 	// 싫어요 취소
 	public ResultData decreaseBadReactionPoint(int relId) {
 		int affectedRowsCount = articleRepository.decreaseBadReactionPoint(relId);
@@ -156,8 +169,7 @@ public class ArticleService {
 		}
 
 		return ResultData.from("S-1", "싫어요 취소", "affectedRowsCount", affectedRowsCount);
-		
-		
+
 	}
 
 	public Article getArticle(int id) {
