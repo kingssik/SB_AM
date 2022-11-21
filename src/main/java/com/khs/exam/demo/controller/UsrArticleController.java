@@ -80,11 +80,17 @@ public class UsrArticleController {
 		List<Article> articles = articleService.getForPrintArticles(rq.getLoginedMemberId(), boardId, itemsInAPage,
 				page, searchKeywordTypeCode, searchKeyword);
 
+		// 최신순 정렬
+		List<Article> articlesByRegDate = articleService.getForPrintArticlesByRegDate(rq.getLoginedMemberId(), boardId,
+				itemsInAPage, page);
+
+		// 조회수 정렬
 		List<Article> articlesByHitCount = articleService.getForPrintArticlesByHitCount(rq.getLoginedMemberId(),
 				boardId, itemsInAPage, page);
 
-		// 조회수 정렬시 잘 나오는지 확인하는 코드
-		System.out.println(articlesByHitCount);
+		// 추천순 정렬
+		List<Article> articlesByGoodReactionPoint = articleService
+				.getForPrintArticlesByGoodReactionPoint(rq.getLoginedMemberId(), boardId, itemsInAPage, page);
 
 		model.addAttribute("boardId", boardId);
 		model.addAttribute("board", board);
@@ -92,7 +98,10 @@ public class UsrArticleController {
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("articles", articles);
+
+		model.addAttribute("articlesByRegDate", articlesByRegDate);
 		model.addAttribute("articlesByHitCount", articlesByHitCount);
+		model.addAttribute("articlesByGoodReactionPoint", articlesByGoodReactionPoint);
 
 		return "usr/article/list";
 	}

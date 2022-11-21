@@ -82,6 +82,44 @@ public interface ArticleRepository {
 								""")
 	public List<Article> getForPrintArticlesByHitCount(int boardId, int limitStart, int limitTake);
 
+	@Select("""
+			<script>
+				SELECT A.*,
+				M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE 1
+				<if test="boardId != 0">
+					AND A.boardId = #{boardId}
+				</if>
+				ORDER BY A.regDate DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>
+			</script>
+								""")
+	public List<Article> getForPrintArticlesByRegDate(int boardId, int limitStart, int limitTake);
+
+	@Select("""
+			<script>
+				SELECT A.*,
+				M.nickname AS extra__writerName
+				FROM article AS A
+				LEFT JOIN `member` AS M
+				ON A.memberId = M.id
+				WHERE 1
+				<if test="boardId != 0">
+					AND A.boardId = #{boardId}
+				</if>
+				ORDER BY A.goodReactionPoint DESC
+				<if test="limitTake != -1">
+					LIMIT #{limitStart}, #{limitTake}
+				</if>
+			</script>
+								""")
+	public List<Article> getForPrintArticlesByGoodReactionPoint(int boardId, int limitStart, int limitTake);
+
 	public void deleteArticle(int id);
 
 	public void modifyArticle(int id, String title, String body);

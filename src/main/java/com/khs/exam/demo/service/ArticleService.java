@@ -67,6 +67,30 @@ public class ArticleService {
 		return articles;
 	}
 
+	public List<Article> getForPrintArticlesByRegDate(int actorId, int boardId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getForPrintArticlesByRegDate(boardId, limitStart, limitTake);
+
+		for (Article article : articles) {
+			updateForPrintData(actorId, article);
+		}
+
+		return articles;
+	}
+
+	public List<Article> getForPrintArticlesByGoodReactionPoint(int actorId, int boardId, int itemsInAPage, int page) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Article> articles = articleRepository.getForPrintArticlesByGoodReactionPoint(boardId, limitStart, limitTake);
+
+		for (Article article : articles) {
+			updateForPrintData(actorId, article);
+		}
+
+		return articles;
+	}
+
 	public ResultData<Integer> writeArticle(int memberId, int boardId, String title, String body) {
 		articleRepository.writeArticle(memberId, boardId, title, body);
 		int id = articleRepository.getLastInsertId();
