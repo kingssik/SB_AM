@@ -24,13 +24,14 @@
 				<input name="searchKeyword" type="text" class="ml-2 w-96 input input-borderd" placeholder="검색어를 입력하세요"
 					maxlength="20" value="${param.searchKeyword }"
 				/>
-				<button type="submit" class="ml-2 btn btn-ghost">검색</button>
+				<button type="submit" class="mx-2 btn btn-ghost">검색</button>
 
 			</form>
 
 			<form class="flex">
+				<input type="hidden" name="boardId" value="${param.boardId}" />
 
-				<select data-value="${param.sortCriteria }" name="sortCriteria" class="select select-bordered">
+				<select data-value="${sortCriteria }" name="sortCriteria" class="select select-bordered">
 					<option disabled="disabled">정렬기준</option>
 					<option value="regDate">최신순</option>
 					<option value="hitCount">조회수</option>
@@ -41,7 +42,6 @@
 
 		</div>
 
-		<!--   Article list(normal)   -->
 		<div class="table-box-type-1 mt-3">
 			<table class="table table-fixed w-full">
 				<colgroup>
@@ -62,24 +62,27 @@
 						<th>추천</th>
 					</tr>
 				</thead>
+				<!--   Article list(normal)   -->
+				<c:if test="${sortCriteria == '' }">
+					<tbody>
+						<c:forEach var="article" items="${articles }">
+							<tr class="hover">
+								<td>${article.id}</td>
+								<td>${article.forPrintType1RegDate}</td>
+								<td>
+									<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
+								</td>
+								<td>${article.extra__writerName}</td>
+								<td>${article.hitCount}</td>
+								<td>${article.goodReactionPoint}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</c:if>
 
-				<tbody>
-					<c:forEach var="article" items="${articles }">
-						<tr class="hover">
-							<td>${article.id}</td>
-							<td>${article.forPrintType1RegDate}</td>
-							<td>
-								<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
-							</td>
-							<td>${article.extra__writerName}</td>
-							<td>${article.hitCount}</td>
-							<td>${article.goodReactionPoint}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
 
 				<!-- 최신순 정렬 -->
-<%-- 				<c:if test="${}"> --%>
+				<c:if test="${sortCriteria == 'regDate' }">
 					<tbody>
 						<c:forEach var="article" items="${articlesByRegDate }">
 							<tr class="hover">
@@ -94,43 +97,43 @@
 							</tr>
 						</c:forEach>
 					</tbody>
-<%-- 				</c:if> --%>
+				</c:if>
 
 				<!-- 추천순 정렬 -->
-				<%-- 				<c:if test=""> --%>
 				<tbody>
-					<c:forEach var="article" items="${articlesByGoodReactionPoint }">
-						<tr class="hover">
-							<td>${article.id}</td>
-							<td>${article.forPrintType1RegDate}</td>
-							<td>
-								<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
-							</td>
-							<td>${article.extra__writerName}</td>
-							<td>${article.hitCount}</td>
-							<td>${article.goodReactionPoint}</td>
-						</tr>
-					</c:forEach>
+					<c:if test="${sortCriteria == 'goodReactionPoint' }">
+						<c:forEach var="article" items="${articlesByGoodReactionPoint }">
+							<tr class="hover">
+								<td>${article.id}</td>
+								<td>${article.forPrintType1RegDate}</td>
+								<td>
+									<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
+								</td>
+								<td>${article.extra__writerName}</td>
+								<td>${article.hitCount}</td>
+								<td>${article.goodReactionPoint}</td>
+							</tr>
+						</c:forEach>
+					</c:if>
 				</tbody>
-				<%-- 				</c:if> --%>
 
 				<!-- 조회수 정렬 -->
-				<%-- 				<c:if test=""> --%>
-				<tbody>
-					<c:forEach var="article" items="${articlesByHitCount }">
-						<tr class="hover">
-							<td>${article.id}</td>
-							<td>${article.forPrintType1RegDate}</td>
-							<td>
-								<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
-							</td>
-							<td>${article.extra__writerName}</td>
-							<td>${article.hitCount}</td>
-							<td>${article.goodReactionPoint}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-				<%-- 				</c:if> --%>
+				<c:if test="${sortCriteria == 'hitCount' }">
+					<tbody>
+						<c:forEach var="article" items="${articlesByHitCount }">
+							<tr class="hover">
+								<td>${article.id}</td>
+								<td>${article.forPrintType1RegDate}</td>
+								<td>
+									<a class="hover:underline block w-full truncate" href="${rq.getArticleDetailUriFromArticleList(article) }">${article.title}</a>
+								</td>
+								<td>${article.extra__writerName}</td>
+								<td>${article.hitCount}</td>
+								<td>${article.goodReactionPoint}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</c:if>
 			</table>
 		</div>
 		<div class="page-menu mt-3 flex justify-center">

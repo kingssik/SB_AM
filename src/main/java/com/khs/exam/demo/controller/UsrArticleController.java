@@ -63,6 +63,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	public String showList(Model model, @RequestParam(defaultValue = "1") int boardId,
+			@RequestParam(defaultValue = "") String sortCriteria,
 			@RequestParam(defaultValue = "title,body") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 
@@ -97,6 +98,7 @@ public class UsrArticleController {
 		model.addAttribute("page", page);
 		model.addAttribute("articlesCount", articlesCount);
 		model.addAttribute("pagesCount", pagesCount);
+		model.addAttribute("sortCriteria", sortCriteria);
 		model.addAttribute("articles", articles);
 
 		model.addAttribute("articlesByRegDate", articlesByRegDate);
