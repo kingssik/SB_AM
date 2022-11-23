@@ -85,4 +85,8 @@ public class MemberService {
 		System.out.println("cnt: " + cnt);
 		return cnt;
 	}
+
+	public void deleteMember(int id) {
+		memberRepository.deleteMember(id);
+	}
 }

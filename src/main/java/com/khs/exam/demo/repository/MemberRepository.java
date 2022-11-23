@@ -80,4 +80,14 @@ public interface MemberRepository {
 			WHERE id= #{id}
 			""")
 	int idCheck(String id);
+	
+	@Update("""
+			<script>
+				UPDATE `member`
+				SET delStatus = 1,
+				delDate = NOW()
+				WHERE id = #{id}
+			</script>
+			""")
+	void deleteMember(int id);
 }

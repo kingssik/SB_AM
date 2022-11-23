@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khs.exam.demo.service.MemberService;
 import com.khs.exam.demo.util.Ut;
+import com.khs.exam.demo.vo.Article;
 import com.khs.exam.demo.vo.Member;
 import com.khs.exam.demo.vo.ResultData;
 import com.khs.exam.demo.vo.Rq;
@@ -187,6 +188,27 @@ public class UsrMemberController {
 				email);
 
 		return rq.jsReplace(modifyRd.getMsg(), "/");
+
+	}
+
+	@RequestMapping("/usr/member/doDelete")
+	@ResponseBody
+	public String doDelete() {
+
+		Member member = memberService.getMemberById(rq.getLoginedMemberId());
+
+		if (member == null) {
+
+			return rq.jsHistoryBack("존재하지 않는 회원입니다");
+		}
+
+		if (member.getId() != rq.getLoginedMemberId()) {
+			return rq.jsHistoryBack(Ut.f("%d번 회원에 대한 권한이 없습니다.", member.getId()));
+		}
+
+		memberService.deleteMember(member.getId());
+
+		return rq.jsReplace("탈퇴가 완료되었습니다", "/");
 
 	}
 

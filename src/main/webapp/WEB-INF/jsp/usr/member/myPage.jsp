@@ -36,24 +36,18 @@
 						<th>이메일</th>
 						<td>${rq.loginedMember.email }</td>
 					</tr>
-					<tr>
-						<th></th>
-						<td>
-							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}"
-								class="btn btn-active btn-ghost"
-							> 회원정보수정 </a>
-							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/doResign')}"
-								class="btn btn-active btn-ghost"
-							> 회원 탈퇴 </a>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 
-	<div class="container mx-auto btns">
-		<button class="btn-text-link btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+	<div class="container mx-auto btns mt-2">
+		<button class="btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
+		<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-active btn-ghost">
+			회원정보수정 </a>
+		<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/doDelete')}"
+			class="btn btn-active btn-ghost"
+		> 회원 탈퇴 </a>
 	</div>
 
 </section>
