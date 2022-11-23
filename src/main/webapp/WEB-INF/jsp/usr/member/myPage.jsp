@@ -42,6 +42,9 @@
 							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}"
 								class="btn btn-active btn-ghost"
 							> 회원정보수정 </a>
+							<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/doResign')}"
+								class="btn btn-active btn-ghost"
+							> 회원 탈퇴 </a>
 						</td>
 					</tr>
 				</tbody>

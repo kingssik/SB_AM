@@ -8,13 +8,13 @@ import com.khs.exam.demo.vo.Rq;
 @Controller
 public class UsrAPIController {
 	
-	@RequestMapping("usr/home/translationAPI")
+	@RequestMapping("usr/home/APITest")
 	String showTestPage() {
-		return "usr/home/translationAPI";
+		return "usr/home/APITest";
 	}
 
-	@RequestMapping("usr/home/detectLanAPI")
+	@RequestMapping("usr/home/vetLocationAPI")
 	String showTest2Page() {
-		return "usr/home/detectLanAPI";
+		return "usr/home/vetLocationAPI";
 	}
 }
