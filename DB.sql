@@ -317,6 +317,7 @@ DESC article;
 SELECT * FROM article;
 
 SELECT * FROM `member`;
+DESC `member`;
 
 SELECT LAST_INSERT_ID();
 
@@ -401,3 +402,43 @@ ON R.memberId = M.id
 WHERE R.id = 3
 
 SELECT SHA2('Hello',256)
+
+UPDATE article
+SET hitCount = 6
+WHERE id = 1;
+
+SELECT A.*,	M.nickname AS extra__writerName
+FROM article AS A
+LEFT JOIN `member` AS M
+ON A.memberId = M.id
+WHERE 1
+AND A.boardId = 1
+ORDER BY hitCount DESC
+LIMIT 0, 10;
+
+/* 게시글 기준별 정렬 테스트데이터 */
+SELECT A.*, M.nickname AS extra__writerName
+FROM article AS A
+LEFT JOIN `member` AS M
+ON A.memberId = M.id
+ORDER BY hitCount DESC
+
+SELECT A.*, M.nickname AS extra__writerName
+FROM article AS A
+LEFT JOIN `member` AS M
+ON A.memberId = M.id
+ORDER BY regDate DESC
+
+SELECT A.*, M.nickname AS extra__writerName
+FROM article AS A
+LEFT JOIN `member` AS M
+ON A.memberId = M.id
+ORDER BY goodReactionPoint DESC
+
+/* 회원탈퇴 테스트데이터 */
+UPDATE `member`
+SET delStatus = 0,
+delDate = NULL
+WHERE id = 4;
+
+SELECT * FROM `member`;
