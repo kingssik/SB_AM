@@ -87,6 +87,10 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("비밀번호가 일치하지 않습니다");
 		}
 
+		if (member.isDelStatus()) {
+			return Ut.jsHistoryBack("이미 탈퇴한 회원입니다");
+		}
+
 		rq.login(member);
 
 		return Ut.jsReplace(Ut.f("%s님 안녕하세요", member.getNickname()), afterLoginUri);
@@ -191,24 +195,29 @@ public class UsrMemberController {
 
 	}
 
-	@RequestMapping("/usr/member/doDelete")
+	@RequestMapping("/usr/member/doWithdraw")
 	@ResponseBody
-	public String doDelete() {
+	public String doWithdraw(@RequestParam(defaultValue = "/") String replaceUri) {
 
 		Member member = memberService.getMemberById(rq.getLoginedMemberId());
 
 		if (member == null) {
-
 			return rq.jsHistoryBack("존재하지 않는 회원입니다");
+		}
+
+		if (member.isDelStatus()) {
+			return rq.jsHistoryBack("이미 탈퇴한 회원입니다");
 		}
 
 		if (member.getId() != rq.getLoginedMemberId()) {
 			return rq.jsHistoryBack(Ut.f("%d번 회원에 대한 권한이 없습니다.", member.getId()));
 		}
 
-		memberService.deleteMember(member.getId());
+		memberService.withdrawMember(member.getId());
 
-		return rq.jsReplace("탈퇴가 완료되었습니다", "/");
+		rq.logout();
+
+		return rq.jsReplace("탈퇴가 완료되었습니다", replaceUri);
 
 	}
 

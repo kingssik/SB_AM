@@ -75,12 +75,12 @@ public interface MemberRepository {
 	void modify(int id, String loginPw, String name, String nickname, String cellphoneNum, String email);
 
 	@Select("""
-			SELECT COUNT(id) 
+			SELECT COUNT(id)
 			FROM `member`
 			WHERE id= #{id}
 			""")
 	int idCheck(String id);
-	
+
 	@Update("""
 			<script>
 				UPDATE `member`
@@ -89,5 +89,5 @@ public interface MemberRepository {
 				WHERE id = #{id}
 			</script>
 			""")
-	void deleteMember(int id);
+	void withdrawMember(int id);
 }
