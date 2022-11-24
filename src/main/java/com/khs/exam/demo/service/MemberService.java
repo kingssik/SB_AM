@@ -1,9 +1,12 @@
 package com.khs.exam.demo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.khs.exam.demo.repository.MemberRepository;
 import com.khs.exam.demo.util.Ut;
+import com.khs.exam.demo.vo.Article;
 import com.khs.exam.demo.vo.Member;
 import com.khs.exam.demo.vo.ResultData;
 
@@ -89,5 +92,20 @@ public class MemberService {
 	public void withdrawMember(int id) {
 		memberRepository.withdrawMember(id);
 
+	}
+
+	public int getMembersCount(String authLevel, String searchKeywordTypeCode, String searchKeyword) {
+		return memberRepository.getMembersCount(authLevel, searchKeywordTypeCode, searchKeyword);
+	}
+
+	public List<Member> getForPrintMembers(String authLevel, int itemsInAPage, int page, String searchKeywordTypeCode,
+			String searchKeyword) {
+
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Member> members = memberRepository.getForPrintMembers(authLevel, searchKeywordTypeCode, searchKeyword,
+				limitStart, limitTake);
+
+		return members;
 	}
 }

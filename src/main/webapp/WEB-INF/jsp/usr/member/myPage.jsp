@@ -45,7 +45,7 @@
 		<button class="btn btn-active btn-ghost" type="button" onclick="history.back();">뒤로가기</button>
 		<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/modify')}" class="btn btn-active btn-ghost">
 			회원정보수정 </a>
-		<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/doDelete')}"
+		<a href="../member/checkPassword?replaceUri=${Ut.getUriEncoded('../member/doWithdraw')}"
 			class="btn btn-active btn-ghost"
 		> 회원 탈퇴 </a>
 	</div>
