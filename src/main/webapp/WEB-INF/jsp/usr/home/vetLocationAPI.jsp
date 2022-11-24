@@ -1,9 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set var="pageTitle" value="VET LOCATION" />
+<c:set var="pageTitle" value="API TEST" />
 <%@ include file="../common/head.jspf"%>
 
 <style>
+#result {
+	position: absolute;
+	top: 82%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
+p {
+	position: absolute;
+	top: 80%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+}
+
 .map {
 	position: absolute;
 	top: 50%;
@@ -25,8 +39,10 @@
 
 .map_wrap {
 	position: relative;
-	width: 100%;
-	height: 500px;
+	width: 80%;
+	height: 600px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #menu_wrap {
@@ -198,10 +214,14 @@
 }
 </style>
 
-<div class="map" id="map" style="width: 1100px; height: 600px;"></div>
+<!-- <div class="map" id="map" style="width: 1100px; height: 600px;"></div> 주석처리하면 왜 확대축소가 되는지 분석중 -->
+<div class="map" style="width: 1100px; height: 600px;"></div>
+<p>
+	<em>지도를 확대 또는 축소 해주세요!</em>
+</p>
+<p id="result"></p>
 <div class="map_wrap">
 	<div id="map" style="width: 100%; height: 100%; position: relative; overflow: hidden;"></div>
-
 	<div id="menu_wrap" class="bg_white">
 		<div class="option">
 			<div>
@@ -222,12 +242,13 @@
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62a277ca5cdc4c086160482dc327ab3a&libraries=services"
 ></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62a277ca5cdc4c086160482dc327ab3a&libraries"></script>
 
 <script>
-	// 	마커를 담을 배열입니다
+	// 마커를 담을 배열입니다
 	var markers = [];
 
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	var mapContainer = document.getElementById('map'), // 지도를 표시할 div
 	mapOption = {
 		center : new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
 		level : 3
@@ -441,18 +462,6 @@
 			el.removeChild(el.lastChild);
 		}
 	}
-</script>
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=62a277ca5cdc4c086160482dc327ab3a&libraries"></script>
-<script>
-	// 	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	// 	mapOption = {
-	// 		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-	// 		level : 3
-	// 	// 지도의 확대 레벨
-	// 	};
-
-	// 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 	// 지도 확대 축소를 제어할 수 있는  줌 컨트롤을 생성합니다
 	var zoomControl = new kakao.maps.ZoomControl();
