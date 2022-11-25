@@ -21,27 +21,28 @@
 
 <script>
 function Theme__toggle() {
-	const theme = localStorage.getItem("theme") ?? "light";
+const theme = localStorage.getItem("theme") ?? "light";
 
-	if(theme === 'light') {
-		localStorage.setItem('theme', 'dark');
-// 		Theme__applyTo('dark');
-	}
-	else {
-		localStorage.setItem('theme', 'light');
-// 		Theme__applyTo('light');
-	}
-	
-	location.reload();
+ if ( theme == 'light' ) {
+   localStorage.setItem("theme", "dark");
+   //Theme__applyTo('dark');
+ }
+ else {
+   localStorage.setItem("theme", "light");
+   //Theme__applyTo('light');
+ }
+ 
+ location.reload();
+
 }
 
 function Theme__applyTo(themeName) {
-	$('html').attr('data-theme', themeName);
+ $('html').attr('data-theme', themeName);
 }
 
 function Theme__init() {
-	const theme = localStorage.getItem('theme') ?? 'light';
-	Theme__applyTo(theme);
+ const theme = localStorage.getItem("theme") ?? "light";
+ Theme__applyTo(theme);
 }
 
 Theme__init();
@@ -52,16 +53,16 @@ Theme__init();
 <script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-	<!-- 	<div class="side-bar"> -->
-	<!-- 		<div class="status-icon"> -->
-	<!-- 			<div>▶</div> -->
-	<!-- 			<div>▼</div> -->
-	<!-- 		</div> -->
-	<!-- 	</div> -->
+	<!-- <div class="side-bar"> -->
+	<!-- <div class="status-icon"> -->
+	<!-- <div>▶</div> -->
+	<!-- <div>▼</div> -->
+	<!-- </div> -->
+	<!-- </div> -->
 
 	<header>
 		<div class=" h-20 flex container mx-auto text-4xl">
-			<a href="/" class=" flex items-center px-3">
+			<a href="/" class=" flex items-center px-2">
 				<span>로고</span>
 			</a>
 
@@ -69,72 +70,90 @@ Theme__init();
 
 			<ul class="flex">
 				<li>
-					<a class="h-full hover:underline px-3 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
+					<a class="h-full hover:underline px-2 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
 						<span>🌞</span>
 						<span>🌚</span>
 					</a>
 				</li>
+				<!-- <li class="hover:text-purple-400"> -->
+				<!-- <a class="h-full px-2 flex items-center" href="/"> -->
+				<!-- <span>HOME</span> -->
+				<!-- </a> -->
+				<!-- </li> -->
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/">
-						<span>HOME</span>
+					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">
+						<span> NOTICE </span>
 					</a>
 				</li>
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=1">
-						<span>NOTICE</span>
+					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2">
+						<span> FREE </span>
 					</a>
 				</li>
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=2">
-						<span>FREE</span>
+					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3">
+						<span> INFO </span>
 					</a>
 				</li>
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=3">
-						<span>INFO</span>
+					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4">
+						<span> HUMOR </span>
 					</a>
 				</li>
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/article/list?boardId=4">
-						<span>HUMOR</span>
-					</a>
-				</li>
-				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/article/write">
-						<span>WRITE</span>
+					<a class="h-full px-2 flex items-center" href="/usr/article/write">
+						<span>
+							<i class="fa-solid fa-pen-to-square"></i>
+							WRITE
+						</span>
 					</a>
 				</li>
 				<c:if test="${!rq.logined}">
 					<li class="hover:text-purple-400">
-						<a class="h-full px-3 flex items-center" href="${rq.loginUri}">
-							<span>LOGIN</span>
+						<a class="h-full px-2 flex items-center" href="${rq.loginUri}">
+							<span>
+								<i class="fa-sharp fa-solid fa-right-to-bracket"></i>
+								LOGIN
+							</span>
 						</a>
 					</li>
 				</c:if>
 				<c:if test="${!rq.logined}">
 					<li class="hover:text-purple-400">
-						<a class="h-full px-3 flex items-center" href="${rq.joinUri }">
-							<span>JOIN</span>
+						<a class="h-full px-2 flex items-center" href="${rq.joinUri }">
+							<span>
+								<i class="fa-solid fa-person-through-window"></i>
+								JOIN
+							</span>
 						</a>
 					</li>
 				</c:if>
 				<c:if test="${rq.logined}">
 					<li class="hover:text-purple-400">
-						<a class="h-full px-3 flex items-center" href="${rq.logoutUri }">
-							<span>LOGOUT</span>
+						<a class="h-full px-2 flex items-center" href="${rq.logoutUri }">
+							<span>
+								<i class="fa-solid fa-person-running"></i>
+								LOGOUT
+							</span>
 						</a>
 					</li>
 				</c:if>
 				<c:if test="${rq.logined}">
 					<li class="hover:text-purple-400">
-						<a class="h-full px-3 flex items-center" href="/usr/member/myPage">
-							<span>MY PAGE</span>
+						<a class="h-full px-2 flex items-center" href="/usr/member/myPage">
+							<span>
+								<i class="fa-sharp fa-solid fa-face-rolling-eyes"></i>
+								MY PAGE
+							</span>
 						</a>
 					</li>
 				</c:if>
 				<li class="hover:text-purple-400">
-					<a class="h-full px-3 flex items-center" href="/usr/home/vetLocationAPI">
-						<span>VET</span>
+					<a class="h-full px-2 flex items-center" href="/usr/home/vetLocationAPI">
+						<span>
+							<i class="fa-solid fa-location-dot"></i>
+							VET
+						</span>
 					</a>
 				</li>
 
@@ -143,7 +162,7 @@ Theme__init();
 	</header>
 
 	<section class="my-3 text-2xl">
-		<div class="container mx-auto px-3">
+		<div class="container mx-auto px-2">
 			<h1>${pageTitle }&nbsp;PAGE</h1>
 		</div>
 	</section>
