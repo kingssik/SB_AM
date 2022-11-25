@@ -19,6 +19,19 @@
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
+<style>
+.boards_units>li {
+	display: none;
+	/*   position: absolute;  */
+	font-size: 23px;
+}
+
+.boards:hover>ul>li {
+	display: block;
+	position: relative;
+}
+</style>
+
 <script>
 function Theme__toggle() {
 const theme = localStorage.getItem("theme") ?? "light";
@@ -53,12 +66,6 @@ Theme__init();
 <script src="/resource/common.js" defer="defer"></script>
 </head>
 <body>
-	<!-- <div class="side-bar"> -->
-	<!-- <div class="status-icon"> -->
-	<!-- <div>▶</div> -->
-	<!-- <div>▼</div> -->
-	<!-- </div> -->
-	<!-- </div> -->
 
 	<header>
 		<div class=" h-20 flex container mx-auto text-4xl">
@@ -75,31 +82,50 @@ Theme__init();
 						<span>🌚</span>
 					</a>
 				</li>
-				<!-- <li class="hover:text-purple-400"> -->
-				<!-- <a class="h-full px-2 flex items-center" href="/"> -->
-				<!-- <span>HOME</span> -->
-				<!-- </a> -->
-				<!-- </li> -->
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">
-						<span> NOTICE </span>
-					</a>
-				</li>
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2">
-						<span> FREE </span>
-					</a>
-				</li>
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3">
-						<span> INFO </span>
-					</a>
-				</li>
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4">
-						<span> HUMOR </span>
-					</a>
-				</li>
+				<li class="boards">
+					<a href="#" class="hover:text-purple-400">BOARDS</a>
+					<ul class="boards_units">
+						<li class="hover:text-blue-400">
+							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">
+								<span>NOTICE</span>
+							</a>
+						</li>
+						<li class="hover:text-blue-400">
+							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2">
+								<span> FREE </span>
+							</a>
+						</li>
+						<li class="hover:text-blue-400">
+							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3">
+								<span> INFO </span>
+							</a>
+						</li>
+						<li class="hover:text-blue-400">
+							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4">
+								<span> HUMOR </span>
+							</a>
+						</li>
+					</ul>
+					<!-- <li class="hover:text-purple-400"> -->
+					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1"> -->
+					<!-- <span> NOTICE </span> -->
+					<!-- </a> -->
+					<!-- </li> -->
+					<!-- <li class="hover:text-purple-400"> -->
+					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2"> -->
+					<!-- <span> FREE </span> -->
+					<!-- </a> -->
+					<!-- </li> -->
+					<!-- <li class="hover:text-purple-400"> -->
+					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3"> -->
+					<!-- <span> INFO </span> -->
+					<!-- </a> -->
+					<!-- </li> -->
+					<!-- <li class="hover:text-purple-400"> -->
+					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4"> -->
+					<!-- <span> HUMOR </span> -->
+					<!-- </a> -->
+					<!-- </li> -->
 				<li class="hover:text-purple-400">
 					<a class="h-full px-2 flex items-center" href="/usr/article/write">
 						<span>
