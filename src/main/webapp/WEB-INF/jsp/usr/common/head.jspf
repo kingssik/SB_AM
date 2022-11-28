@@ -61,6 +61,28 @@ $(document).ready(function () {
 });
 </script>
 
+<style>
+.submenu {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	width: 100%;
+	display: none;
+}
+
+.submenu>li {
+	text-align: center;
+}
+
+.submenu>li>a {
+	display: inline-block;
+}
+
+.board {
+	position: relative;
+}
+</style>
+
 <link rel="stylesheet" href="/resource/common.css" />
 <link rel="shorcut icon" href="/favicon.ico" />
 <script src="/resource/common.js" defer="defer"></script>
@@ -84,8 +106,8 @@ $(document).ready(function () {
 						</a>
 					</li>
 					<li>
-						<a href="" class="hover:text-purple-400 flex items-center">BOARDS</a>
-						<ul class="submenu">
+						<a href="" class="hover:text-purple-400 flex items-center board">BOARDS</a>
+						<ul class="submenu" style="font-size: 23px;">
 							<li class="hover:text-blue-400">
 								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a>
 							</li>
