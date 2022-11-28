@@ -92,7 +92,9 @@ $(document).ready(function () {
 	<header>
 		<div class=" h-20 flex container mx-auto text-4xl">
 			<a href="/" class=" flex items-center px-2">
-				<span>로고</span>
+				<span>
+					<i class="fa-solid fa-dragon"></i>
+				</span>
 			</a>
 
 			<div class="flex-grow"></div>
@@ -106,7 +108,10 @@ $(document).ready(function () {
 						</a>
 					</li>
 					<li>
-						<a href="" class="hover:text-purple-400 flex items-center board">BOARDS</a>
+						<a href="" class="hover:text-purple-400 flex items-center board">
+							<i class="fa-regular fa-clipboard"></i>
+							BOARDS
+						</a>
 						<ul class="submenu" style="font-size: 23px;">
 							<li class="hover:text-blue-400">
 								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a>
