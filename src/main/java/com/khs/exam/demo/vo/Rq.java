@@ -206,7 +206,15 @@ public class Rq {
 	}
 
 	public String getArticleDetailUriFromArticleList(Article article) {
-		return "../article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+		return "usr/article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+	}
+
+	public boolean isAdmin() {
+		if (isLogined == false) {
+			return false;
+		}
+		
+		return loginedMember.isAdmin();
 	}
 
 }

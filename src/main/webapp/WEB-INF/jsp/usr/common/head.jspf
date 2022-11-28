@@ -135,23 +135,54 @@ $(document).ready(function () {
 							</span>
 						</a>
 					</li>
-					<li class="hover:text-purple-400">
-						<a class="h-full px-2 flex items-center" href="${rq.loginUri}">
-							<span>
-								<i class="fa-sharp fa-solid fa-right-to-bracket"></i>
-								LOGIN
-							</span>
-						</a>
-					</li>
-					<li class="hover:text-purple-400">
-						<a class="h-full px-2 flex items-center" href="${rq.joinUri }">
-							<span>
-								<i class="fa-solid fa-person-through-window"></i>
-								JOIN
-							</span>
-						</a>
-					</li>
-					<li class="hover:text-purple-400">
+					<c:if test="${!rq.logined}">
+						<li class="hover:text-purple-400 flex items-center board">
+							<a class="h-full px-3 flex items-center" href="${rq.loginUri}">
+								<span>
+									<i class="fa-sharp fa-solid fa-right-to-bracket"></i>
+									LOGIN
+								</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${!rq.logined}">
+						<li class="hover:text-purple-400 flex items-center board">
+							<a class="h-full px-3 flex items-center" href="${rq.joinUri }">
+								<span>
+									<i class="fa-solid fa-person-through-window"></i>
+									JOIN
+								</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${rq.logined}">
+						<li class="hover:text-purple-400 flex items-center board">
+							<a class="h-full px-3 flex items-center" href="/usr/member/myPage">
+								<span>
+									<i class="fa-sharp fa-solid fa-face-rolling-eyes"></i>
+									MYPAGE
+								</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${rq.logined}">
+						<li class="hover:text-purple-400 flex items-center board">
+							<a class="h-full px-3 flex items-center" href="${rq.logoutUri}">
+								<span>
+									<i class="fa-solid fa-person-running"></i>
+									LOGOUT
+								</span>
+							</a>
+						</li>
+					</c:if>
+					<c:if test="${rq.admin}">
+						<li class="hover:text-purple-400 flex items-center board">
+							<a class="h-full px-3 flex items-center" href="/adm/member/list">
+								<span>ADMIN</span>
+							</a>
+						</li>
+					</c:if>
+					<li class="hover:text-purple-400 flex items-center board">
 						<a class="h-full px-2 flex items-center" href="/usr/home/vetLocationAPI">
 							<span>
 								<i class="fa-solid fa-location-dot"></i>
