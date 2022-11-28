@@ -19,20 +19,8 @@
 <!-- 폰트어썸 불러오기 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
 
-<style>
-.boards_units>li {
-	display: none;
-	/*   position: absolute;  */
-	font-size: 23px;
-}
-
-.boards:hover>ul>li {
-	display: block;
-	position: relative;
-}
-</style>
-
 <script>
+// 테마 관련
 function Theme__toggle() {
 const theme = localStorage.getItem("theme") ?? "light";
 
@@ -59,6 +47,18 @@ function Theme__init() {
 }
 
 Theme__init();
+
+// 드롭다운 메뉴 관련
+$(document).ready(function () {
+
+    $(".menu > ul > li").mouseover(function () {
+        $(this).find(".submenu").stop().slideDown(200);
+    });
+
+    $(".menu > ul > li").mouseout(function () {
+        $(this).find(".submenu").stop().slideUp(200);
+    });
+});
 </script>
 
 <link rel="stylesheet" href="/resource/common.css" />
@@ -75,66 +75,39 @@ Theme__init();
 
 			<div class="flex-grow"></div>
 
-			<ul class="flex">
-				<li>
-					<a class="h-full hover:underline px-2 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
-						<span>🌞</span>
-						<span>🌚</span>
-					</a>
-				</li>
-				<li class="boards">
-					<a href="#" class="hover:text-purple-400">BOARDS</a>
-					<ul class="boards_units">
-						<li class="hover:text-blue-400">
-							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">
-								<span>NOTICE</span>
-							</a>
-						</li>
-						<li class="hover:text-blue-400">
-							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2">
-								<span> FREE </span>
-							</a>
-						</li>
-						<li class="hover:text-blue-400">
-							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3">
-								<span> INFO </span>
-							</a>
-						</li>
-						<li class="hover:text-blue-400">
-							<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4">
-								<span> HUMOR </span>
-							</a>
-						</li>
-					</ul>
-					<!-- <li class="hover:text-purple-400"> -->
-					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1"> -->
-					<!-- <span> NOTICE </span> -->
-					<!-- </a> -->
-					<!-- </li> -->
-					<!-- <li class="hover:text-purple-400"> -->
-					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2"> -->
-					<!-- <span> FREE </span> -->
-					<!-- </a> -->
-					<!-- </li> -->
-					<!-- <li class="hover:text-purple-400"> -->
-					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3"> -->
-					<!-- <span> INFO </span> -->
-					<!-- </a> -->
-					<!-- </li> -->
-					<!-- <li class="hover:text-purple-400"> -->
-					<!-- <a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4"> -->
-					<!-- <span> HUMOR </span> -->
-					<!-- </a> -->
-					<!-- </li> -->
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/article/write">
-						<span>
-							<i class="fa-solid fa-pen-to-square"></i>
-							WRITE
-						</span>
-					</a>
-				</li>
-				<c:if test="${!rq.logined}">
+			<nav class="menu relative">
+				<ul class="flex">
+					<li>
+						<a class="h-full hover:underline px-2 flex items-center btn-theme-toggle" href="javascript:Theme__toggle();">
+							<span>🌞</span>
+							<span>🌚</span>
+						</a>
+					</li>
+					<li>
+						<a href="" class="hover:text-purple-400 flex items-center">BOARDS</a>
+						<ul class="submenu">
+							<li class="hover:text-blue-400">
+								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=1">NOTICE</a>
+							</li>
+							<li class="hover:text-blue-400">
+								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=2">FREE</a>
+							</li>
+							<li class="hover:text-blue-400">
+								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=3">INFO</a>
+							</li>
+							<li class="hover:text-blue-400">
+								<a class="h-full px-2 flex items-center" href="/usr/article/list?boardId=4">HUMOR</a>
+							</li>
+						</ul>
+					</li>
+					<li class="hover:text-purple-400">
+						<a class="h-full px-2 flex items-center" href="/usr/article/write">
+							<span>
+								<i class="fa-solid fa-pen-to-square"></i>
+								WRITE
+							</span>
+						</a>
+					</li>
 					<li class="hover:text-purple-400">
 						<a class="h-full px-2 flex items-center" href="${rq.loginUri}">
 							<span>
@@ -143,8 +116,6 @@ Theme__init();
 							</span>
 						</a>
 					</li>
-				</c:if>
-				<c:if test="${!rq.logined}">
 					<li class="hover:text-purple-400">
 						<a class="h-full px-2 flex items-center" href="${rq.joinUri }">
 							<span>
@@ -153,37 +124,16 @@ Theme__init();
 							</span>
 						</a>
 					</li>
-				</c:if>
-				<c:if test="${rq.logined}">
 					<li class="hover:text-purple-400">
-						<a class="h-full px-2 flex items-center" href="${rq.logoutUri }">
+						<a class="h-full px-2 flex items-center" href="/usr/home/vetLocationAPI">
 							<span>
-								<i class="fa-solid fa-person-running"></i>
-								LOGOUT
+								<i class="fa-solid fa-location-dot"></i>
+								VET
 							</span>
 						</a>
 					</li>
-				</c:if>
-				<c:if test="${rq.logined}">
-					<li class="hover:text-purple-400">
-						<a class="h-full px-2 flex items-center" href="/usr/member/myPage">
-							<span>
-								<i class="fa-sharp fa-solid fa-face-rolling-eyes"></i>
-								MY PAGE
-							</span>
-						</a>
-					</li>
-				</c:if>
-				<li class="hover:text-purple-400">
-					<a class="h-full px-2 flex items-center" href="/usr/home/vetLocationAPI">
-						<span>
-							<i class="fa-solid fa-location-dot"></i>
-							VET
-						</span>
-					</a>
-				</li>
-
-			</ul>
+				</ul>
+			</nav>
 		</div>
 	</header>
 
