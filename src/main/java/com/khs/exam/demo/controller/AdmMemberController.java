@@ -5,17 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khs.exam.demo.service.MemberService;
 import com.khs.exam.demo.util.Ut;
-import com.khs.exam.demo.vo.Article;
-import com.khs.exam.demo.vo.Board;
 import com.khs.exam.demo.vo.Member;
-import com.khs.exam.demo.vo.ResultData;
 import com.khs.exam.demo.vo.Rq;
 
 @Controller
@@ -51,4 +47,39 @@ public class AdmMemberController {
 
 	}
 
+	@RequestMapping("adm/member/delete")
+	@ResponseBody
+	public String doDelete(int id) {
+
+		Member member = memberService.getMemberById(id);
+
+		if (member == null) {
+
+			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		}
+
+		memberService.deleteMember(member.getId());
+
+		return rq.jsReplace(Ut.f("%d번 회원이 추방되었습니다", member.getId()), "adm/member/list");
+
+	}
+
+	@RequestMapping("adm/member/recover")
+	@ResponseBody
+	public String doRecover(Model model) {
+
+		Member withdrawMember = memberService.getMemberByDelstatus();
+
+		if (withdrawMember == null) {
+
+			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		}
+
+		model.addAttribute("withdrawMember", withdrawMember);
+
+		memberService.recoverMember(withdrawMember.getId());
+
+		return rq.jsReplace(Ut.f("%d번 회원이 복구되었습니다", withdrawMember.getId()), "adm/member/list");
+
+	}
 }

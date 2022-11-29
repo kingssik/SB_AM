@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.khs.exam.demo.repository.MemberRepository;
 import com.khs.exam.demo.util.Ut;
-import com.khs.exam.demo.vo.Article;
 import com.khs.exam.demo.vo.Member;
 import com.khs.exam.demo.vo.ResultData;
 
@@ -108,4 +107,17 @@ public class MemberService {
 
 		return members;
 	}
+
+	public void deleteMember(int id) {
+		memberRepository.deleteMember(id);
+	}
+
+	public Member getMemberByDelstatus() {
+		return memberRepository.getMemberByDelstatus();
+	}
+
+	public void recoverMember(int id) {
+		memberRepository.recoverMember(id);
+	}
+
 }
