@@ -7,7 +7,8 @@
 	<div class="container mx-auto px-3">
 		<div class="flex">
 			<div>
-				회원 수 : <span class="badge">${membersCount }명</span>
+				회원 수 :
+				<span class="badge">${membersCount }명</span>
 			</div>
 			<div class="flex-grow"></div>
 			<form class="flex">
@@ -18,7 +19,8 @@
 					<option value="7">관리자</option>
 					<option value="0">전체</option>
 
-				</select> <select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="select select-bordered">
+				</select>
+				<select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="mx-2 select select-bordered">
 					<option disabled="disabled">검색 타입</option>
 					<option value="loginId">아이디</option>
 					<option value="name">이름</option>
@@ -27,8 +29,8 @@
 				</select>
 
 
-				<input name="searchKeyword" type="text" class="ml-2 w-96 input input-borderd" placeholder="검색어 입력"
-					maxlength="20" value="${param.searchKeyword }"
+				<input name="searchKeyword" type="text" class="ml-2 w-96 input input-borderd" placeholder="검색어 입력" maxlength="20"
+					value="${param.searchKeyword }"
 				/>
 				<button type="submit" class="ml-2 btn btn-ghost">검색</button>
 			</form>
@@ -96,6 +98,16 @@
 				</c:if>
 			</div>
 		</div>
+		<a href="adm/member/delete" type="button" class="btn btn-active btn-ghost">회원추방</a>
+		<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
+		<a href="" type="button" class="btn btn-active btn-ghost">가입수락</a>
+		<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
+		<select class="select select-bordered" name="">
+			<option disabled="disabled">기간선택</option>
+			<option value="1">3일</option>
+			<option value="2">7일</option>
+			<option value="3">14일</option>
+		</select>
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>
