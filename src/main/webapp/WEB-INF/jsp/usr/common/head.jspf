@@ -178,7 +178,10 @@ $(document).ready(function () {
 					<c:if test="${rq.admin}">
 						<li class="hover:text-purple-400 flex items-center board">
 							<a class="h-full px-3 flex items-center" href="/adm/member/list">
-								<span>ADMIN</span>
+								<span>
+									<i class="fa-solid fa-screwdriver-wrench"></i>
+									ADMIN
+								</span>
 							</a>
 						</li>
 					</c:if>
