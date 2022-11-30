@@ -68,6 +68,10 @@
 .title.is-4 {
 	font-size: 1.5rem;
 }
+
+.Popup {
+	color: pink;
+}
 </style>
 
 <section class="mt-8">
@@ -132,7 +136,7 @@
 		<br />
 		<br />
 		출처 :
-		<a href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EB%B2%95">law.go.kr/법령/동물보호법</a>
+		<a class="underline" href="https://www.law.go.kr/%EB%B2%95%EB%A0%B9/%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EB%B2%95">law.go.kr/법령/동물보호법</a>
 		<button class="close-btn">CLOSE</button>
 	</div>
 </div>
