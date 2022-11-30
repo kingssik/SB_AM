@@ -20,7 +20,15 @@
 					<option value="0">전체</option>
 
 				</select>
-				<select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="mx-2 select select-bordered">
+
+				<select data-value="${status }" name="status" class="mx-2 select select-bordered">
+					<option disabled="disabled">회원상태</option>
+					<option value="가입대기">가입대기</option>
+					<option value="탈퇴">탈퇴</option>
+
+				</select>
+
+				<select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="select select-bordered">
 					<option disabled="disabled">검색 타입</option>
 					<option value="loginId">아이디</option>
 					<option value="name">이름</option>
@@ -52,6 +60,7 @@
 						<th>아이디</th>
 						<th>이름</th>
 						<th>닉네임</th>
+						<th>상태</th>
 					</tr>
 				</thead>
 
@@ -64,6 +73,7 @@
 							<td>${member.loginId}</td>
 							<td>${member.name}</td>
 							<td>${member.nickname}</td>
+							<td>${member.status}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -100,7 +110,7 @@
 		</div>
 		<a href="adm/member/delete" type="button" class="btn btn-active btn-ghost">회원추방</a>
 		<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
-		<a href="" type="button" class="btn btn-active btn-ghost">가입수락</a>
+		<a href="adm/member/accept" type="button" class="btn btn-active btn-ghost">가입수락</a>
 		<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
 		<select class="select select-bordered" name="">
 			<option disabled="disabled">기간선택</option>

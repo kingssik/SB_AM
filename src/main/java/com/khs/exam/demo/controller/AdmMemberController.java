@@ -23,7 +23,7 @@ public class AdmMemberController {
 	private Rq rq;
 
 	@RequestMapping("adm/member/list")
-	public String showList(Model model, @RequestParam(defaultValue = "0") String authLevel,
+	public String showList(Model model, @RequestParam(defaultValue = "0") String authLevel, String status,
 			@RequestParam(defaultValue = "loginId,name,nickname") String searchKeywordTypeCode,
 			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 
@@ -42,6 +42,7 @@ public class AdmMemberController {
 		model.addAttribute("membersCount", membersCount);
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("members", members);
+		model.addAttribute("status", status);
 
 		return "adm/member/list";
 
@@ -80,6 +81,25 @@ public class AdmMemberController {
 		memberService.recoverMember(withdrawMember.getId());
 
 		return rq.jsReplace(Ut.f("%d번 회원이 복구되었습니다", withdrawMember.getId()), "adm/member/list");
+
+	}
+
+	@RequestMapping("adm/member/accept")
+	@ResponseBody
+	public String doAccept(Model model) {
+
+		Member waitingMember = memberService.getMemberByStatusWaiting();
+
+		if (waitingMember == null) {
+
+			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		}
+
+		model.addAttribute("waitingMember", waitingMember);
+
+		memberService.acceptMember(waitingMember.getId());
+
+		return rq.jsReplace(Ut.f("%d번 회원의 가입이 수락되었습니다", waitingMember.getId()), "adm/member/list");
 
 	}
 }

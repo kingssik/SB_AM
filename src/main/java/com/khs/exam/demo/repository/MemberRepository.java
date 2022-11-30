@@ -191,4 +191,18 @@ public interface MemberRepository {
 			""")
 	void recoverMember(int id);
 
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE `status` = '가입대기'
+			""")
+	Member getMemberByStatusWaiting();
+
+	@Update("""
+			UPDATE `member`
+			SET `status` = '가입완료'
+			WHERE id = #{id}
+			""")
+	void acceptMember(int id);
+
 }

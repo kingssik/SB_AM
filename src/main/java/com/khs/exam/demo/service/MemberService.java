@@ -120,4 +120,13 @@ public class MemberService {
 		memberRepository.recoverMember(id);
 	}
 
+	public Member getMemberByStatusWaiting() {
+		return memberRepository.getMemberByStatusWaiting();
+	}
+
+	public void acceptMember(int id) {
+		memberRepository.acceptMember(id);
+
+	}
+
 }
