@@ -304,6 +304,10 @@ ALTER TABLE `member` MODIFY COLUMN loginPw VARCHAR(100) NOT NULL;
 UPDATE `member`
 SET loginPw = SHA2(loginPw, 256);
 
+# 회원 테이블에 status 칼럼 추가
+ALTER TABLE `member` ADD COLUMN `status` CHAR(10) NOT NULL DEFAULT '가입대기';
+
+
 
 #######################################################
 
@@ -455,3 +459,18 @@ delStatus = 0,
 delDate = NULL
 WHERE delStatus = 1
 AND id = 4
+
+/* 회원 테스트 데이터 상태 변경 */
+UPDATE `member`
+SET `status` = '가입완료'
+WHERE id = 4;
+
+/* 가입대기 중인 회원 조회 */
+SELECT *
+FROM `member`
+WHERE `status` = '가입대기'
+
+/* 가입대기 중인 회원 가입완료 상태 변경 */
+UPDATE `member`
+SET `status` = '가입완료'
+WHERE id = 5
