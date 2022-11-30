@@ -44,6 +44,10 @@
 	transition: all .2s ease;
 }
 
+.input {
+	width: 100%;
+}
+
 .searchbox .button {
 	position: absolute;
 	right: 20px;
@@ -57,6 +61,11 @@
 
 .searchbox .button .icon {
 	font-size: 20px;
+}
+
+.button .icon {
+	width: 1rem;
+	height: 1rem;
 }
 
 .content {
@@ -96,22 +105,13 @@
 			</div>
 
 			<div class="searchbox">
-				<input class="input" maxlength="130" type="text" placeholder="찾는 질문 또는 궁금한 정보 입력" />
-				<button class="button">
-					<span class="icon">
+				<input class="input mt-3" type="text" placeholder="찾는 질문 또는 궁금한 정보 입력" />
+				<button class="button flex">
+					<span class="icon items-center">
 						<i class="fa-solid fa-magnifying-glass"></i>
 					</span>
 				</button>
 
-				<!-- 모양 참고용 -->
-				<!-- <div class="search_wrapper"> -->
-				<!-- <input class="input e_search_input" type="text" placeholder="배우고 싶은 지식을 입력해보세요."> -->
-				<!-- <button class="button e_search_submit"> -->
-				<!-- <span class="icon"> -->
-				<!-- <i class="far fa-search"></i> -->
-				<!-- </span> -->
-				<!-- </button> -->
-				<div class="search_view_cover e_search_view_cover"></div>
 			</div>
 		</div>
 		<br />
