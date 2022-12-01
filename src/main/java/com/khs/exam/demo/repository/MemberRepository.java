@@ -22,7 +22,7 @@ public interface MemberRepository {
 			nickname = #{nickname},
 			cellphoneNum = #{cellphoneNum},
 			email = #{email},
-			`status` = "가입대기"
+			`status` = "가입완료"
 			""")
 	void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
 
@@ -163,6 +163,19 @@ public interface MemberRepository {
 			""")
 	List<Member> getForPrintMembers(String authLevel, String searchKeywordTypeCode, String searchKeyword,
 			int limitStart, int limitTake);
+
+	@Select("""
+			<script>
+			SELECT *
+			FROM `member`
+			WHERE `status` = '탈퇴'
+			ORDER BY id DESC
+			<if test="limitTake != -1">
+			LIMIT #{limitStart}, #{limitTake}
+			</if>
+			</script>
+			""")
+	List<Member> getWithrawMemberByStatus(int limitStart, int limitTake);
 
 	@Update("""
 			<script>

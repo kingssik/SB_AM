@@ -38,9 +38,10 @@ public class MemberService {
 		loginPw = Ut.sha256(loginPw);
 
 		memberRepository.join(loginId, loginPw, name, nickname, cellphoneNum, email);
+
 		int id = memberRepository.getLastInsertId();
 
-		return ResultData.from("S-1", "회원가입이 완료되었습니다", "id", id);
+		return ResultData.from("S-1", "회원가입 신청이 완료되었습니다", "id", id);
 	}
 
 	public Member getMemberByNameAndEmail(String name, String email) {
@@ -108,6 +109,15 @@ public class MemberService {
 		return members;
 	}
 
+	public List<Member> getWithrawMemberByStatus(String authLevel, int itemsInAPage, int page,
+			String searchKeywordTypeCode, String searchKeyword) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Member> members = memberRepository.getWithrawMemberByStatus(limitStart, limitTake);
+
+		return members;
+	}
+
 	public void deleteMember(int id) {
 		memberRepository.deleteMember(id);
 	}
@@ -120,8 +130,8 @@ public class MemberService {
 		memberRepository.recoverMember(id);
 	}
 
-	public Member getMemberByStatusWaiting() {
-		return memberRepository.getMemberByStatusWaiting();
+	public Member getWaitingMemberByStatus() {
+		return memberRepository.getWaitingMemberByStatus();
 	}
 
 	public void acceptMember(int id) {

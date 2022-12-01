@@ -23,9 +23,9 @@
 
 				<select data-value="${status }" name="status" class="mx-2 select select-bordered">
 					<option disabled="disabled">회원상태</option>
-					<option value="가입대기">가입대기</option>
+					<option value="">전체</option>
 					<option value="탈퇴">탈퇴</option>
-
+					<option value="활동정지">활동정지</option>
 				</select>
 
 				<select data-value="${searchKeywordTypeCode }" name="searchKeywordTypeCode" class="select select-bordered">
@@ -46,6 +46,7 @@
 		<div class="table-box-type-1 mt-3">
 			<table class="table table-fixed w-full">
 				<colgroup>
+					<col width="100" />
 					<col />
 					<col />
 					<col />
@@ -54,6 +55,9 @@
 				</colgroup>
 				<thead>
 					<tr>
+						<th>
+							<input type="checkbox" class="checkbox-all-member-id" />
+						</th>
 						<th>번호</th>
 						<th>가입날짜</th>
 						<th>수정날짜</th>
@@ -64,20 +68,44 @@
 					</tr>
 				</thead>
 
-				<tbody>
-					<c:forEach var="member" items="${members }">
-						<tr class="hover">
-							<td>${member.id}</td>
-							<td>${member.forPrintType1RegDate}</td>
-							<td>${member.forPrintType1UpdateDate}</td>
-							<td>${member.loginId}</td>
-							<td>${member.name}</td>
-							<td>${member.nickname}</td>
-							<td>${member.status}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
+				<c:if test="${status == '' }">
+					<tbody>
+						<c:forEach var="member" items="${members }">
+							<tr class="hover">
+								<th>
+									<input type="checkbox" class="checkbox-member-id" value="${member.id }" />
+								</th>
+								<td>${member.id}</td>
+								<td>${member.forPrintType1RegDate}</td>
+								<td>${member.forPrintType1UpdateDate}</td>
+								<td>${member.loginId}</td>
+								<td>${member.name}</td>
+								<td>${member.nickname}</td>
+								<td>${member.status}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</c:if>
 
+				<!-- 탈퇴 멤버만 보기 -->
+				<c:if test="${status == '탈퇴' }">
+					<tbody>
+						<c:forEach var="member" items="${withrawMembers }">
+							<tr class="hover">
+								<th>
+									<input type="checkbox" class="checkbox-member-id" value="${member.id }" />
+								</th>
+								<td>${member.id}</td>
+								<td>${member.forPrintType1RegDate}</td>
+								<td>${member.forPrintType1UpdateDate}</td>
+								<td>${member.loginId}</td>
+								<td>${member.name}</td>
+								<td>${member.nickname}</td>
+								<td>${member.status}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</c:if>
 			</table>
 		</div>
 		<div class="page-menu mt-3 flex justify-center">
@@ -110,7 +138,6 @@
 		</div>
 		<a href="adm/member/delete" type="button" class="btn btn-active btn-ghost">회원추방</a>
 		<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
-		<a href="adm/member/accept" type="button" class="btn btn-active btn-ghost">가입수락</a>
 		<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
 		<select class="select select-bordered" name="">
 			<option disabled="disabled">기간선택</option>
