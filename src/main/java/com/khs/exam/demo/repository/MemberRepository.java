@@ -21,7 +21,8 @@ public interface MemberRepository {
 			`name` = #{name},
 			nickname = #{nickname},
 			cellphoneNum = #{cellphoneNum},
-			email = #{email}
+			email = #{email},
+			`status` = "가입대기"
 			""")
 	void join(String loginId, String loginPw, String name, String nickname, String cellphoneNum, String email);
 
@@ -87,7 +88,8 @@ public interface MemberRepository {
 			<script>
 			UPDATE `member`
 			SET delStatus = 1,
-			delDate = NOW()
+			delDate = NOW(),
+			`status` = '탈퇴'
 			WHERE id = #{id}
 			</script>
 			""")
@@ -196,7 +198,7 @@ public interface MemberRepository {
 			FROM `member`
 			WHERE `status` = '가입대기'
 			""")
-	Member getMemberByStatusWaiting();
+	Member getWaitingMemberByStatus();
 
 	@Update("""
 			UPDATE `member`
