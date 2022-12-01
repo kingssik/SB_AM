@@ -305,7 +305,7 @@ UPDATE `member`
 SET loginPw = SHA2(loginPw, 256);
 
 # 회원 테이블에 status 칼럼 추가
-ALTER TABLE `member` ADD COLUMN `status` CHAR(10) NOT NULL DEFAULT '가입대기';
+ALTER TABLE `member` ADD COLUMN `status` CHAR(10) NOT NULL DEFAULT '가입완료';
 
 
 
@@ -456,7 +456,8 @@ WHERE delStatus = 1
 UPDATE `member`
 SET updateDate = NOW(),
 delStatus = 0,
-delDate = NULL
+delDate = NULL,
+`status` = '가입완료'
 WHERE delStatus = 1
 AND id = 4
 
