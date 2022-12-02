@@ -122,12 +122,16 @@ public class MemberService {
 		memberRepository.deleteMember(id);
 	}
 
-	public Member getMemberByDelstatus() {
-		return memberRepository.getMemberByDelstatus();
+	public Member getMemberByDelstatus(int id) {
+		return memberRepository.getMemberByDelstatus(id);
 	}
 
 	public void recoverMember(int id) {
 		memberRepository.recoverMember(id);
+	}
+
+	public Member getWaitingMemberByStatus() {
+		return memberRepository.getWaitingMemberByStatus();
 	}
 
 	public void acceptMember(int id) {

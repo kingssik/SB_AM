@@ -58,11 +58,11 @@ public class AdmMemberController {
 
 	}
 
-	@RequestMapping("adm/member/doDelete")
+	@RequestMapping("adm/member/getAwayMember")
 	@ResponseBody
-	public String doDelete(int id) {
+	public String getAwayMember(int ids) {
 
-		Member member = memberService.getMemberById(id);
+		Member member = memberService.getMemberById(ids);
 
 		if (member == null) {
 
@@ -80,22 +80,20 @@ public class AdmMemberController {
 
 	}
 
-	@RequestMapping("adm/member/recover")
+	@RequestMapping("adm/member/recoverMember")
 	@ResponseBody
-	public String doRecover(Model model) {
+	public String recoverMember(int ids) {
 
-		Member withdrawMember = memberService.getMemberByDelstatus();
+		Member withdrawMember = memberService.getMemberByDelstatus(ids);
 
 		if (withdrawMember == null) {
 
-			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+			return rq.jsHistoryBack("가입한 회원입니다");
 		}
-
-		model.addAttribute("withdrawMember", withdrawMember);
 
 		memberService.recoverMember(withdrawMember.getId());
 
-		return rq.jsReplace(Ut.f("%d번 회원이 재가입되었습니다", withdrawMember.getId()), "adm/member/list");
+		return rq.jsReplace(Ut.f("%d번 회원이 재가입(복구)되었습니다", withdrawMember.getId()), "adm/member/list");
 
 	}
 

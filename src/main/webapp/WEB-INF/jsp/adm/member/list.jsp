@@ -125,12 +125,12 @@
 			allChecked);
 			
 			});
-</script>
+		</script>
 
 		<div class="mt-2">
 			<button class="btn btn-error btn-delete-selected-members">회원추방</button>
-			<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
-			<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
+			<button class="btn btn-active btn-ghost btn-recover-selected-members">회원복구</button>
+			<button class="btn btn-active btn-ghost btn-break-selected-members">활동정지</button>
 			<select class="select select-bordered" name="">
 				<option disabled="disabled">기간선택</option>
 				<option value="1">3일</option>
@@ -139,7 +139,13 @@
 			</select>
 		</div>
 
-		<form type="hidden" method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">
+		<form type="hidden" method="POST" name="do-delete-members-form" action="../member/getAwayMember">
+			<input type="hidden" name="ids" value="" />
+		</form>
+		<form type="hidden" method="POST" name="do-recover-members-form" action="../member/recoverMember">
+			<input type="hidden" name="ids" value="" />
+		</form>
+		<form type="hidden" method="POST" name="do-break-members-form" action="../member/breakMember">
 			<input type="hidden" name="ids" value="" />
 		</form>
 
@@ -147,7 +153,7 @@
     $('.btn-delete-selected-members').click(function() {
       const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
       if ( values.length == 0 ) {
-        alert('내쫓을 회원을 선택 해주세요.');
+        alert('내쫓을 회원을 선택하세요.');
         return;
       }
       if ( confirm('정말 내쫓으시겠습니까?') == false ) {
@@ -155,6 +161,19 @@
       }
       document['do-delete-members-form'].ids.value = values.join(',');
       document['do-delete-members-form'].submit();
+    });
+   
+    $('.btn-recover-selected-members').click(function() {
+      const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+      if ( values.length == 0 ) {
+        alert('복구할 회원을 선택하세요.');
+        return;
+      }
+      if ( confirm('정말 복구하시겠습니까?') == false ) {
+        return;
+      }
+      document['do-recover-members-form'].ids.value = values.join(',');
+      document['do-recover-members-form'].submit();
     });
     </script>
 

@@ -192,15 +192,17 @@ public interface MemberRepository {
 			SELECT *
 			FROM `member`
 			WHERE delStatus = 1
+			AND id = #{id}
 			""")
-	Member getMemberByDelstatus();
+	Member getMemberByDelstatus(int id);
 
 	@Update("""
 			<script>
 			UPDATE `member`
 			SET updateDate = NOW(),
 			delStatus = 0,
-			delDate IS NULL
+			delDate = NULL,
+			`status` = '재가입'
 			WHERE delStatus = 1
 			AND id = #{id}
 			</script>
