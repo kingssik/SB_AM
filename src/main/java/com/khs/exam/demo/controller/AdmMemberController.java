@@ -51,11 +51,14 @@ public class AdmMemberController {
 		model.addAttribute("withrawMembers", withrawMembers);
 		model.addAttribute("status", status);
 
+		model.addAttribute("pagesCount", pagesCount);
+		model.addAttribute("page", page);
+
 		return "adm/member/list";
 
 	}
 
-	@RequestMapping("adm/member/delete")
+	@RequestMapping("adm/member/doDelete")
 	@ResponseBody
 	public String doDelete(int id) {
 
@@ -64,6 +67,11 @@ public class AdmMemberController {
 		if (member == null) {
 
 			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		}
+
+		if (member.getStatus().contains("탈퇴")) {
+
+			return rq.jsHistoryBack("이미 탈퇴한 회원입니다");
 		}
 
 		memberService.deleteMember(member.getId());

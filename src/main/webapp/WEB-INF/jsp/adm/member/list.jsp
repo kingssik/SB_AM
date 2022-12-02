@@ -3,23 +3,6 @@
 <c:set var="pageTitle" value="관리자 페이지 - 회원 리스트" />
 <%@ include file="../common/head.jspf"%>
 
-<script>
-	$('.checkbox-all-member-id').change(function() {
-		const $all = $(this);
-		const allChecked = $all.prop('checked');
-		$('.checkbox-member-id').prop('checked', allChecked);
-	});
-	$('.checkbox-member-id')
-			.change(
-					function() {
-						const checkboxMemberIdCount = $('.checkbox-member-id').length;
-						const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-						const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
-						$('.checkbox-all-member-id')
-								.prop('checked', allChecked);
-					});
-</script>
-
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="flex">
@@ -86,7 +69,7 @@
 				</thead>
 
 				<c:if test="${status == '' }">
-					<tbody>
+					<tbody class="text-base">
 						<c:forEach var="member" items="${members }">
 							<tr class="hover">
 								<th>
@@ -125,6 +108,56 @@
 				</c:if>
 			</table>
 		</div>
+
+		<script>
+			$('.checkbox-all-member-id').change(function() {
+			const $all = $(this);
+			const allChecked = $all.prop('checked');
+			$('.checkbox-member-id').prop('checked', allChecked);
+			});
+			$('.checkbox-member-id')
+			.change(
+			function() {
+			const checkboxMemberIdCount = $('.checkbox-member-id').length;
+			const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+			const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
+			$('.checkbox-all-member-id').prop('checked',
+			allChecked);
+			
+			});
+</script>
+
+		<div class="mt-2">
+			<button class="btn btn-error btn-delete-selected-members">회원추방</button>
+			<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
+			<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
+			<select class="select select-bordered" name="">
+				<option disabled="disabled">기간선택</option>
+				<option value="1">3일</option>
+				<option value="2">7일</option>
+				<option value="3">14일</option>
+			</select>
+		</div>
+
+		<form type="hidden" method="POST" name="do-delete-members-form" action="../member/doDeleteMembers">
+			<input type="hidden" name="ids" value="" />
+		</form>
+
+		<script>
+    $('.btn-delete-selected-members').click(function() {
+      const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+      if ( values.length == 0 ) {
+        alert('내쫓을 회원을 선택 해주세요.');
+        return;
+      }
+      if ( confirm('정말 내쫓으시겠습니까?') == false ) {
+        return;
+      }
+      document['do-delete-members-form'].ids.value = values.join(',');
+      document['do-delete-members-form'].submit();
+    });
+    </script>
+
 		<div class="page-menu mt-3 flex justify-center">
 			<div class="btn-group">
 
@@ -153,15 +186,7 @@
 				</c:if>
 			</div>
 		</div>
-		<a href="adm/member/doDelete" class="btn btn-active btn-ghost">회원추방</a>
-		<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
-		<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
-		<select class="select select-bordered" name="">
-			<option disabled="disabled">기간선택</option>
-			<option value="1">3일</option>
-			<option value="2">7일</option>
-			<option value="3">14일</option>
-		</select>
+
 	</div>
 </section>
 <%@ include file="../common/foot.jspf"%>

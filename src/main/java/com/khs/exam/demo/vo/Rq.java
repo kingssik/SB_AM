@@ -176,16 +176,26 @@ public class Rq {
 	public String getLogoutUri() {
 		String requestUri = req.getRequestURI();
 
-		switch (requestUri) {
-		case "/usr/article/write":
-		case "/usr/article/modify":
-			return "../member/doLogout?afterLogoutUri=" + "/";
+		System.err.println(requestUri);
+// switch (requestUri) {
+// case "/usr/article/write":
+// case "/usr/article/modify":
+// return "../member/doLogout?afterLogoutUri=" + "/";
+// }
+		if (requestUri.contains("adm")) {
+			return "/usr/member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 		}
 
 		return "../member/doLogout?afterLogoutUri=" + getAfterLogoutUri();
 	}
 
 	public String getAfterLogoutUri() {
+		String requestUri = req.getRequestURI();
+// 로그아웃 후 다시 돌아가면 안되는 URL
+		switch (requestUri) {
+		case "/adm/member/list":
+			return Ut.getUriEncoded(Ut.getAttr(paramMap, "afterLoginUri", ""));
+		}
 
 		return getEncodedCurrentUri();
 	}
@@ -193,7 +203,7 @@ public class Rq {
 	public String getAfterLoginUri() {
 		String requestUri = req.getRequestURI();
 
-		// 로그인 후 다시 돌아가면 안되는 URL
+// 로그인 후 다시 돌아가면 안되는 URL
 		switch (requestUri) {
 		case "/usr/member/login":
 		case "/usr/member/join":
@@ -213,7 +223,7 @@ public class Rq {
 		if (isLogined == false) {
 			return false;
 		}
-		
+
 		return loginedMember.isAdmin();
 	}
 
