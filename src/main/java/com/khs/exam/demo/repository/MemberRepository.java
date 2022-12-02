@@ -181,7 +181,8 @@ public interface MemberRepository {
 			<script>
 			UPDATE `member`
 			SET delStatus = 1,
-			delDate = NOW()
+			delDate = NOW(),
+			`status` = '탈퇴'
 			WHERE id = #{id}
 			</script>
 			""")
@@ -205,6 +206,13 @@ public interface MemberRepository {
 			</script>
 			""")
 	void recoverMember(int id);
+
+	@Select("""
+			SELECT *
+			FROM `member`
+			WHERE `status` = '가입대기'
+			""")
+	Member getWaitingMemberByStatus();
 
 	@Update("""
 			UPDATE `member`
