@@ -3,6 +3,23 @@
 <c:set var="pageTitle" value="관리자 페이지 - 회원 리스트" />
 <%@ include file="../common/head.jspf"%>
 
+<script>
+	$('.checkbox-all-member-id').change(function() {
+		const $all = $(this);
+		const allChecked = $all.prop('checked');
+		$('.checkbox-member-id').prop('checked', allChecked);
+	});
+	$('.checkbox-member-id')
+			.change(
+					function() {
+						const checkboxMemberIdCount = $('.checkbox-member-id').length;
+						const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+						const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
+						$('.checkbox-all-member-id')
+								.prop('checked', allChecked);
+					});
+</script>
+
 <section class="mt-8 text-xl">
 	<div class="container mx-auto px-3">
 		<div class="flex">
@@ -136,7 +153,7 @@
 				</c:if>
 			</div>
 		</div>
-		<a href="adm/member/delete" type="button" class="btn btn-active btn-ghost">회원추방</a>
+		<a href="adm/member/doDelete" class="btn btn-active btn-ghost">회원추방</a>
 		<a href="adm/member/recover" type="button" class="btn btn-active btn-ghost">회원복구</a>
 		<a href="" type="button" class="btn btn-active btn-ghost">활동정지</a>
 		<select class="select select-bordered" name="">
