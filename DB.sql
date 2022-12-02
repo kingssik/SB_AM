@@ -307,7 +307,16 @@ SET loginPw = SHA2(loginPw, 256);
 # 회원 테이블에 status 칼럼 추가
 ALTER TABLE `member` ADD COLUMN `status` CHAR(10) NOT NULL DEFAULT '가입완료';
 
-
+# 회원 대량 생성
+INSERT INTO `member`
+SET regDate = NOW(),
+updateDate = NOW(),
+loginId = UUID(),
+loginPw = 'test1',
+`name` = '사용자',
+nickname = '사용자',
+cellphoneNum = '01011111111',
+email = 'user123@gmail.com';
 
 #######################################################
 
@@ -411,7 +420,7 @@ SELECT SHA2('Hello',256)
 /* 게시글 최신순 정렬 */
 SELECT *
 FROM article
-ORDER BY regDate DESC;
+ORDER BY regDate desc;
 
 /* 게시글 인기순(조회수) 정렬 */
 SELECT *
@@ -425,10 +434,10 @@ ORDER BY goodReactionPoint DESC;
 
 
 /* 기준별 정렬 테스트데이터 */
-UPDATE article
-SET hitCount = 10,
+update article
+set hitCount = 10,
 goodReactionPoint = 6
-WHERE id = 1;
+WHere id = 1;
 
 UPDATE article
 SET hitCount = 6,
@@ -442,10 +451,10 @@ WHERE id = 3;
 /* 기준별 정렬 테스트데이터 */
 
 /* 회원 탈퇴 테스트데이터 */
-UPDATE `member`
+update `member`
 SET delStatus = 0,
-delDate = NULL
-WHERE id = 4;
+delDate = null
+Where id = 4;
 
 /* 탈퇴 회원 확인 */
 SELECT *
@@ -456,15 +465,14 @@ WHERE delStatus = 1
 UPDATE `member`
 SET updateDate = NOW(),
 delStatus = 0,
-delDate = NULL,
-`status` = '가입완료'
+delDate = NULL
 WHERE delStatus = 1
 AND id = 4
 
 /* 회원 테스트 데이터 상태 변경 */
-UPDATE `member`
-SET `status` = '가입완료'
-WHERE id = 4;
+update `member`
+set `status` = '가입완료'
+Where id = 4;
 
 /* 가입대기 중인 회원 조회 */
 SELECT *
@@ -474,4 +482,4 @@ WHERE `status` = '가입대기'
 /* 가입대기 중인 회원 가입완료 상태 변경 */
 UPDATE `member`
 SET `status` = '가입완료'
-WHERE id = 5
+WHERE id = 6
