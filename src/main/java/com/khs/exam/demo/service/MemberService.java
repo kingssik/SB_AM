@@ -130,13 +130,16 @@ public class MemberService {
 		memberRepository.recoverMember(id);
 	}
 
-	public Member getWaitingMemberByStatus() {
-		return memberRepository.getWaitingMemberByStatus();
+	public Member getBrokenMemberByStatus(int id) {
+		return memberRepository.getBrokenMemberByStatus(id);
 	}
 
-	public void acceptMember(int id) {
-		memberRepository.acceptMember(id);
+	public void breakMember(int id) {
+		memberRepository.breakMember(id);
+	}
 
+	public void breakCancelMember(int id) {
+		memberRepository.breakCancelMember(id);
 	}
 
 }

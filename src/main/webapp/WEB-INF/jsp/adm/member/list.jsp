@@ -110,33 +110,35 @@
 		</div>
 
 		<script>
-			$('.checkbox-all-member-id').change(function() {
-			const $all = $(this);
-			const allChecked = $all.prop('checked');
-			$('.checkbox-member-id').prop('checked', allChecked);
-			});
-			$('.checkbox-member-id')
-			.change(
-			function() {
-			const checkboxMemberIdCount = $('.checkbox-member-id').length;
-			const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-			const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
-			$('.checkbox-all-member-id').prop('checked',
-			allChecked);
-			
-			});
+		$('.checkbox-all-member-id').change(function() {
+		const $all = $(this);
+		const allChecked = $all.prop('checked');
+		$('.checkbox-member-id').prop('checked', allChecked);
+		});
+		$('.checkbox-member-id')
+		.change(
+		function() {
+		const checkboxMemberIdCount = $('.checkbox-member-id').length;
+		const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+		const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
+		$('.checkbox-all-member-id').prop('checked',
+		allChecked);
+		
+		});
 		</script>
 
 		<div class="mt-2">
 			<button class="btn btn-error btn-delete-selected-members">회원추방</button>
 			<button class="btn btn-active btn-ghost btn-recover-selected-members">회원복구</button>
 			<button class="btn btn-active btn-ghost btn-break-selected-members">활동정지</button>
-			<select class="select select-bordered" name="">
-				<option disabled="disabled">기간선택</option>
-				<option value="1">3일</option>
-				<option value="2">7일</option>
-				<option value="3">14일</option>
-			</select>
+			<!-- 일단 보류 -->
+			<!-- <select class="select select-bordered" name=""> -->
+			<!-- <option disabled="disabled">기간선택</option> -->
+			<!-- <option value="1">3일</option> -->
+			<!-- <option value="2">7일</option> -->
+			<!-- <option value="3">14일</option> -->
+			<!-- </select> -->
+			<button class="btn btn-active btn-ghost btn-breakCancel-selected-members">정지취소</button>
 		</div>
 
 		<form type="hidden" method="POST" name="do-delete-members-form" action="../member/getAwayMember">
@@ -146,6 +148,9 @@
 			<input type="hidden" name="ids" value="" />
 		</form>
 		<form type="hidden" method="POST" name="do-break-members-form" action="../member/breakMember">
+			<input type="hidden" name="ids" value="" />
+		</form>
+		<form type="hidden" method="POST" name="do-breakCancel-members-form" action="../member/breakCancelMember">
 			<input type="hidden" name="ids" value="" />
 		</form>
 
@@ -174,6 +179,32 @@
       }
       document['do-recover-members-form'].ids.value = values.join(',');
       document['do-recover-members-form'].submit();
+    });
+
+    $('.btn-break-selected-members').click(function() {
+      const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+      if ( values.length == 0 ) {
+        alert('활동정지할 회원을 선택하세요.');
+        return;
+      }
+      if ( confirm('정말 제재하시겠습니까?') == false ) {
+        return;
+      }
+      document['do-break-members-form'].ids.value = values.join(',');
+      document['do-break-members-form'].submit();
+    });
+   
+    $('.btn-breakCancel-selected-members').click(function() {
+      const values = $('.checkbox-member-id:checked').map((index, el) => el.value).toArray();
+      if ( values.length == 0 ) {
+        alert('정지취소할 회원을 선택하세요.');
+        return;
+      }
+      if ( confirm('다시 기회를 부여하시겠습니까?') == false ) {
+        return;
+      }
+      document['do-breakCancel-members-form'].ids.value = values.join(',');
+      document['do-breakCancel-members-form'].submit();
     });
     </script>
 

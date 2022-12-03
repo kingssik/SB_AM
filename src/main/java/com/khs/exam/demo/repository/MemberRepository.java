@@ -212,15 +212,35 @@ public interface MemberRepository {
 	@Select("""
 			SELECT *
 			FROM `member`
-			WHERE `status` = '가입대기'
+			WHERE `status` = '활동정지'
+			AND id = #{id}
 			""")
-	Member getWaitingMemberByStatus();
+	Member getBrokenMemberByStatus(int id);
 
 	@Update("""
+			<script>
 			UPDATE `member`
-			SET `status` = '가입완료'
-			WHERE id = #{id}
+			SET updateDate = NOW(),
+			delStatus = 0,
+			delDate = NULL,
+			`status` = '활동정지'
+			WHERE delStatus = 0
+			AND id = #{id}
+			</script>
 			""")
-	void acceptMember(int id);
+	void breakMember(int id);
+
+	@Update("""
+			<script>
+			UPDATE `member`
+			SET updateDate = NOW(),
+			delStatus = 0,
+			delDate = NULL,
+			`status` = '가입완료'
+			WHERE delStatus = 0
+			AND id = #{id}
+			</script>
+			""")
+	void breakCancelMember(int id);
 
 }

@@ -97,4 +97,38 @@ public class AdmMemberController {
 
 	}
 
+	@RequestMapping("adm/member/breakMember")
+	@ResponseBody
+	public String breakMember(int ids) {
+
+		Member brokenMember = memberService.getBrokenMemberByStatus(ids);
+
+		if (brokenMember != null) {
+
+			return rq.jsHistoryBack("이미 제재를 가한 회원입니다");
+		}
+
+		memberService.breakMember(ids);
+
+		return rq.jsReplace(Ut.f("%d번 회원의 활동을 정지시켰습니다", ids), "adm/member/list");
+
+	}
+
+	@RequestMapping("adm/member/breakCancelMember")
+	@ResponseBody
+	public String breakCancelMember(int ids) {
+
+		Member brokenMember = memberService.getBrokenMemberByStatus(ids);
+
+		if (brokenMember == null) {
+
+			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		}
+
+		memberService.breakCancelMember(ids);
+
+		return rq.jsReplace(Ut.f("%d번 회원의 활동정지를 취소했습니다", ids), "adm/member/list");
+
+	}
+
 }
