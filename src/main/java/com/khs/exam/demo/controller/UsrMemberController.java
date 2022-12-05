@@ -89,6 +89,10 @@ public class UsrMemberController {
 			return Ut.jsHistoryBack("이미 탈퇴한 회원입니다");
 		}
 
+		if (member.getStatus().equals("활동정지")) {
+			return Ut.jsHistoryBack("활동이 정지된 계정입니다");
+		}
+
 		rq.login(member);
 
 		return Ut.jsReplace(Ut.f("%s님 안녕하세요", member.getNickname()), afterLoginUri);

@@ -177,6 +177,19 @@ public interface MemberRepository {
 			""")
 	List<Member> getWithrawMemberByStatus(int limitStart, int limitTake);
 
+	@Select("""
+			<script>
+			SELECT *
+			FROM `member`
+			WHERE `status` = '활동정지'
+			ORDER BY id DESC
+			<if test="limitTake != -1">
+			LIMIT #{limitStart}, #{limitTake}
+			</if>
+			</script>
+			""")
+	List<Member> getBrokenMemberByStatus(int limitStart, int limitTake);
+
 	@Update("""
 			<script>
 			UPDATE `member`
@@ -186,7 +199,7 @@ public interface MemberRepository {
 			WHERE id = #{id}
 			</script>
 			""")
-	void deleteMember(int id);
+	void deleteChosenMember(int id);
 
 	@Select("""
 			SELECT *
@@ -208,14 +221,6 @@ public interface MemberRepository {
 			</script>
 			""")
 	void recoverMember(int id);
-
-	@Select("""
-			SELECT *
-			FROM `member`
-			WHERE `status` = '활동정지'
-			AND id = #{id}
-			""")
-	Member getBrokenMemberByStatus(int id);
 
 	@Update("""
 			<script>

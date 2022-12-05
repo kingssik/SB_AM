@@ -106,26 +106,46 @@
 						</c:forEach>
 					</tbody>
 				</c:if>
+
+				<!-- 활동정지 멤버만 보기 -->
+				<c:if test="${status == '활동정지' }">
+					<tbody>
+						<c:forEach var="member" items="${brokenMembers }">
+							<tr class="hover">
+								<th>
+									<input type="checkbox" class="checkbox-member-id" value="${member.id }" />
+								</th>
+								<td>${member.id}</td>
+								<td>${member.forPrintType1RegDate}</td>
+								<td>${member.forPrintType1UpdateDate}</td>
+								<td>${member.loginId}</td>
+								<td>${member.name}</td>
+								<td>${member.nickname}</td>
+								<td>${member.status}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</c:if>
 			</table>
 		</div>
 
 		<script>
-		$('.checkbox-all-member-id').change(function() {
-		const $all = $(this);
-		const allChecked = $all.prop('checked');
-		$('.checkbox-member-id').prop('checked', allChecked);
-		});
-		$('.checkbox-member-id')
-		.change(
-		function() {
-		const checkboxMemberIdCount = $('.checkbox-member-id').length;
-		const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
-		const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
-		$('.checkbox-all-member-id').prop('checked',
-		allChecked);
-		
-		});
-		</script>
+$('.checkbox-all-member-id').change(function() {
+const $all = $(this);
+const allChecked = $all.prop('checked');
+$('.checkbox-member-id').prop('checked', allChecked);
+});
+$('.checkbox-member-id')
+.change(
+function() {
+const checkboxMemberIdCount = $('.checkbox-member-id').length;
+const checkboxMemberIdCheckedCount = $('.checkbox-member-id:checked').length;
+const allChecked = checkboxMemberIdCount == checkboxMemberIdCheckedCount;
+$('.checkbox-all-member-id').prop('checked',
+allChecked);
+
+});
+</script>
 
 		<div class="mt-2">
 			<button class="btn btn-error btn-delete-selected-members">회원추방</button>
@@ -143,15 +163,22 @@
 
 		<form type="hidden" method="POST" name="do-delete-members-form" action="../member/getAwayMember">
 			<input type="hidden" name="ids" value="" />
+			<input type="hidden" name="replaceUri" value="${rq.currentUri}" />
 		</form>
+
 		<form type="hidden" method="POST" name="do-recover-members-form" action="../member/recoverMember">
 			<input type="hidden" name="ids" value="" />
+			<input type="hidden" name="replaceUri" value="${rq.currentUri}" />
 		</form>
+
 		<form type="hidden" method="POST" name="do-break-members-form" action="../member/breakMember">
 			<input type="hidden" name="ids" value="" />
+			<input type="hidden" name="replaceUri" value="${rq.currentUri}" />
 		</form>
+
 		<form type="hidden" method="POST" name="do-breakCancel-members-form" action="../member/breakCancelMember">
 			<input type="hidden" name="ids" value="" />
+			<input type="hidden" name="replaceUri" value="${rq.currentUri}" />
 		</form>
 
 		<script>

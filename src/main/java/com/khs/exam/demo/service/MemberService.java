@@ -118,28 +118,74 @@ public class MemberService {
 		return members;
 	}
 
-	public void deleteMember(int id) {
-		memberRepository.deleteMember(id);
+	public List<Member> getBrokenMemberByStatus(String authLevel, int itemsInAPage, int page,
+			String searchKeywordTypeCode, String searchKeyword) {
+		int limitStart = (page - 1) * itemsInAPage;
+		int limitTake = itemsInAPage;
+		List<Member> members = memberRepository.getBrokenMemberByStatus(limitStart, limitTake);
+
+		return members;
+	}
+
+	public void deleteMember(List<Integer> memberIds) {
+		for (int memberId : memberIds) {
+			Member member = getMemberById(memberId);
+
+			if (member != null) {
+				deleteChosenMember(member);
+			}
+		}
+	}
+
+	private void deleteChosenMember(Member member) {
+		memberRepository.deleteChosenMember(member.getId());
 	}
 
 	public Member getMemberByDelstatus(int id) {
 		return memberRepository.getMemberByDelstatus(id);
 	}
 
-	public void recoverMember(int id) {
-		memberRepository.recoverMember(id);
+	public void recoverMember(List<Integer> memberIds) {
+		for (int memberId : memberIds) {
+			Member member = getMemberById(memberId);
+
+			if (member != null) {
+				recoverChosenMember(member);
+			}
+		}
 	}
 
-	public Member getBrokenMemberByStatus(int id) {
-		return memberRepository.getBrokenMemberByStatus(id);
+	private void recoverChosenMember(Member member) {
+		memberRepository.recoverMember(member.getId());
 	}
 
-	public void breakMember(int id) {
-		memberRepository.breakMember(id);
+	public void breakMember(List<Integer> memberIds) {
+		for (int memberId : memberIds) {
+			Member member = getMemberById(memberId);
+
+			if (member != null) {
+				breakChosenMember(member);
+			}
+		}
 	}
 
-	public void breakCancelMember(int id) {
-		memberRepository.breakCancelMember(id);
+	private void breakChosenMember(Member member) {
+		memberRepository.breakMember(member.getId());
+	}
+
+	public void breakCancelMember(List<Integer> memberIds) {
+		for (int memberId : memberIds) {
+			Member member = getMemberById(memberId);
+
+			if (member != null) {
+				breakCancelChosenMember(member);
+			}
+		}
+	}
+
+	private void breakCancelChosenMember(Member member) {
+		memberRepository.breakCancelMember(member.getId());
+
 	}
 
 }

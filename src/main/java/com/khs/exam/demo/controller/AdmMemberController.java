@@ -1,5 +1,6 @@
 package com.khs.exam.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,9 @@ public class AdmMemberController {
 // 탈퇴 멤버만 보기
 		List<Member> withrawMembers = memberService.getWithrawMemberByStatus(authLevel, itemsInAPage, page,
 				searchKeywordTypeCode, searchKeyword);
-		System.out.println(withrawMembers);
+// 활동정지 멤버만 보기
+		List<Member> brokenMembers = memberService.getBrokenMemberByStatus(authLevel, itemsInAPage, page,
+				searchKeywordTypeCode, searchKeyword);
 
 		model.addAttribute("authLevel", authLevel);
 		model.addAttribute("searchKeywordTypeCode", searchKeywordTypeCode);
@@ -49,6 +52,7 @@ public class AdmMemberController {
 		model.addAttribute("pagesCount", pagesCount);
 		model.addAttribute("members", members);
 		model.addAttribute("withrawMembers", withrawMembers);
+		model.addAttribute("brokenMembers", brokenMembers);
 		model.addAttribute("status", status);
 
 		model.addAttribute("pagesCount", pagesCount);
@@ -60,74 +64,69 @@ public class AdmMemberController {
 
 	@RequestMapping("adm/member/getAwayMember")
 	@ResponseBody
-	public String getAwayMember(int ids) {
+	public String getAwayMember(@RequestParam(defaultValue = "") String ids,
+			@RequestParam(defaultValue = "/adm/member/list") String replaceUri) {
 
-		Member member = memberService.getMemberById(ids);
+		List<Integer> memberIds = new ArrayList<>();
 
-		if (member == null) {
-
-			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		for (String idStr : ids.split(",")) {
+			memberIds.add(Integer.parseInt(idStr));
 		}
 
-		if (member.getStatus().contains("탈퇴")) {
+		memberService.deleteMember(memberIds);
 
-			return rq.jsHistoryBack("이미 탈퇴한 회원입니다");
-		}
-
-		memberService.deleteMember(member.getId());
-
-		return rq.jsReplace(Ut.f("%d번 회원이 추방되었습니다", member.getId()), "adm/member/list");
+		return rq.jsReplace("회원이 추방되었습니다", replaceUri);
 
 	}
 
 	@RequestMapping("adm/member/recoverMember")
 	@ResponseBody
-	public String recoverMember(int ids) {
+	public String recoverMember(@RequestParam(defaultValue = "") String ids,
+			@RequestParam(defaultValue = "/adm/member/list") String replaceUri) {
 
-		Member withdrawMember = memberService.getMemberByDelstatus(ids);
+		List<Integer> memberIds = new ArrayList<>();
 
-		if (withdrawMember == null) {
-
-			return rq.jsHistoryBack("가입한 회원입니다");
+		for (String idStr : ids.split(",")) {
+			memberIds.add(Integer.parseInt(idStr));
 		}
 
-		memberService.recoverMember(withdrawMember.getId());
+		memberService.recoverMember(memberIds);
 
-		return rq.jsReplace(Ut.f("%d번 회원이 재가입(복구)되었습니다", withdrawMember.getId()), "adm/member/list");
+		return rq.jsReplace("회원이 재가입(복구)되었습니다", replaceUri);
 
 	}
 
 	@RequestMapping("adm/member/breakMember")
 	@ResponseBody
-	public String breakMember(int ids) {
+	public String breakMember(@RequestParam(defaultValue = "") String ids,
+			@RequestParam(defaultValue = "/adm/member/list") String replaceUri) {
 
-		Member brokenMember = memberService.getBrokenMemberByStatus(ids);
+		List<Integer> memberIds = new ArrayList<>();
 
-		if (brokenMember != null) {
-
-			return rq.jsHistoryBack("이미 제재를 가한 회원입니다");
+		for (String idStr : ids.split(",")) {
+			memberIds.add(Integer.parseInt(idStr));
 		}
 
-		memberService.breakMember(ids);
+		memberService.breakMember(memberIds);
 
-		return rq.jsReplace(Ut.f("%d번 회원의 활동을 정지시켰습니다", ids), "adm/member/list");
+		return rq.jsReplace("회원의 활동을 정지시켰습니다", replaceUri);
 
 	}
 
 	@RequestMapping("adm/member/breakCancelMember")
 	@ResponseBody
-	public String breakCancelMember(int ids) {
+	public String breakCancelMember(@RequestParam(defaultValue = "") String ids,
+			@RequestParam(defaultValue = "/adm/member/list") String replaceUri) {
 
-		Member brokenMember = memberService.getBrokenMemberByStatus(ids);
+		List<Integer> memberIds = new ArrayList<>();
 
-		if (brokenMember == null) {
-
-			return rq.jsHistoryBack("회원이 존재하지 않습니다");
+		for (String idStr : ids.split(",")) {
+			memberIds.add(Integer.parseInt(idStr));
 		}
 
-		memberService.breakCancelMember(ids);
+		memberService.breakCancelMember(memberIds);
 
-		return rq.jsReplace(Ut.f("%d번 회원의 활동정지를 취소했습니다", ids), "adm/member/list");
+		return rq.jsReplace("회원의 활동정지를 취소했습니다", replaceUri);
 
 	}
 
