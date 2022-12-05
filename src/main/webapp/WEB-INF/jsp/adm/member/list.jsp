@@ -89,7 +89,7 @@
 
 				<!-- 탈퇴 멤버만 보기 -->
 				<c:if test="${status == '탈퇴' }">
-					<tbody>
+					<tbody class="text-base">
 						<c:forEach var="member" items="${withrawMembers }">
 							<tr class="hover">
 								<th>
@@ -109,7 +109,7 @@
 
 				<!-- 활동정지 멤버만 보기 -->
 				<c:if test="${status == '활동정지' }">
-					<tbody>
+					<tbody class="text-base">
 						<c:forEach var="member" items="${brokenMembers }">
 							<tr class="hover">
 								<th>
@@ -242,7 +242,7 @@ allChecked);
 				<c:set var="startPage" value="${page - pageMenuLen >= 1 ? page- pageMenuLen : 1}" />
 				<c:set var="endPage" value="${page + pageMenuLen <= pagesCount ? page + pageMenuLen : pagesCount}" />
 
-				<c:set var="pageBaseUri" value="?boardId=${boardId }" />
+				<c:set var="pageBaseUri" value="?status=${status }" />
 				<c:set var="pageBaseUri" value="${pageBaseUri }&searchKeywordTypeCode=${param.searchKeywordTypeCode}" />
 				<c:set var="pageBaseUri" value="${pageBaseUri }&searchKeyword=${param.searchKeyword}" />
 
