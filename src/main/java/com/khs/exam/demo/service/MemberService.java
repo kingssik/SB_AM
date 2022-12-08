@@ -188,4 +188,9 @@ public class MemberService {
 
 	}
 
+	public int getMembersCountByStatus(String authLevel, String status, String searchKeywordTypeCode,
+			String searchKeyword) {
+		return memberRepository.getMembersCountByStatus(authLevel, status, searchKeywordTypeCode, searchKeyword);
+	}
+
 }

@@ -248,4 +248,37 @@ public interface MemberRepository {
 			""")
 	void breakCancelMember(int id);
 
+	@Select("""
+			<script>
+			SELECT COUNT(*) AS cnt
+			FROM `member` AS M
+			WHERE 1
+			AND `status` = #{status}
+			<if test="authLevel != 0">
+			AND M.authLevel = #{authLevel}
+			</if>
+			<if test="searchKeyword != ''">
+			<choose>
+			<when test="searchKeywordTypeCode == 'loginId'">
+			AND M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="searchKeywordTypeCode == 'name'">
+			AND M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<when test="searchKeywordTypeCode == 'nickname'">
+			AND M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+			</when>
+			<otherwise>
+			AND (
+			M.loginId LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR M.name LIKE CONCAT('%', #{searchKeyword}, '%')
+			OR M.nickname LIKE CONCAT('%', #{searchKeyword}, '%')
+			)
+			</otherwise>
+			</choose>
+			</if>
+			</script>
+			""")
+	int getMembersCountByStatus(String authLevel, String status, String searchKeywordTypeCode, String searchKeyword);
+
 }

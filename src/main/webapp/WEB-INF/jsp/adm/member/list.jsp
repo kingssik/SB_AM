@@ -68,7 +68,7 @@
 					</tr>
 				</thead>
 
-				<c:if test="${status == '' }">
+				<c:if test="${status == ''}">
 					<tbody class="text-base">
 						<c:forEach var="member" items="${members }">
 							<tr class="hover">
@@ -151,7 +151,7 @@ allChecked);
 			<button class="btn btn-error btn-delete-selected-members">회원추방</button>
 			<button class="btn btn-active btn-ghost btn-recover-selected-members">회원복구</button>
 			<button class="btn btn-active btn-ghost btn-break-selected-members">활동정지</button>
-			<!-- 일단 보류 -->
+			<!-- 보류 -->
 			<!-- <select class="select select-bordered" name=""> -->
 			<!-- <option disabled="disabled">기간선택</option> -->
 			<!-- <option value="1">3일</option> -->
@@ -252,15 +252,19 @@ allChecked);
 						<a class="btn btn-sm btn-disabled">...</a>
 					</c:if>
 				</c:if>
+
 				<c:forEach begin="${startPage }" end="${endPage }" var="i">
 					<a class="btn btn-sm ${page == i ? 'btn-active' : '' }" href="${pageBaseUri }&page=${i }">${i }</a>
 				</c:forEach>
+
 				<c:if test="${endPage < pagesCount}">
 					<c:if test="${endPage < pagesCount - 1}">
 						<a class="btn btn-sm btn-disabled">...</a>
 					</c:if>
 					<a class="btn btn-sm" href="${pageBaseUri }&page=${pagesCount }">${pagesCount }</a>
 				</c:if>
+
+
 			</div>
 		</div>
 

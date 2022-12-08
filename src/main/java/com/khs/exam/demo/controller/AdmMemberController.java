@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.khs.exam.demo.service.MemberService;
-import com.khs.exam.demo.util.Ut;
 import com.khs.exam.demo.vo.Member;
 import com.khs.exam.demo.vo.Rq;
 
@@ -30,9 +29,22 @@ public class AdmMemberController {
 			@RequestParam(defaultValue = "") String searchKeyword, @RequestParam(defaultValue = "1") int page) {
 
 		int membersCount = memberService.getMembersCount(authLevel, searchKeywordTypeCode, searchKeyword);
+		int withrawMembersCount = memberService.getMembersCountByStatus(authLevel, status, searchKeywordTypeCode,
+				searchKeyword);
+		int brokenMembersCount = memberService.getMembersCountByStatus(authLevel, status, searchKeywordTypeCode,
+				searchKeyword);
 
 		int itemsInAPage = 10;
+
 		int pagesCount = (int) Math.ceil((double) membersCount / itemsInAPage);
+
+		if (status.equals("탈퇴")) {
+			pagesCount = (int) Math.ceil((double) withrawMembersCount / itemsInAPage);
+
+		} else {
+			pagesCount = (int) Math.ceil((double) brokenMembersCount / itemsInAPage);
+
+		}
 
 		List<Member> members = memberService.getForPrintMembers(authLevel, itemsInAPage, page, searchKeywordTypeCode,
 				searchKeyword);
