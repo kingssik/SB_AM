@@ -41,7 +41,7 @@ public class AdmMemberController {
 		if (status.equals("탈퇴")) {
 			pagesCount = (int) Math.ceil((double) withrawMembersCount / itemsInAPage);
 
-		} else {
+		} else if (status.equals("활동정지")) {
 			pagesCount = (int) Math.ceil((double) brokenMembersCount / itemsInAPage);
 
 		}
