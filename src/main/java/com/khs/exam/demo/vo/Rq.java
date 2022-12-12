@@ -216,7 +216,7 @@ public class Rq {
 	}
 
 	public String getArticleDetailUriFromArticleList(Article article) {
-		return "usr/article/detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
+		return "detail?id=" + article.getId() + "&listUri=" + getEncodedCurrentUri();
 	}
 
 	public boolean isAdmin() {
